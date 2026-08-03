@@ -16,6 +16,7 @@ import { Route as EventsRouteImport } from './routes/events'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as GiveRouteImport } from './routes/give'
 import { Route as LeadershipRouteImport } from './routes/leadership'
+import { Route as LiveRouteImport } from './routes/live'
 import { Route as MinistriesRouteImport } from './routes/ministries'
 import { Route as PrayerRouteImport } from './routes/prayer'
 import { Route as SermonsRouteImport } from './routes/sermons'
@@ -57,6 +58,11 @@ const LeadershipRoute = LeadershipRouteImport.update({
   path: '/leadership',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LiveRoute = LiveRouteImport.update({
+  id: '/live',
+  path: '/live',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MinistriesRoute = MinistriesRouteImport.update({
   id: '/ministries',
   path: '/ministries',
@@ -91,6 +97,7 @@ export interface FileRoutesByFullPath {
   '/gallery': typeof GalleryRoute
   '/give': typeof GiveRoute
   '/leadership': typeof LeadershipRoute
+  '/live': typeof LiveRoute
   '/ministries': typeof MinistriesRoute
   '/prayer': typeof PrayerRoute
   '/sermons': typeof SermonsRoute
@@ -105,6 +112,7 @@ export interface FileRoutesByTo {
   '/gallery': typeof GalleryRoute
   '/give': typeof GiveRoute
   '/leadership': typeof LeadershipRoute
+  '/live': typeof LiveRoute
   '/ministries': typeof MinistriesRoute
   '/prayer': typeof PrayerRoute
   '/sermons': typeof SermonsRoute
@@ -120,6 +128,7 @@ export interface FileRoutesById {
   '/gallery': typeof GalleryRoute
   '/give': typeof GiveRoute
   '/leadership': typeof LeadershipRoute
+  '/live': typeof LiveRoute
   '/ministries': typeof MinistriesRoute
   '/prayer': typeof PrayerRoute
   '/sermons': typeof SermonsRoute
@@ -136,6 +145,7 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/give'
     | '/leadership'
+    | '/live'
     | '/ministries'
     | '/prayer'
     | '/sermons'
@@ -150,6 +160,7 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/give'
     | '/leadership'
+    | '/live'
     | '/ministries'
     | '/prayer'
     | '/sermons'
@@ -164,6 +175,7 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/give'
     | '/leadership'
+    | '/live'
     | '/ministries'
     | '/prayer'
     | '/sermons'
@@ -179,6 +191,7 @@ export interface RootRouteChildren {
   GalleryRoute: typeof GalleryRoute
   GiveRoute: typeof GiveRoute
   LeadershipRoute: typeof LeadershipRoute
+  LiveRoute: typeof LiveRoute
   MinistriesRoute: typeof MinistriesRoute
   PrayerRoute: typeof PrayerRoute
   SermonsRoute: typeof SermonsRoute
@@ -237,6 +250,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LeadershipRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/live': {
+      id: '/live'
+      path: '/live'
+      fullPath: '/live'
+      preLoaderRoute: typeof LiveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ministries': {
       id: '/ministries'
       path: '/ministries'
@@ -283,6 +303,7 @@ const rootRouteChildren: RootRouteChildren = {
   GalleryRoute: GalleryRoute,
   GiveRoute: GiveRoute,
   LeadershipRoute: LeadershipRoute,
+  LiveRoute: LiveRoute,
   MinistriesRoute: MinistriesRoute,
   PrayerRoute: PrayerRoute,
   SermonsRoute: SermonsRoute,
