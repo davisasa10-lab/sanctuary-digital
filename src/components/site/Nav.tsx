@@ -62,7 +62,9 @@ export function Nav() {
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        scrolled ? "glass border-b border-border/60 py-2" : "py-4",
+        scrolled
+          ? "glass border-b border-border/60 py-2"
+          : "bg-linear-to-b from-[oklch(0.16_0.03_262/0.55)] to-transparent py-4 text-[oklch(0.97_0.005_250)]",
       )}
     >
       <nav
@@ -70,7 +72,12 @@ export function Nav() {
         className="mx-auto flex max-w-7xl items-center gap-4 px-4 sm:px-6 lg:px-8"
       >
         <Link to="/" className="flex min-w-0 items-center gap-2.5">
-          <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground">
+          <span
+            className={cn(
+              "grid size-10 shrink-0 place-items-center rounded-xl",
+              scrolled ? "bg-primary text-primary-foreground" : "bg-gold text-gold-foreground",
+            )}
+          >
             <Church className="size-5" />
           </span>
           <span className="truncate text-lg font-extrabold tracking-tight">{church.name}</span>
@@ -82,7 +89,12 @@ export function Nav() {
               key={l.to}
               to={l.to}
               activeOptions={{ exact: l.to === "/" }}
-              className="rounded-full px-3.5 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground data-[status=active]:text-foreground"
+              className={cn(
+                "rounded-full px-3.5 py-2 text-sm font-medium transition-colors",
+                scrolled
+                  ? "text-muted-foreground hover:bg-accent hover:text-foreground data-[status=active]:text-foreground"
+                  : "text-[oklch(0.97_0.005_250/0.8)] hover:bg-white/10 hover:text-[oklch(0.97_0.005_250)] data-[status=active]:text-gold",
+              )}
             >
               {l.label}
             </Link>
@@ -95,7 +107,12 @@ export function Nav() {
             <button
               onClick={() => setOpen((v) => !v)}
               aria-expanded={open}
-              className="flex items-center gap-1 rounded-full px-3.5 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+              className={cn(
+                "flex items-center gap-1 rounded-full px-3.5 py-2 text-sm font-medium transition-colors",
+                scrolled
+                  ? "text-muted-foreground hover:bg-accent hover:text-foreground"
+                  : "text-[oklch(0.97_0.005_250/0.8)] hover:bg-white/10 hover:text-[oklch(0.97_0.005_250)]",
+              )}
             >
               Explore
               <ChevronDown
@@ -139,7 +156,13 @@ export function Nav() {
 
         <div className="ml-auto flex items-center gap-1 lg:ml-2">
           <ThemeToggle />
-          <Button asChild className="hidden rounded-full sm:inline-flex">
+          <Button
+            asChild
+            className={cn(
+              "hidden rounded-full sm:inline-flex",
+              !scrolled && "bg-gold text-gold-foreground hover:bg-gold/90",
+            )}
+          >
             <Link to="/give">Give</Link>
           </Button>
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
