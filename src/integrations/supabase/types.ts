@@ -14,16 +14,491 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      campaigns: {
+        Row: {
+          active: boolean
+          created_at: string
+          description: string
+          goal: number
+          id: string
+          raised: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          description?: string
+          goal?: number
+          id?: string
+          raised?: number
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          description?: string
+          goal?: number
+          id?: string
+          raised?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      contact_messages: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          message: string
+          name: string
+          status: string
+          subject: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          message: string
+          name: string
+          status?: string
+          subject?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string
+          name?: string
+          status?: string
+          subject?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      donations: {
+        Row: {
+          amount: number
+          campaign_id: string | null
+          created_at: string
+          currency: string
+          donor_name: string | null
+          email: string | null
+          fund: string
+          id: string
+          method: string
+          reference: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          amount: number
+          campaign_id?: string | null
+          created_at?: string
+          currency?: string
+          donor_name?: string | null
+          email?: string | null
+          fund?: string
+          id?: string
+          method?: string
+          reference?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          campaign_id?: string | null
+          created_at?: string
+          currency?: string
+          donor_name?: string | null
+          email?: string | null
+          fund?: string
+          id?: string
+          method?: string
+          reference?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "donations_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "campaigns"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      events: {
+        Row: {
+          category: string
+          created_at: string
+          description: string
+          event_date: string
+          id: string
+          image_url: string | null
+          location: string
+          published: boolean
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          description?: string
+          event_date: string
+          id?: string
+          image_url?: string | null
+          location?: string
+          published?: boolean
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string
+          event_date?: string
+          id?: string
+          image_url?: string | null
+          location?: string
+          published?: boolean
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      gallery_items: {
+        Row: {
+          category: string
+          created_at: string
+          id: string
+          media_type: string
+          published: boolean
+          sort_order: number
+          title: string
+          updated_at: string
+          url: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          id?: string
+          media_type?: string
+          published?: boolean
+          sort_order?: number
+          title: string
+          updated_at?: string
+          url: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          id?: string
+          media_type?: string
+          published?: boolean
+          sort_order?: number
+          title?: string
+          updated_at?: string
+          url?: string
+        }
+        Relationships: []
+      }
+      leaders: {
+        Row: {
+          bio: string
+          created_at: string
+          email: string | null
+          id: string
+          image_url: string | null
+          name: string
+          published: boolean
+          role: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          bio?: string
+          created_at?: string
+          email?: string | null
+          id?: string
+          image_url?: string | null
+          name: string
+          published?: boolean
+          role?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          bio?: string
+          created_at?: string
+          email?: string | null
+          id?: string
+          image_url?: string | null
+          name?: string
+          published?: boolean
+          role?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      live_settings: {
+        Row: {
+          description: string
+          id: string
+          is_live: boolean
+          scheduled_at: string | null
+          title: string
+          updated_at: string
+          youtube_channel_id: string | null
+          youtube_video_id: string | null
+        }
+        Insert: {
+          description?: string
+          id?: string
+          is_live?: boolean
+          scheduled_at?: string | null
+          title?: string
+          updated_at?: string
+          youtube_channel_id?: string | null
+          youtube_video_id?: string | null
+        }
+        Update: {
+          description?: string
+          id?: string
+          is_live?: boolean
+          scheduled_at?: string | null
+          title?: string
+          updated_at?: string
+          youtube_channel_id?: string | null
+          youtube_video_id?: string | null
+        }
+        Relationships: []
+      }
+      ministries: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          image_url: string | null
+          leader: string
+          name: string
+          published: boolean
+          schedule: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          id?: string
+          image_url?: string | null
+          leader?: string
+          name: string
+          published?: boolean
+          schedule?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          image_url?: string | null
+          leader?: string
+          name?: string
+          published?: boolean
+          schedule?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      prayer_requests: {
+        Row: {
+          anonymous: boolean
+          body: string
+          category: string
+          created_at: string
+          email: string | null
+          id: string
+          name: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          anonymous?: boolean
+          body: string
+          category?: string
+          created_at?: string
+          email?: string | null
+          id?: string
+          name?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          anonymous?: boolean
+          body?: string
+          category?: string
+          created_at?: string
+          email?: string | null
+          id?: string
+          name?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string | null
+          full_name: string | null
+          id: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+        }
+        Relationships: []
+      }
+      sermons: {
+        Row: {
+          audio_url: string | null
+          category: string
+          created_at: string
+          duration: string
+          id: string
+          published: boolean
+          scripture: string
+          series: string
+          sermon_date: string
+          speaker: string
+          summary: string
+          title: string
+          updated_at: string
+          video_url: string | null
+        }
+        Insert: {
+          audio_url?: string | null
+          category?: string
+          created_at?: string
+          duration?: string
+          id?: string
+          published?: boolean
+          scripture?: string
+          series?: string
+          sermon_date?: string
+          speaker?: string
+          summary?: string
+          title: string
+          updated_at?: string
+          video_url?: string | null
+        }
+        Update: {
+          audio_url?: string | null
+          category?: string
+          created_at?: string
+          duration?: string
+          id?: string
+          published?: boolean
+          scripture?: string
+          series?: string
+          sermon_date?: string
+          speaker?: string
+          summary?: string
+          title?: string
+          updated_at?: string
+          video_url?: string | null
+        }
+        Relationships: []
+      }
+      testimonies: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          quote: string
+          role: string
+          status: string
+          type: string
+          updated_at: string
+          video_url: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          quote: string
+          role?: string
+          status?: string
+          type?: string
+          updated_at?: string
+          video_url?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          quote?: string
+          role?: string
+          status?: string
+          type?: string
+          updated_at?: string
+          video_url?: string | null
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "editor"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +625,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "editor"],
+    },
   },
 } as const
