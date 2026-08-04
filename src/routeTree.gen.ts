@@ -28,8 +28,12 @@ import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as AuthenticatedAdminEventsRouteImport } from './routes/_authenticated/admin/events'
 import { Route as AuthenticatedAdminGalleryRouteImport } from './routes/_authenticated/admin/gallery'
+import { Route as AuthenticatedAdminGivingRouteImport } from './routes/_authenticated/admin/giving'
+import { Route as AuthenticatedAdminInboxRouteImport } from './routes/_authenticated/admin/inbox'
+import { Route as AuthenticatedAdminLiveRouteImport } from './routes/_authenticated/admin/live'
 import { Route as AuthenticatedAdminPeopleRouteImport } from './routes/_authenticated/admin/people'
 import { Route as AuthenticatedAdminSermonsRouteImport } from './routes/_authenticated/admin/sermons'
+import { Route as AuthenticatedAdminTestimoniesRouteImport } from './routes/_authenticated/admin/testimonies'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -127,6 +131,22 @@ const AuthenticatedAdminGalleryRoute =
     path: '/gallery',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminGivingRoute =
+  AuthenticatedAdminGivingRouteImport.update({
+    id: '/giving',
+    path: '/giving',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminInboxRoute = AuthenticatedAdminInboxRouteImport.update({
+  id: '/inbox',
+  path: '/inbox',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminLiveRoute = AuthenticatedAdminLiveRouteImport.update({
+  id: '/live',
+  path: '/live',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
 const AuthenticatedAdminPeopleRoute =
   AuthenticatedAdminPeopleRouteImport.update({
     id: '/people',
@@ -137,6 +157,12 @@ const AuthenticatedAdminSermonsRoute =
   AuthenticatedAdminSermonsRouteImport.update({
     id: '/sermons',
     path: '/sermons',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminTestimoniesRoute =
+  AuthenticatedAdminTestimoniesRouteImport.update({
+    id: '/testimonies',
+    path: '/testimonies',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
 
@@ -158,8 +184,12 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/admin/events': typeof AuthenticatedAdminEventsRoute
   '/admin/gallery': typeof AuthenticatedAdminGalleryRoute
+  '/admin/giving': typeof AuthenticatedAdminGivingRoute
+  '/admin/inbox': typeof AuthenticatedAdminInboxRoute
+  '/admin/live': typeof AuthenticatedAdminLiveRoute
   '/admin/people': typeof AuthenticatedAdminPeopleRoute
   '/admin/sermons': typeof AuthenticatedAdminSermonsRoute
+  '/admin/testimonies': typeof AuthenticatedAdminTestimoniesRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesByTo {
@@ -179,8 +209,12 @@ export interface FileRoutesByTo {
   '/vision': typeof VisionRoute
   '/admin/events': typeof AuthenticatedAdminEventsRoute
   '/admin/gallery': typeof AuthenticatedAdminGalleryRoute
+  '/admin/giving': typeof AuthenticatedAdminGivingRoute
+  '/admin/inbox': typeof AuthenticatedAdminInboxRoute
+  '/admin/live': typeof AuthenticatedAdminLiveRoute
   '/admin/people': typeof AuthenticatedAdminPeopleRoute
   '/admin/sermons': typeof AuthenticatedAdminSermonsRoute
+  '/admin/testimonies': typeof AuthenticatedAdminTestimoniesRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesById {
@@ -203,8 +237,12 @@ export interface FileRoutesById {
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/admin/events': typeof AuthenticatedAdminEventsRoute
   '/_authenticated/admin/gallery': typeof AuthenticatedAdminGalleryRoute
+  '/_authenticated/admin/giving': typeof AuthenticatedAdminGivingRoute
+  '/_authenticated/admin/inbox': typeof AuthenticatedAdminInboxRoute
+  '/_authenticated/admin/live': typeof AuthenticatedAdminLiveRoute
   '/_authenticated/admin/people': typeof AuthenticatedAdminPeopleRoute
   '/_authenticated/admin/sermons': typeof AuthenticatedAdminSermonsRoute
+  '/_authenticated/admin/testimonies': typeof AuthenticatedAdminTestimoniesRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRouteTypes {
@@ -227,8 +265,12 @@ export interface FileRouteTypes {
     | '/admin'
     | '/admin/events'
     | '/admin/gallery'
+    | '/admin/giving'
+    | '/admin/inbox'
+    | '/admin/live'
     | '/admin/people'
     | '/admin/sermons'
+    | '/admin/testimonies'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -248,8 +290,12 @@ export interface FileRouteTypes {
     | '/vision'
     | '/admin/events'
     | '/admin/gallery'
+    | '/admin/giving'
+    | '/admin/inbox'
+    | '/admin/live'
     | '/admin/people'
     | '/admin/sermons'
+    | '/admin/testimonies'
     | '/admin'
   id:
     | '__root__'
@@ -271,8 +317,12 @@ export interface FileRouteTypes {
     | '/_authenticated/admin'
     | '/_authenticated/admin/events'
     | '/_authenticated/admin/gallery'
+    | '/_authenticated/admin/giving'
+    | '/_authenticated/admin/inbox'
+    | '/_authenticated/admin/live'
     | '/_authenticated/admin/people'
     | '/_authenticated/admin/sermons'
+    | '/_authenticated/admin/testimonies'
     | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
 }
@@ -429,6 +479,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminGalleryRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/giving': {
+      id: '/_authenticated/admin/giving'
+      path: '/giving'
+      fullPath: '/admin/giving'
+      preLoaderRoute: typeof AuthenticatedAdminGivingRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/inbox': {
+      id: '/_authenticated/admin/inbox'
+      path: '/inbox'
+      fullPath: '/admin/inbox'
+      preLoaderRoute: typeof AuthenticatedAdminInboxRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/live': {
+      id: '/_authenticated/admin/live'
+      path: '/live'
+      fullPath: '/admin/live'
+      preLoaderRoute: typeof AuthenticatedAdminLiveRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/people': {
       id: '/_authenticated/admin/people'
       path: '/people'
@@ -443,22 +514,37 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminSermonsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/testimonies': {
+      id: '/_authenticated/admin/testimonies'
+      path: '/testimonies'
+      fullPath: '/admin/testimonies'
+      preLoaderRoute: typeof AuthenticatedAdminTestimoniesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
   }
 }
 
 interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminEventsRoute: typeof AuthenticatedAdminEventsRoute
   AuthenticatedAdminGalleryRoute: typeof AuthenticatedAdminGalleryRoute
+  AuthenticatedAdminGivingRoute: typeof AuthenticatedAdminGivingRoute
+  AuthenticatedAdminInboxRoute: typeof AuthenticatedAdminInboxRoute
+  AuthenticatedAdminLiveRoute: typeof AuthenticatedAdminLiveRoute
   AuthenticatedAdminPeopleRoute: typeof AuthenticatedAdminPeopleRoute
   AuthenticatedAdminSermonsRoute: typeof AuthenticatedAdminSermonsRoute
+  AuthenticatedAdminTestimoniesRoute: typeof AuthenticatedAdminTestimoniesRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
 
 const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminEventsRoute: AuthenticatedAdminEventsRoute,
   AuthenticatedAdminGalleryRoute: AuthenticatedAdminGalleryRoute,
+  AuthenticatedAdminGivingRoute: AuthenticatedAdminGivingRoute,
+  AuthenticatedAdminInboxRoute: AuthenticatedAdminInboxRoute,
+  AuthenticatedAdminLiveRoute: AuthenticatedAdminLiveRoute,
   AuthenticatedAdminPeopleRoute: AuthenticatedAdminPeopleRoute,
   AuthenticatedAdminSermonsRoute: AuthenticatedAdminSermonsRoute,
+  AuthenticatedAdminTestimoniesRoute: AuthenticatedAdminTestimoniesRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
 }
 
