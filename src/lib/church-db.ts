@@ -1,18 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-
-async function list<T>(
-  table: string,
-  build: (q: ReturnType<typeof supabase.from>) => unknown,
-): Promise<T[]> {
-  const query = build(supabase.from(table)) as unknown as PromiseLike<{
-    data: T[] | null;
-    error: { message: string } | null;
-  }>;
-  const { data, error } = await query;
-  if (error) throw new Error(error.message);
-  return data ?? [];
-}
+import { db } from "./db-client";
 
 export type EventRow = {
   id: string;
@@ -105,19 +92,21 @@ export type LiveSettingsRow = {
 export const useEvents = () =>
   useQuery({
     queryKey: ["events"],
-    queryFn: () =>
-      list<EventRow>("events", (q) =>
-        (q as never as { select: (s: string) => never }).select("*"),
-      ).then((rows) =>
-        [...rows].sort((a, b) => a.event_date.localeCompare(b.event_date)),
-      ),
+    queryFn: async () => {
+      const { data, error } = await db
+        .from("events")
+        .select("*")
+        .order("event_date", { ascending: true });
+      if (error) throw new Error(error.message);
+      return (data ?? []) as unknown as EventRow[];
+    },
   });
 
 export const useSermons = () =>
   useQuery({
     queryKey: ["sermons"],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const { data, error } = await db
         .from("sermons")
         .select("*")
         .order("sermon_date", { ascending: false });
@@ -130,7 +119,7 @@ export const useGallery = () =>
   useQuery({
     queryKey: ["gallery_items"],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const { data, error } = await db
         .from("gallery_items")
         .select("*")
         .order("sort_order", { ascending: true });
@@ -143,7 +132,7 @@ export const useLeaders = () =>
   useQuery({
     queryKey: ["leaders"],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const { data, error } = await db
         .from("leaders")
         .select("*")
         .order("sort_order", { ascending: true });
@@ -156,7 +145,7 @@ export const useMinistries = () =>
   useQuery({
     queryKey: ["ministries"],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const { data, error } = await db
         .from("ministries")
         .select("*")
         .order("sort_order", { ascending: true });
@@ -169,7 +158,7 @@ export const useCampaigns = () =>
   useQuery({
     queryKey: ["campaigns"],
     queryFn: async () => {
-      const { data, error } = await supabase.from("campaigns").select("*");
+      const { data, error } = await db.from("campaigns").select("*");
       if (error) throw new Error(error.message);
       return (data ?? []) as unknown as CampaignRow[];
     },
@@ -179,7 +168,7 @@ export const useTestimonies = () =>
   useQuery({
     queryKey: ["testimonies", "approved"],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const { data, error } = await db
         .from("testimonies")
         .select("*")
         .order("created_at", { ascending: false });
@@ -192,7 +181,7 @@ export const useLiveSettings = () =>
   useQuery({
     queryKey: ["live_settings"],
     queryFn: async () => {
-      const { data, error } = await supabase.from("live_settings").select("*").limit(1);
+      const { data, error } = await db.from("live_settings").select("*").limit(1);
       if (error) throw new Error(error.message);
       return ((data ?? [])[0] ?? null) as unknown as LiveSettingsRow | null;
     },
