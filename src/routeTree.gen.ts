@@ -10,7 +10,9 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as GalleryRouteImport } from './routes/gallery'
@@ -22,15 +24,34 @@ import { Route as PrayerRouteImport } from './routes/prayer'
 import { Route as SermonsRouteImport } from './routes/sermons'
 import { Route as TestimoniesRouteImport } from './routes/testimonies'
 import { Route as VisionRouteImport } from './routes/vision'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
+import { Route as AuthenticatedAdminEventsRouteImport } from './routes/_authenticated/admin/events'
+import { Route as AuthenticatedAdminGalleryRouteImport } from './routes/_authenticated/admin/gallery'
+import { Route as AuthenticatedAdminGivingRouteImport } from './routes/_authenticated/admin/giving'
+import { Route as AuthenticatedAdminInboxRouteImport } from './routes/_authenticated/admin/inbox'
+import { Route as AuthenticatedAdminLiveRouteImport } from './routes/_authenticated/admin/live'
+import { Route as AuthenticatedAdminPeopleRouteImport } from './routes/_authenticated/admin/people'
+import { Route as AuthenticatedAdminSermonsRouteImport } from './routes/_authenticated/admin/sermons'
+import { Route as AuthenticatedAdminTestimoniesRouteImport } from './routes/_authenticated/admin/testimonies'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -88,10 +109,67 @@ const VisionRoute = VisionRouteImport.update({
   path: '/vision',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminEventsRoute =
+  AuthenticatedAdminEventsRouteImport.update({
+    id: '/events',
+    path: '/events',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminGalleryRoute =
+  AuthenticatedAdminGalleryRouteImport.update({
+    id: '/gallery',
+    path: '/gallery',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminGivingRoute =
+  AuthenticatedAdminGivingRouteImport.update({
+    id: '/giving',
+    path: '/giving',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminInboxRoute = AuthenticatedAdminInboxRouteImport.update({
+  id: '/inbox',
+  path: '/inbox',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminLiveRoute = AuthenticatedAdminLiveRouteImport.update({
+  id: '/live',
+  path: '/live',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminPeopleRoute =
+  AuthenticatedAdminPeopleRouteImport.update({
+    id: '/people',
+    path: '/people',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminSermonsRoute =
+  AuthenticatedAdminSermonsRouteImport.update({
+    id: '/sermons',
+    path: '/sermons',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminTestimoniesRoute =
+  AuthenticatedAdminTestimoniesRouteImport.update({
+    id: '/testimonies',
+    path: '/testimonies',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/events': typeof EventsRoute
   '/gallery': typeof GalleryRoute
@@ -103,10 +181,21 @@ export interface FileRoutesByFullPath {
   '/sermons': typeof SermonsRoute
   '/testimonies': typeof TestimoniesRoute
   '/vision': typeof VisionRoute
+  '/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/admin/events': typeof AuthenticatedAdminEventsRoute
+  '/admin/gallery': typeof AuthenticatedAdminGalleryRoute
+  '/admin/giving': typeof AuthenticatedAdminGivingRoute
+  '/admin/inbox': typeof AuthenticatedAdminInboxRoute
+  '/admin/live': typeof AuthenticatedAdminLiveRoute
+  '/admin/people': typeof AuthenticatedAdminPeopleRoute
+  '/admin/sermons': typeof AuthenticatedAdminSermonsRoute
+  '/admin/testimonies': typeof AuthenticatedAdminTestimoniesRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/events': typeof EventsRoute
   '/gallery': typeof GalleryRoute
@@ -118,11 +207,22 @@ export interface FileRoutesByTo {
   '/sermons': typeof SermonsRoute
   '/testimonies': typeof TestimoniesRoute
   '/vision': typeof VisionRoute
+  '/admin/events': typeof AuthenticatedAdminEventsRoute
+  '/admin/gallery': typeof AuthenticatedAdminGalleryRoute
+  '/admin/giving': typeof AuthenticatedAdminGivingRoute
+  '/admin/inbox': typeof AuthenticatedAdminInboxRoute
+  '/admin/live': typeof AuthenticatedAdminLiveRoute
+  '/admin/people': typeof AuthenticatedAdminPeopleRoute
+  '/admin/sermons': typeof AuthenticatedAdminSermonsRoute
+  '/admin/testimonies': typeof AuthenticatedAdminTestimoniesRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/events': typeof EventsRoute
   '/gallery': typeof GalleryRoute
@@ -134,12 +234,23 @@ export interface FileRoutesById {
   '/sermons': typeof SermonsRoute
   '/testimonies': typeof TestimoniesRoute
   '/vision': typeof VisionRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/_authenticated/admin/events': typeof AuthenticatedAdminEventsRoute
+  '/_authenticated/admin/gallery': typeof AuthenticatedAdminGalleryRoute
+  '/_authenticated/admin/giving': typeof AuthenticatedAdminGivingRoute
+  '/_authenticated/admin/inbox': typeof AuthenticatedAdminInboxRoute
+  '/_authenticated/admin/live': typeof AuthenticatedAdminLiveRoute
+  '/_authenticated/admin/people': typeof AuthenticatedAdminPeopleRoute
+  '/_authenticated/admin/sermons': typeof AuthenticatedAdminSermonsRoute
+  '/_authenticated/admin/testimonies': typeof AuthenticatedAdminTestimoniesRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/about'
+    | '/auth'
     | '/contact'
     | '/events'
     | '/gallery'
@@ -151,10 +262,21 @@ export interface FileRouteTypes {
     | '/sermons'
     | '/testimonies'
     | '/vision'
+    | '/admin'
+    | '/admin/events'
+    | '/admin/gallery'
+    | '/admin/giving'
+    | '/admin/inbox'
+    | '/admin/live'
+    | '/admin/people'
+    | '/admin/sermons'
+    | '/admin/testimonies'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/auth'
     | '/contact'
     | '/events'
     | '/gallery'
@@ -166,10 +288,21 @@ export interface FileRouteTypes {
     | '/sermons'
     | '/testimonies'
     | '/vision'
+    | '/admin/events'
+    | '/admin/gallery'
+    | '/admin/giving'
+    | '/admin/inbox'
+    | '/admin/live'
+    | '/admin/people'
+    | '/admin/sermons'
+    | '/admin/testimonies'
+    | '/admin'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/about'
+    | '/auth'
     | '/contact'
     | '/events'
     | '/gallery'
@@ -181,11 +314,23 @@ export interface FileRouteTypes {
     | '/sermons'
     | '/testimonies'
     | '/vision'
+    | '/_authenticated/admin'
+    | '/_authenticated/admin/events'
+    | '/_authenticated/admin/gallery'
+    | '/_authenticated/admin/giving'
+    | '/_authenticated/admin/inbox'
+    | '/_authenticated/admin/live'
+    | '/_authenticated/admin/people'
+    | '/_authenticated/admin/sermons'
+    | '/_authenticated/admin/testimonies'
+    | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
+  AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
   EventsRoute: typeof EventsRoute
   GalleryRoute: typeof GalleryRoute
@@ -208,11 +353,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -292,12 +451,122 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VisionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/events': {
+      id: '/_authenticated/admin/events'
+      path: '/events'
+      fullPath: '/admin/events'
+      preLoaderRoute: typeof AuthenticatedAdminEventsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/gallery': {
+      id: '/_authenticated/admin/gallery'
+      path: '/gallery'
+      fullPath: '/admin/gallery'
+      preLoaderRoute: typeof AuthenticatedAdminGalleryRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/giving': {
+      id: '/_authenticated/admin/giving'
+      path: '/giving'
+      fullPath: '/admin/giving'
+      preLoaderRoute: typeof AuthenticatedAdminGivingRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/inbox': {
+      id: '/_authenticated/admin/inbox'
+      path: '/inbox'
+      fullPath: '/admin/inbox'
+      preLoaderRoute: typeof AuthenticatedAdminInboxRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/live': {
+      id: '/_authenticated/admin/live'
+      path: '/live'
+      fullPath: '/admin/live'
+      preLoaderRoute: typeof AuthenticatedAdminLiveRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/people': {
+      id: '/_authenticated/admin/people'
+      path: '/people'
+      fullPath: '/admin/people'
+      preLoaderRoute: typeof AuthenticatedAdminPeopleRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/sermons': {
+      id: '/_authenticated/admin/sermons'
+      path: '/sermons'
+      fullPath: '/admin/sermons'
+      preLoaderRoute: typeof AuthenticatedAdminSermonsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/testimonies': {
+      id: '/_authenticated/admin/testimonies'
+      path: '/testimonies'
+      fullPath: '/admin/testimonies'
+      preLoaderRoute: typeof AuthenticatedAdminTestimoniesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
   }
 }
 
+interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminEventsRoute: typeof AuthenticatedAdminEventsRoute
+  AuthenticatedAdminGalleryRoute: typeof AuthenticatedAdminGalleryRoute
+  AuthenticatedAdminGivingRoute: typeof AuthenticatedAdminGivingRoute
+  AuthenticatedAdminInboxRoute: typeof AuthenticatedAdminInboxRoute
+  AuthenticatedAdminLiveRoute: typeof AuthenticatedAdminLiveRoute
+  AuthenticatedAdminPeopleRoute: typeof AuthenticatedAdminPeopleRoute
+  AuthenticatedAdminSermonsRoute: typeof AuthenticatedAdminSermonsRoute
+  AuthenticatedAdminTestimoniesRoute: typeof AuthenticatedAdminTestimoniesRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+}
+
+const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminEventsRoute: AuthenticatedAdminEventsRoute,
+  AuthenticatedAdminGalleryRoute: AuthenticatedAdminGalleryRoute,
+  AuthenticatedAdminGivingRoute: AuthenticatedAdminGivingRoute,
+  AuthenticatedAdminInboxRoute: AuthenticatedAdminInboxRoute,
+  AuthenticatedAdminLiveRoute: AuthenticatedAdminLiveRoute,
+  AuthenticatedAdminPeopleRoute: AuthenticatedAdminPeopleRoute,
+  AuthenticatedAdminSermonsRoute: AuthenticatedAdminSermonsRoute,
+  AuthenticatedAdminTestimoniesRoute: AuthenticatedAdminTestimoniesRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+}
+
+const AuthenticatedAdminRouteWithChildren =
+  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
+  AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
   EventsRoute: EventsRoute,
   GalleryRoute: GalleryRoute,
