@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Menu, Church, ChevronDown } from "lucide-react";
+import { Menu, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { ThemeToggle } from "./theme";
 import { church } from "@/data/church";
+import logo from "@/assets/nxg-logo.png.asset.json";
 import { cn } from "@/lib/utils";
 
 const primary = [
@@ -72,15 +73,14 @@ export function Nav() {
         className="mx-auto flex max-w-7xl items-center gap-4 px-4 sm:px-6 lg:px-8"
       >
         <Link to="/" className="flex min-w-0 items-center gap-2.5">
-          <span
+          <img
+            src={logo.url}
+            alt={`${church.name} logo`}
             className={cn(
-              "grid size-10 shrink-0 place-items-center rounded-xl",
-              scrolled ? "bg-primary text-primary-foreground" : "bg-gold text-gold-foreground",
+              "size-10 shrink-0 rounded-xl object-cover transition-shadow",
+              !scrolled && "ring-1 ring-white/30",
             )}
-          >
-            <Church className="size-5" />
-          </span>
-          <span className="truncate text-lg font-extrabold tracking-tight">{church.name}</span>
+          />
         </Link>
 
         <div className="ml-auto hidden items-center gap-1 lg:flex">
