@@ -81,6 +81,7 @@ export function Nav() {
               !scrolled && "ring-1 ring-white/30",
             )}
           />
+          <span className="truncate text-lg font-extrabold tracking-tight">{church.name}</span>
         </Link>
 
         <div className="ml-auto hidden items-center gap-1 lg:flex">
