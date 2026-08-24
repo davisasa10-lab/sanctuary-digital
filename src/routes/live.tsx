@@ -14,13 +14,13 @@ export const Route = createFileRoute("/live")({
   component: LivePage,
   head: () => ({
     meta: [
-      { title: "Live Stream — Worship With Us Online | Grace Cathedral" },
+      { title: "Live Stream — Worship With Us Online | Next Gen Church" },
       {
         name: "description",
         content:
           "Join Sunday worship live from anywhere, chat with the online congregation, and catch up on previous broadcasts.",
       },
-      { property: "og:title", content: "Grace Cathedral live" },
+      { property: "og:title", content: "Next Gen Church live" },
       { property: "og:description", content: "Worship with us online, wherever you are." },
     ],
   }),

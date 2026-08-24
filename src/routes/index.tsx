@@ -17,13 +17,13 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Grace Cathedral — A Church in Accra to Belong, Believe, Become" },
+      { title: "Next Gen Church — A Church in Accra to Belong, Believe, Become" },
       {
         name: "description",
         content:
           "Sunday services at 7:30 and 9:30 AM in Accra. Watch sermons, join a ministry, request prayer and give — online or in person.",
       },
-      { property: "og:title", content: "Grace Cathedral — Belong, Believe, Become" },
+      { property: "og:title", content: "Next Gen Church — Belong, Believe, Become" },
       {
         property: "og:description",
         content: "Modern worship, deep teaching and a family that will know your name.",
@@ -40,7 +40,7 @@ function Index() {
       <section className="relative flex min-h-[92vh] items-end overflow-hidden">
         <img
           src={heroImg}
-          alt="Congregation worshipping at Grace Cathedral during golden hour"
+          alt="Congregation worshipping at Next Gen Church during golden hour"
           width={1920}
           height={1088}
           className="absolute inset-0 size-full object-cover"

@@ -14,14 +14,14 @@ export const Route = createFileRoute("/sermons")({
   component: SermonsPage,
   head: () => ({
     meta: [
-      { title: "Sermons — Watch and Listen | Grace Cathedral" },
+      { title: "Sermons — Watch and Listen | Next Gen Church" },
       {
         name: "description",
         content:
           "Browse the full sermon archive by series, speaker, scripture and topic. Watch on video or listen on the go.",
       },
       { property: "og:title", content: "Sermon archive" },
-      { property: "og:description", content: "Teaching from Grace Cathedral, on demand." },
+      { property: "og:description", content: "Teaching from Next Gen Church, on demand." },
     ],
   }),
 });

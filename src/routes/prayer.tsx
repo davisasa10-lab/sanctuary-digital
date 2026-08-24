@@ -21,7 +21,7 @@ export const Route = createFileRoute("/prayer")({
   component: PrayerPage,
   head: () => ({
     meta: [
-      { title: "Prayer Request — We Will Pray With You | Grace Cathedral" },
+      { title: "Prayer Request — We Will Pray With You | Next Gen Church" },
       {
         name: "description",
         content:

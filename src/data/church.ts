@@ -1,9 +1,9 @@
 export const church = {
-  name: "Grace Cathedral",
+  name: "Next Gen Church",
   tagline: "A place to belong, believe and become",
   address: "18 Independence Avenue, Accra, Ghana",
   phone: "+233 30 123 4567",
-  email: "hello@gracecathedral.org",
+  email: "hello@nextgenchurch.org",
 };
 
 export const services = [
@@ -123,38 +123,38 @@ export const leaders = [
   {
     name: "Pastor Daniel Mensah",
     role: "Lead Pastor",
-    bio: "Daniel has shepherded Grace Cathedral for 14 years, teaching with clarity and warmth, and championing a church that is generous with its city.",
-    email: "daniel@gracecathedral.org",
+    bio: "Daniel has shepherded Next Gen Church for 14 years, teaching with clarity and warmth, and championing a church that is generous with its city.",
+    email: "daniel@nextgenchurch.org",
   },
   {
     name: "Pastor Adjoa Boateng",
     role: "Associate Pastor, Discipleship",
     bio: "Adjoa leads our small groups and formation pathways, helping people move from curiosity to deep-rooted faith.",
-    email: "adjoa@gracecathedral.org",
+    email: "adjoa@nextgenchurch.org",
   },
   {
     name: "Rev. Kofi Asare",
     role: "Pastor of Outreach",
     bio: "Kofi oversees our community partnerships, feeding programmes and medical outreach across the city.",
-    email: "kofi@gracecathedral.org",
+    email: "kofi@nextgenchurch.org",
   },
   {
     name: "Naa Adjeley Quaye",
     role: "Worship Director",
     bio: "Naa leads a collective of 60 musicians and creatives crafting worship that is both reverent and alive.",
-    email: "naa@gracecathedral.org",
+    email: "naa@nextgenchurch.org",
   },
   {
     name: "Emmanuel Tetteh",
     role: "Youth & Young Adults",
     bio: "Emmanuel builds spaces where teenagers and students can ask honest questions and find real friendship.",
-    email: "emmanuel@gracecathedral.org",
+    email: "emmanuel@nextgenchurch.org",
   },
   {
     name: "Dr. Serwaa Owusu",
     role: "Elder, Care & Counselling",
     bio: "Serwaa coordinates pastoral care, hospital visitation and our licensed counselling team.",
-    email: "serwaa@gracecathedral.org",
+    email: "serwaa@nextgenchurch.org",
   },
 ];
 

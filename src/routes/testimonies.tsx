@@ -24,11 +24,11 @@ export const Route = createFileRoute("/testimonies")({
   component: TestimoniesPage,
   head: () => ({
     meta: [
-      { title: "Testimonies — Stories of Changed Lives | Grace Cathedral" },
+      { title: "Testimonies — Stories of Changed Lives | Next Gen Church" },
       {
         name: "description",
         content:
-          "Written and video testimonies from members of Grace Cathedral, plus an invitation to share your own story.",
+          "Written and video testimonies from members of Next Gen Church, plus an invitation to share your own story.",
       },
       { property: "og:title", content: "Testimonies" },
       { property: "og:description", content: "Real stories from our church family." },

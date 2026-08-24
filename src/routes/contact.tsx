@@ -20,13 +20,13 @@ export const Route = createFileRoute("/contact")({
   component: ContactPage,
   head: () => ({
     meta: [
-      { title: "Contact & Visit — Grace Cathedral Accra" },
+      { title: "Contact & Visit — Next Gen Church Accra" },
       {
         name: "description",
         content:
           "Find us on Independence Avenue in Accra: directions, office hours, phone, email and answers to common first-visit questions.",
       },
-      { property: "og:title", content: "Contact Grace Cathedral" },
+      { property: "og:title", content: "Contact Next Gen Church" },
       { property: "og:description", content: "Directions, office hours and how to reach us." },
     ],
   }),
@@ -103,7 +103,7 @@ function ContactPage() {
             <Reveal delay={100}>
               <div className="overflow-hidden rounded-3xl border border-border shadow-soft">
                 <iframe
-                  title="Map showing Grace Cathedral on Independence Avenue, Accra"
+                  title="Map showing Next Gen Church on Independence Avenue, Accra"
                   src="https://www.openstreetmap.org/export/embed.html?bbox=-0.211%2C5.545%2C-0.171%2C5.575&layer=mapnik"
                   className="h-72 w-full border-0"
                   loading="lazy"

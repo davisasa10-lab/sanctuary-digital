@@ -10,13 +10,13 @@ export const Route = createFileRoute("/about")({
   component: AboutPage,
   head: () => ({
     meta: [
-      { title: "About Grace Cathedral — Our Story, Beliefs and Welcome" },
+      { title: "About Next Gen Church — Our Story, Beliefs and Welcome" },
       {
         name: "description",
         content:
           "From a living room in 1988 to a city-wide family: our history, core beliefs, values and exactly what to expect on your first Sunday.",
       },
-      { property: "og:title", content: "About Grace Cathedral" },
+      { property: "og:title", content: "About Next Gen Church" },
       { property: "og:description", content: "Our story, beliefs and what to expect on a Sunday." },
     ],
   }),
@@ -63,7 +63,7 @@ function AboutPage() {
               description="They had no building, no budget and no band — just a conviction that Accra needed a church where honesty and hope could live in the same room. That conviction still runs the place."
             />
             <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
-              Today more than four thousand people call Grace Cathedral home across two Sunday
+              Today more than four thousand people call Next Gen Church home across two Sunday
               gatherings, dozens of neighbourhood groups and a growing online congregation. The
               scale changed; the posture never has.
             </p>
