@@ -236,6 +236,10 @@ body {
   }
 }
 
+@utility text-shadow-hero {
+  text-shadow: 0 2px 12px oklch(0.16 0.03 262 / 0.35);
+}
+
 @keyframes float-slow {
   0%,
   100% {
