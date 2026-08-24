@@ -80,14 +80,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Grace Cathedral — Belong, Believe, Become" },
+      { title: "Next Gen Church — Belong, Believe, Become" },
       {
         name: "description",
         content:
           "A warm, modern church in Accra. Join us Sundays in person or online for worship, teaching and community.",
       },
-      { name: "author", content: "Grace Cathedral" },
-      { property: "og:title", content: "Grace Cathedral" },
+      { name: "author", content: "Next Gen Church" },
+      { property: "og:title", content: "Next Gen Church" },
       { property: "og:description", content: "Belong, believe and become. Worship with us." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -103,7 +103,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap",
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/favicon.png", type: "image/png" },
     ],
   }),
   shellComponent: RootShell,

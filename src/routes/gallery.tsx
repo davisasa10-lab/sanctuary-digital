@@ -16,13 +16,13 @@ export const Route = createFileRoute("/gallery")({
   component: GalleryPage,
   head: () => ({
     meta: [
-      { title: "Gallery — Moments from Grace Cathedral" },
+      { title: "Gallery — Moments from Next Gen Church" },
       {
         name: "description",
         content:
           "Photo albums and video highlights from Sunday worship, kids ministry, outreach weekends and church life.",
       },
-      { property: "og:title", content: "Grace Cathedral gallery" },
+      { property: "og:title", content: "Next Gen Church gallery" },
       { property: "og:description", content: "Life together, in pictures and video." },
     ],
   }),

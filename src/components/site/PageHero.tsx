@@ -21,12 +21,12 @@ export function PageHero({
   children?: ReactNode;
 }) {
   return (
-    <section className="gradient-hero relative overflow-hidden pb-20 pt-36 text-primary-foreground sm:pb-24 sm:pt-44">
+    <section className="gradient-hero relative overflow-hidden pb-20 pt-36 text-hero-foreground sm:pb-24 sm:pt-44">
       <div className="pointer-events-none absolute -left-24 top-10 size-72 rounded-full bg-gold/20 blur-3xl float-slow" />
       <div className="pointer-events-none absolute -right-16 bottom-0 size-80 rounded-full bg-royal/30 blur-3xl float-slow" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Breadcrumb className="mb-8">
-          <BreadcrumbList className="text-primary-foreground/60">
+          <BreadcrumbList className="text-hero-foreground/70">
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
                 <Link to="/" className="transition-colors hover:text-gold">
@@ -36,7 +36,7 @@ export function PageHero({
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage className="text-primary-foreground">{eyebrow}</BreadcrumbPage>
+              <BreadcrumbPage className="text-hero-foreground">{eyebrow}</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -44,7 +44,7 @@ export function PageHero({
         <h1 className="mt-4 max-w-3xl text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
           {title}
         </h1>
-        <p className="mt-5 max-w-2xl text-base leading-relaxed text-primary-foreground/75 sm:text-lg">
+        <p className="mt-5 max-w-2xl text-base leading-relaxed text-hero-foreground/80 sm:text-lg">
           {description}
         </p>
         {children ? <div className="mt-8">{children}</div> : null}

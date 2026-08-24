@@ -21,13 +21,13 @@ export const Route = createFileRoute("/events")({
   component: EventsPage,
   head: () => ({
     meta: [
-      { title: "Events & Calendar — Grace Cathedral Accra" },
+      { title: "Events & Calendar — Next Gen Church Accra" },
       {
         name: "description",
         content:
           "Conferences, outreach weekends, worship nights and youth camps. Browse the calendar, count down to the next gathering and register.",
       },
-      { property: "og:title", content: "Upcoming events at Grace Cathedral" },
+      { property: "og:title", content: "Upcoming events at Next Gen Church" },
       { property: "og:description", content: "See what's coming and register in seconds." },
     ],
   }),

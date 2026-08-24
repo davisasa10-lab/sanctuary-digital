@@ -10,14 +10,14 @@ export const Route = createFileRoute("/leadership")({
   component: LeadershipPage,
   head: () => ({
     meta: [
-      { title: "Leadership Team — Grace Cathedral Pastors and Elders" },
+      { title: "Leadership Team — Next Gen Church Pastors and Elders" },
       {
         name: "description",
         content:
-          "Meet the pastors, elders and directors who shepherd Grace Cathedral — their stories, focus areas and how to reach them.",
+          "Meet the pastors, elders and directors who shepherd Next Gen Church — their stories, focus areas and how to reach them.",
       },
       { property: "og:title", content: "Meet our leadership" },
-      { property: "og:description", content: "The pastors and elders who serve Grace Cathedral." },
+      { property: "og:description", content: "The pastors and elders who serve Next Gen Church." },
     ],
   }),
 });

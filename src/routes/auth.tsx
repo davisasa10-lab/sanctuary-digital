@@ -12,13 +12,13 @@ export const Route = createFileRoute("/auth")({
   component: AuthPage,
   head: () => ({
     meta: [
-      { title: "Staff Sign In — Grace Cathedral Admin" },
+      { title: "Staff Sign In — Next Gen Church Admin" },
       {
         name: "description",
         content:
-          "Secure sign in for Grace Cathedral staff to manage events, sermons, giving and prayer requests.",
+          "Secure sign in for Next Gen Church staff to manage events, sermons, giving and prayer requests.",
       },
-      { property: "og:title", content: "Grace Cathedral staff sign in" },
+      { property: "og:title", content: "Next Gen Church staff sign in" },
       { property: "og:description", content: "Church admin access." },
       { name: "robots", content: "noindex" },
     ],

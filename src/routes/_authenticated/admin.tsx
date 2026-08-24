@@ -21,13 +21,13 @@ export const Route = createFileRoute("/_authenticated/admin")({
   component: AdminLayout,
   head: () => ({
     meta: [
-      { title: "Church Admin Dashboard | Grace Cathedral" },
+      { title: "Church Admin Dashboard | Next Gen Church" },
       {
         name: "description",
         content:
           "Manage events, sermons, gallery, testimonies, giving, prayer requests and the live stream.",
       },
-      { property: "og:title", content: "Grace Cathedral admin" },
+      { property: "og:title", content: "Next Gen Church admin" },
       { property: "og:description", content: "Internal church management dashboard." },
       { name: "robots", content: "noindex" },
     ],

@@ -8,14 +8,14 @@ export const Route = createFileRoute("/vision")({
   component: VisionPage,
   head: () => ({
     meta: [
-      { title: "Vision & Mission — Grace Cathedral" },
+      { title: "Vision & Mission — Next Gen Church" },
       {
         name: "description",
         content:
           "Our mission, vision and core values, with the scriptures that shape them and the road we are walking to 2030.",
       },
       { property: "og:title", content: "Vision & Mission" },
-      { property: "og:description", content: "Where Grace Cathedral is going, and why." },
+      { property: "og:description", content: "Where Next Gen Church is going, and why." },
     ],
   }),
 });

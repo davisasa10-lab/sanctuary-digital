@@ -24,13 +24,13 @@ export const Route = createFileRoute("/ministries")({
   component: MinistriesPage,
   head: () => ({
     meta: [
-      { title: "Ministries — Serve and Belong at Grace Cathedral" },
+      { title: "Ministries — Serve and Belong at Next Gen Church" },
       {
         name: "description",
         content:
           "Worship, kids, youth, outreach, prayer and family ministries — meeting times, leaders and how to join a team this week.",
       },
-      { property: "og:title", content: "Ministries at Grace Cathedral" },
+      { property: "og:title", content: "Ministries at Next Gen Church" },
       { property: "og:description", content: "Find your place to serve and belong." },
     ],
   }),

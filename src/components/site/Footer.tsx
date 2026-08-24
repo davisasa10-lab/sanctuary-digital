@@ -1,9 +1,10 @@
 import { Link } from "@tanstack/react-router";
-import { Church, Facebook, Instagram, Youtube, Mail, MapPin, Phone } from "lucide-react";
+import { Facebook, Instagram, Youtube, Mail, MapPin, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { church, services } from "@/data/church";
+import logo from "@/assets/nxg-logo.png.asset.json";
 
 const columns = [
   {
@@ -42,9 +43,11 @@ export function Footer() {
         <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr]">
           <div>
             <Link to="/" className="flex items-center gap-2.5">
-              <span className="grid size-10 place-items-center rounded-xl bg-primary text-primary-foreground">
-                <Church className="size-5" />
-              </span>
+              <img
+                src={logo.url}
+                alt={`${church.name} logo`}
+                className="size-10 rounded-xl object-cover"
+              />
               <span className="text-lg font-extrabold tracking-tight">{church.name}</span>
             </Link>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">

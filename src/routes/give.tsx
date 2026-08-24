@@ -14,13 +14,13 @@ export const Route = createFileRoute("/give")({
   component: GivePage,
   head: () => ({
     meta: [
-      { title: "Give — Support the Mission of Grace Cathedral" },
+      { title: "Give — Support the Mission of Next Gen Church" },
       {
         name: "description",
         content:
           "Give securely by mobile money, card or bank transfer. See live campaign progress and the impact of every cedi.",
       },
-      { property: "og:title", content: "Give to Grace Cathedral" },
+      { property: "og:title", content: "Give to Next Gen Church" },
       { property: "og:description", content: "Fuel outreach, kids ministry and the new sanctuary." },
     ],
   }),
