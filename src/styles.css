@@ -72,9 +72,9 @@
   /* Deep brand blue */
   --primary: oklch(0.33 0.105 249);
   --primary-foreground: oklch(0.985 0.005 250);
-  /* NXG brand blue #1C9FF5 */
-  --royal: oklch(0.679 0.164 245);
-  --hero-foreground: oklch(0.97 0.008 240);
+  /* NXG brand blue #00a2ed */
+  --royal: oklch(0.679 0.205 291);
+  --hero-foreground: oklch(0.98 0.005 250);
   --royal-foreground: oklch(0.985 0.005 250);
   /* Warm Gold #D4AF37 */
   --gold: oklch(0.771 0.129 88);
@@ -91,9 +91,9 @@
   --destructive-foreground: oklch(0.984 0.003 247.858);
   --border: oklch(0.922 0.008 255);
   --input: oklch(0.922 0.008 255);
-  --ring: oklch(0.679 0.164 245);
+  --ring: oklch(0.679 0.205 291);
   --surface: oklch(0.978 0.005 250);
-  --gradient-hero: linear-gradient(135deg, oklch(0.26 0.075 250) 0%, oklch(0.38 0.12 248) 55%, oklch(0.55 0.155 245) 100%);
+  --gradient-hero: linear-gradient(135deg, oklch(0.26 0.075 250) 0%, oklch(0.38 0.12 248) 55%, oklch(0.55 0.205 291) 100%);
   --gradient-gold: linear-gradient(100deg, oklch(0.82 0.11 92), oklch(0.771 0.129 88));
   --shadow-soft: 0 1px 2px oklch(0.264 0.058 259.5 / 0.05), 0 12px 32px -12px oklch(0.264 0.058 259.5 / 0.16);
   --shadow-lift: 0 2px 4px oklch(0.264 0.058 259.5 / 0.06), 0 28px 60px -20px oklch(0.264 0.058 259.5 / 0.28);
