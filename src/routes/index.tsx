@@ -45,19 +45,19 @@ function Index() {
           height={1088}
           className="absolute inset-0 size-full object-cover"
         />
-        <div className="absolute inset-0 bg-linear-to-t from-[oklch(0.16_0.03_262)] via-[oklch(0.16_0.03_262/0.72)] to-[oklch(0.16_0.03_262/0.35)]" />
+        <div className="absolute inset-0 bg-linear-to-t from-[oklch(0.12_0.03_262)] via-[oklch(0.12_0.03_262/0.82)] to-[oklch(0.12_0.03_262/0.45)]" />
         <div className="pointer-events-none absolute -right-20 top-24 size-96 rounded-full bg-gold/15 blur-3xl float-slow" />
         <div className="relative mx-auto w-full max-w-7xl px-4 pb-24 pt-40 sm:px-6 lg:px-8">
-          <Reveal className="max-w-3xl text-[oklch(0.97_0.005_250)]">
+          <Reveal className="max-w-3xl text-hero-foreground">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-gold backdrop-blur-md">
               Welcome home
             </span>
-            <h1 className="mt-6 text-4xl font-extrabold leading-[1.03] tracking-tight sm:text-6xl lg:text-7xl">
+            <h1 className="mt-6 text-4xl font-extrabold leading-[1.03] tracking-tight text-shadow-hero sm:text-6xl lg:text-7xl">
               A place to belong,
               <br />
               believe and <span className="text-gradient-gold">become</span>.
             </h1>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-[oklch(0.97_0.005_250/0.8)] sm:text-lg">
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-hero-foreground/80 sm:text-lg">
               {church.name} is a family in the heart of Accra learning to love God and our city
               well. Whoever you are, whatever you carry — there is a seat here for you.
             </p>
@@ -71,7 +71,7 @@ function Index() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="h-13 rounded-full border-white/30 bg-white/10 px-8 text-base text-[oklch(0.97_0.005_250)] backdrop-blur-md hover:bg-white/20 hover:text-[oklch(0.97_0.005_250)]"
+                className="h-13 rounded-full border-white/30 bg-white/10 px-8 text-base text-hero-foreground backdrop-blur-md hover:bg-white/20 hover:text-hero-foreground"
               >
                 <Link to="/about">Plan your visit</Link>
               </Button>
@@ -81,13 +81,13 @@ function Index() {
           <Reveal delay={200} className="mt-16">
             <div className="grid gap-px overflow-hidden rounded-3xl border border-white/15 bg-white/10 backdrop-blur-xl sm:grid-cols-2 lg:grid-cols-4">
               {services.map((s) => (
-                <div key={s.name} className="bg-white/5 p-6 text-[oklch(0.97_0.005_250)]">
+                <div key={s.name} className="bg-white/5 p-6 text-hero-foreground">
                   <p className="text-xs font-semibold uppercase tracking-widest text-gold">
                     {s.day}
                   </p>
                   <p className="mt-2 text-lg font-bold">{s.name}</p>
-                  <p className="mt-1 text-sm text-[oklch(0.97_0.005_250/0.7)]">{s.time}</p>
-                  <p className="mt-3 text-xs text-[oklch(0.97_0.005_250/0.6)]">{s.note}</p>
+                  <p className="mt-1 text-sm text-hero-foreground/70">{s.time}</p>
+                  <p className="mt-3 text-xs text-hero-foreground/60">{s.note}</p>
                 </div>
               ))}
             </div>
