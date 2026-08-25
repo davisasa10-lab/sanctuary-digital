@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link } from "@tanstack/react-router";
-import { Menu, ChevronDown } from "lucide-react";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
+import { Menu, ChevronDown, LogIn, LogOut, LayoutDashboard } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { ThemeToggle } from "./theme";
