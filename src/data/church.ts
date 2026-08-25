@@ -304,3 +304,72 @@ export const timeline = [
     text: "Breaking ground on a new sanctuary and community centre.",
   },
 ];
+export const podcasts = [
+  {
+    id: "next-gen-conversations",
+    title: "Faith at Work",
+    show: "Next Gen Conversations",
+    host: "Pastor Daniel Mensah",
+    date: "Aug 18, 2026",
+    duration: "32 min",
+    description: "How to carry your faith into Monday morning without burning out.",
+  },
+  {
+    id: "youth-unfiltered",
+    title: "Friendships That Build You",
+    show: "Youth Unfiltered",
+    host: "Kwesi & Ama",
+    date: "Aug 11, 2026",
+    duration: "27 min",
+    description: "An honest chat about choosing friends who point you upward.",
+  },
+  {
+    id: "quiet-time",
+    title: "Learning to Pray Again",
+    show: "Quiet Time",
+    host: "Pastor Adjoa Boateng",
+    date: "Aug 4, 2026",
+    duration: "19 min",
+    description: "A short, guided episode for rebuilding a daily prayer rhythm.",
+  },
+  {
+    id: "table-talk",
+    title: "Marriage, Money and Grace",
+    show: "Table Talk",
+    host: "The Mensahs",
+    date: "Jul 28, 2026",
+    duration: "45 min",
+    description: "Practical wisdom for couples navigating a first home together.",
+  },
+];
+
+export const mediaVideos = [
+  {
+    id: "worship-night",
+    title: "Worship Night: Highlights",
+    kind: "Worship",
+    date: "Aug 16, 2026",
+    duration: "12 min",
+  },
+  {
+    id: "outreach-film",
+    title: "Feeding 500 — Outreach Film",
+    kind: "Outreach",
+    date: "Aug 9, 2026",
+    duration: "8 min",
+  },
+  {
+    id: "baptism-sunday",
+    title: "Baptism Sunday",
+    kind: "Testimony",
+    date: "Aug 2, 2026",
+    duration: "15 min",
+  },
+  {
+    id: "youth-camp-recap",
+    title: "Youth Camp Recap",
+    kind: "Youth",
+    date: "Jul 20, 2026",
+    duration: "6 min",
+  },
+];
