@@ -254,6 +254,37 @@ export function Nav() {
                     </Link>
                   </li>
                 ))}
+                {signedIn ? (
+                  <>
+                    <li>
+                      <Link
+                        to="/admin"
+                        onClick={() => setMobileOpen(false)}
+                        className="block rounded-xl px-4 py-3 text-base font-medium transition-colors hover:bg-accent"
+                      >
+                        Dashboard
+                      </Link>
+                    </li>
+                    <li>
+                      <button
+                        onClick={handleSignOut}
+                        className="block w-full rounded-xl px-4 py-3 text-left text-base font-medium transition-colors hover:bg-accent"
+                      >
+                        Sign out
+                      </button>
+                    </li>
+                  </>
+                ) : (
+                  <li>
+                    <Link
+                      to="/auth"
+                      onClick={() => setMobileOpen(false)}
+                      className="block rounded-xl px-4 py-3 text-base font-medium transition-colors hover:bg-accent"
+                    >
+                      Login
+                    </Link>
+                  </li>
+                )}
                 <li className="pt-2">
                   <Button asChild className="w-full rounded-full">
                     <Link to="/give" onClick={() => setMobileOpen(false)}>
