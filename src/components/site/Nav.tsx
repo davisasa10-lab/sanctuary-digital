@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link } from "@tanstack/react-router";
-import { Menu, ChevronDown } from "lucide-react";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
+import { Menu, ChevronDown, LogIn, LogOut, LayoutDashboard } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { ThemeToggle } from "./theme";
@@ -51,6 +53,9 @@ export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [signedIn, setSignedIn] = useState(false);
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -58,6 +63,23 @@ export function Nav() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
+      setSignedIn(!!session);
+    });
+    void supabase.auth.getSession().then(({ data }) => setSignedIn(!!data.session));
+    return () => sub.subscription.unsubscribe();
+  }, []);
+
+  async function handleSignOut() {
+    await queryClient.cancelQueries();
+    queryClient.clear();
+    await supabase.auth.signOut();
+    setMobileOpen(false);
+    void navigate({ to: "/auth", replace: true });
+  }
+
 
   return (
     <header
@@ -156,6 +178,47 @@ export function Nav() {
         </div>
 
         <div className="ml-auto flex items-center gap-1 lg:ml-2">
+          {signedIn ? (
+            <div className="hidden items-center gap-1 lg:flex">
+              <Link
+                to="/admin"
+                className={cn(
+                  "flex items-center gap-1.5 rounded-full px-3.5 py-2 text-sm font-medium transition-colors",
+                  scrolled
+                    ? "text-muted-foreground hover:bg-accent hover:text-foreground"
+                    : "text-[oklch(0.97_0.005_250/0.8)] hover:bg-white/10 hover:text-[oklch(0.97_0.005_250)]",
+                )}
+              >
+                <LayoutDashboard className="size-4" />
+                Dashboard
+              </Link>
+              <button
+                onClick={handleSignOut}
+                className={cn(
+                  "flex items-center gap-1.5 rounded-full px-3.5 py-2 text-sm font-medium transition-colors",
+                  scrolled
+                    ? "text-muted-foreground hover:bg-accent hover:text-foreground"
+                    : "text-[oklch(0.97_0.005_250/0.8)] hover:bg-white/10 hover:text-[oklch(0.97_0.005_250)]",
+                )}
+              >
+                <LogOut className="size-4" />
+                Sign out
+              </button>
+            </div>
+          ) : (
+            <Link
+              to="/auth"
+              className={cn(
+                "hidden items-center gap-1.5 rounded-full px-3.5 py-2 text-sm font-medium transition-colors lg:flex",
+                scrolled
+                  ? "text-muted-foreground hover:bg-accent hover:text-foreground"
+                  : "text-[oklch(0.97_0.005_250/0.8)] hover:bg-white/10 hover:text-[oklch(0.97_0.005_250)]",
+              )}
+            >
+              <LogIn className="size-4" />
+              Login
+            </Link>
+          )}
           <ThemeToggle />
           <Button
             asChild
@@ -191,6 +254,37 @@ export function Nav() {
                     </Link>
                   </li>
                 ))}
+                {signedIn ? (
+                  <>
+                    <li>
+                      <Link
+                        to="/admin"
+                        onClick={() => setMobileOpen(false)}
+                        className="block rounded-xl px-4 py-3 text-base font-medium transition-colors hover:bg-accent"
+                      >
+                        Dashboard
+                      </Link>
+                    </li>
+                    <li>
+                      <button
+                        onClick={handleSignOut}
+                        className="block w-full rounded-xl px-4 py-3 text-left text-base font-medium transition-colors hover:bg-accent"
+                      >
+                        Sign out
+                      </button>
+                    </li>
+                  </>
+                ) : (
+                  <li>
+                    <Link
+                      to="/auth"
+                      onClick={() => setMobileOpen(false)}
+                      className="block rounded-xl px-4 py-3 text-base font-medium transition-colors hover:bg-accent"
+                    >
+                      Login
+                    </Link>
+                  </li>
+                )}
                 <li className="pt-2">
                   <Button asChild className="w-full rounded-full">
                     <Link to="/give" onClick={() => setMobileOpen(false)}>
