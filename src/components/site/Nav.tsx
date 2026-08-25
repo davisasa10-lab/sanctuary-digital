@@ -178,6 +178,47 @@ export function Nav() {
         </div>
 
         <div className="ml-auto flex items-center gap-1 lg:ml-2">
+          {signedIn ? (
+            <div className="hidden items-center gap-1 lg:flex">
+              <Link
+                to="/admin"
+                className={cn(
+                  "flex items-center gap-1.5 rounded-full px-3.5 py-2 text-sm font-medium transition-colors",
+                  scrolled
+                    ? "text-muted-foreground hover:bg-accent hover:text-foreground"
+                    : "text-[oklch(0.97_0.005_250/0.8)] hover:bg-white/10 hover:text-[oklch(0.97_0.005_250)]",
+                )}
+              >
+                <LayoutDashboard className="size-4" />
+                Dashboard
+              </Link>
+              <button
+                onClick={handleSignOut}
+                className={cn(
+                  "flex items-center gap-1.5 rounded-full px-3.5 py-2 text-sm font-medium transition-colors",
+                  scrolled
+                    ? "text-muted-foreground hover:bg-accent hover:text-foreground"
+                    : "text-[oklch(0.97_0.005_250/0.8)] hover:bg-white/10 hover:text-[oklch(0.97_0.005_250)]",
+                )}
+              >
+                <LogOut className="size-4" />
+                Sign out
+              </button>
+            </div>
+          ) : (
+            <Link
+              to="/auth"
+              className={cn(
+                "hidden items-center gap-1.5 rounded-full px-3.5 py-2 text-sm font-medium transition-colors lg:flex",
+                scrolled
+                  ? "text-muted-foreground hover:bg-accent hover:text-foreground"
+                  : "text-[oklch(0.97_0.005_250/0.8)] hover:bg-white/10 hover:text-[oklch(0.97_0.005_250)]",
+              )}
+            >
+              <LogIn className="size-4" />
+              Login
+            </Link>
+          )}
           <ThemeToggle />
           <Button
             asChild
