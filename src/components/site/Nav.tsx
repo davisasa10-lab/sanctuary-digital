@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { ThemeToggle } from "./theme";
 import { church } from "@/data/church";
-import logo from "@/assets/nxg-logo-D0uXWpuf.png";
+import logo from "@/assets/nxg-logo.png.asset.json";
 import { cn } from "@/lib/utils";
 
 const primary = [
