@@ -42,5 +42,6 @@ Untouched visually. Pages, videos, sermons, events, announcements and gallery al
 - New tables: `pages`, `videos`, `announcements`, `gallery_albums`, `media_assets`, `activity_log`, plus a `role_permissions` table for the giving-access grant; new columns on `sermons`, `events`, `gallery_items`, `prayer_requests`, `contact_messages`.
 - RLS on every table: public reads only published rows; writes gated by `has_role(auth.uid(),'admin')` or `'editor'`; prayer requests, inquiries, giving and the activity log have no public read policy at all.
 - Storage bucket `media` with authenticated-write / public-read policies for images.
+- YouTube lookup runs in a server function: oEmbed for single-link metadata (no key needed), YouTube Data API v3 (`search`/`videos` endpoints, key held as a server secret) for channel listing and richer fields like duration and publish date. Thumbnails are referenced by URL, not re-uploaded.
 - Input validation with zod on every form; no `dangerouslySetInnerHTML` on CMS content.
 - Work lands in stages: database migration first, then dashboard shell and roles, then the new content sections, then public wiring.
