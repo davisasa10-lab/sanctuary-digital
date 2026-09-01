@@ -14,6 +14,87 @@ export type Database = {
   }
   public: {
     Tables: {
+      activity_log: {
+        Row: {
+          action: string
+          created_at: string
+          entity: string
+          entity_id: string | null
+          id: string
+          summary: string
+          user_email: string
+          user_id: string | null
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          entity?: string
+          entity_id?: string | null
+          id?: string
+          summary?: string
+          user_email?: string
+          user_id?: string | null
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          entity?: string
+          entity_id?: string | null
+          id?: string
+          summary?: string
+          user_email?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      announcements: {
+        Row: {
+          body: string
+          category: string
+          created_at: string
+          excerpt: string
+          featured_image: string | null
+          id: string
+          publish_date: string
+          published: boolean
+          seo_description: string
+          seo_title: string
+          slug: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          body?: string
+          category?: string
+          created_at?: string
+          excerpt?: string
+          featured_image?: string | null
+          id?: string
+          publish_date?: string
+          published?: boolean
+          seo_description?: string
+          seo_title?: string
+          slug: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          body?: string
+          category?: string
+          created_at?: string
+          excerpt?: string
+          featured_image?: string | null
+          id?: string
+          publish_date?: string
+          published?: boolean
+          seo_description?: string
+          seo_title?: string
+          slug?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       campaigns: {
         Row: {
           active: boolean
@@ -54,6 +135,7 @@ export type Database = {
           id: string
           message: string
           name: string
+          phone: string | null
           status: string
           subject: string
           updated_at: string
@@ -64,6 +146,7 @@ export type Database = {
           id?: string
           message: string
           name: string
+          phone?: string | null
           status?: string
           subject?: string
           updated_at?: string
@@ -74,6 +157,7 @@ export type Database = {
           id?: string
           message?: string
           name?: string
+          phone?: string | null
           status?: string
           subject?: string
           updated_at?: string
@@ -135,38 +219,89 @@ export type Database = {
       }
       events: {
         Row: {
+          address: string
           category: string
           created_at: string
           description: string
+          end_time: string
           event_date: string
+          featured: boolean
           id: string
           image_url: string | null
           location: string
           published: boolean
+          registration_url: string | null
+          start_time: string
           title: string
           updated_at: string
         }
         Insert: {
+          address?: string
           category?: string
           created_at?: string
           description?: string
+          end_time?: string
           event_date: string
+          featured?: boolean
           id?: string
           image_url?: string | null
           location?: string
           published?: boolean
+          registration_url?: string | null
+          start_time?: string
           title: string
           updated_at?: string
         }
         Update: {
+          address?: string
           category?: string
           created_at?: string
           description?: string
+          end_time?: string
           event_date?: string
+          featured?: boolean
           id?: string
           image_url?: string | null
           location?: string
           published?: boolean
+          registration_url?: string | null
+          start_time?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      gallery_albums: {
+        Row: {
+          cover_image: string | null
+          created_at: string
+          description: string
+          id: string
+          published: boolean
+          slug: string
+          sort_order: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          cover_image?: string | null
+          created_at?: string
+          description?: string
+          id?: string
+          published?: boolean
+          slug: string
+          sort_order?: number
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          cover_image?: string | null
+          created_at?: string
+          description?: string
+          id?: string
+          published?: boolean
+          slug?: string
+          sort_order?: number
           title?: string
           updated_at?: string
         }
@@ -174,6 +309,8 @@ export type Database = {
       }
       gallery_items: {
         Row: {
+          album_id: string | null
+          caption: string
           category: string
           created_at: string
           id: string
@@ -185,6 +322,8 @@ export type Database = {
           url: string
         }
         Insert: {
+          album_id?: string | null
+          caption?: string
           category?: string
           created_at?: string
           id?: string
@@ -196,6 +335,8 @@ export type Database = {
           url: string
         }
         Update: {
+          album_id?: string | null
+          caption?: string
           category?: string
           created_at?: string
           id?: string
@@ -206,7 +347,15 @@ export type Database = {
           updated_at?: string
           url?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "gallery_items_album_id_fkey"
+            columns: ["album_id"]
+            isOneToOne: false
+            referencedRelation: "gallery_albums"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       leaders: {
         Row: {
@@ -280,6 +429,45 @@ export type Database = {
         }
         Relationships: []
       }
+      media_assets: {
+        Row: {
+          alt_text: string
+          created_at: string
+          file_name: string
+          id: string
+          mime_type: string
+          public_url: string
+          size_bytes: number
+          storage_path: string
+          updated_at: string
+          uploaded_by: string | null
+        }
+        Insert: {
+          alt_text?: string
+          created_at?: string
+          file_name: string
+          id?: string
+          mime_type?: string
+          public_url: string
+          size_bytes?: number
+          storage_path: string
+          updated_at?: string
+          uploaded_by?: string | null
+        }
+        Update: {
+          alt_text?: string
+          created_at?: string
+          file_name?: string
+          id?: string
+          mime_type?: string
+          public_url?: string
+          size_bytes?: number
+          storage_path?: string
+          updated_at?: string
+          uploaded_by?: string | null
+        }
+        Relationships: []
+      }
       ministries: {
         Row: {
           created_at: string
@@ -319,6 +507,51 @@ export type Database = {
         }
         Relationships: []
       }
+      pages: {
+        Row: {
+          canonical_url: string | null
+          content: string
+          created_at: string
+          featured_image: string | null
+          id: string
+          og_image: string | null
+          published: boolean
+          seo_description: string
+          seo_title: string
+          slug: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          canonical_url?: string | null
+          content?: string
+          created_at?: string
+          featured_image?: string | null
+          id?: string
+          og_image?: string | null
+          published?: boolean
+          seo_description?: string
+          seo_title?: string
+          slug: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          canonical_url?: string | null
+          content?: string
+          created_at?: string
+          featured_image?: string | null
+          id?: string
+          og_image?: string | null
+          published?: boolean
+          seo_description?: string
+          seo_title?: string
+          slug?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       prayer_requests: {
         Row: {
           anonymous: boolean
@@ -328,6 +561,7 @@ export type Database = {
           email: string | null
           id: string
           name: string | null
+          phone: string | null
           status: string
           updated_at: string
         }
@@ -339,6 +573,7 @@ export type Database = {
           email?: string | null
           id?: string
           name?: string | null
+          phone?: string | null
           status?: string
           updated_at?: string
         }
@@ -350,6 +585,7 @@ export type Database = {
           email?: string | null
           id?: string
           name?: string | null
+          phone?: string | null
           status?: string
           updated_at?: string
         }
@@ -376,6 +612,27 @@ export type Database = {
         }
         Relationships: []
       }
+      role_permissions: {
+        Row: {
+          created_at: string
+          id: string
+          permission: string
+          role: Database["public"]["Enums"]["app_role"]
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          permission: string
+          role: Database["public"]["Enums"]["app_role"]
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          permission?: string
+          role?: Database["public"]["Enums"]["app_role"]
+        }
+        Relationships: []
+      }
       sermons: {
         Row: {
           audio_url: string | null
@@ -389,6 +646,8 @@ export type Database = {
           sermon_date: string
           speaker: string
           summary: string
+          tags: string[]
+          thumbnail_url: string | null
           title: string
           updated_at: string
           video_url: string | null
@@ -405,6 +664,8 @@ export type Database = {
           sermon_date?: string
           speaker?: string
           summary?: string
+          tags?: string[]
+          thumbnail_url?: string | null
           title: string
           updated_at?: string
           video_url?: string | null
@@ -421,6 +682,8 @@ export type Database = {
           sermon_date?: string
           speaker?: string
           summary?: string
+          tags?: string[]
+          thumbnail_url?: string | null
           title?: string
           updated_at?: string
           video_url?: string | null
@@ -484,11 +747,69 @@ export type Database = {
         }
         Relationships: []
       }
+      videos: {
+        Row: {
+          category: string
+          created_at: string
+          description: string
+          duration: string
+          external_id: string | null
+          id: string
+          placement: string
+          provider: string
+          published: boolean
+          published_at: string | null
+          sort_order: number
+          thumbnail_url: string | null
+          title: string
+          updated_at: string
+          video_url: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          description?: string
+          duration?: string
+          external_id?: string | null
+          id?: string
+          placement?: string
+          provider?: string
+          published?: boolean
+          published_at?: string | null
+          sort_order?: number
+          thumbnail_url?: string | null
+          title: string
+          updated_at?: string
+          video_url: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string
+          duration?: string
+          external_id?: string | null
+          id?: string
+          placement?: string
+          provider?: string
+          published?: boolean
+          published_at?: string | null
+          sort_order?: number
+          thumbnail_url?: string | null
+          title?: string
+          updated_at?: string
+          video_url?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      has_permission: {
+        Args: { _permission: string; _user_id: string }
+        Returns: boolean
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -496,6 +817,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_staff: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
       app_role: "admin" | "editor"
