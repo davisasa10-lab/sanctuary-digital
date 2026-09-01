@@ -181,7 +181,7 @@ export function Nav() {
           {signedIn ? (
             <div className="hidden items-center gap-1 lg:flex">
               <Link
-                to="/admin"
+                to="/dashboard"
                 className={cn(
                   "flex items-center gap-1.5 rounded-full px-3.5 py-2 text-sm font-medium transition-colors",
                   scrolled
@@ -258,7 +258,7 @@ export function Nav() {
                   <>
                     <li>
                       <Link
-                        to="/admin"
+                        to="/dashboard"
                         onClick={() => setMobileOpen(false)}
                         className="block rounded-xl px-4 py-3 text-base font-medium transition-colors hover:bg-accent"
                       >

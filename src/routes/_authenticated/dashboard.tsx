@@ -17,7 +17,7 @@ import { db } from "@/lib/db-client";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export const Route = createFileRoute("/_authenticated/admin")({
+export const Route = createFileRoute("/_authenticated/dashboard")({
   component: AdminLayout,
   head: () => ({
     meta: [
@@ -35,15 +35,15 @@ export const Route = createFileRoute("/_authenticated/admin")({
 });
 
 const nav = [
-  { to: "/admin", label: "Overview", icon: LayoutDashboard, exact: true },
-  { to: "/admin/events", label: "Events", icon: CalendarDays },
-  { to: "/admin/sermons", label: "Sermons", icon: Mic },
-  { to: "/admin/gallery", label: "Gallery", icon: Image },
-  { to: "/admin/inbox", label: "Prayer & messages", icon: Inbox },
-  { to: "/admin/testimonies", label: "Testimonies", icon: Quote },
-  { to: "/admin/people", label: "Leaders & ministries", icon: Users },
-  { to: "/admin/giving", label: "Giving", icon: HandCoins },
-  { to: "/admin/live", label: "Live stream", icon: Radio },
+  { to: "/dashboard", label: "Overview", icon: LayoutDashboard, exact: true },
+  { to: "/dashboard/events", label: "Events", icon: CalendarDays },
+  { to: "/dashboard/sermons", label: "Sermons", icon: Mic },
+  { to: "/dashboard/gallery", label: "Gallery", icon: Image },
+  { to: "/dashboard/inbox", label: "Prayer & messages", icon: Inbox },
+  { to: "/dashboard/testimonies", label: "Testimonies", icon: Quote },
+  { to: "/dashboard/people", label: "Leaders & ministries", icon: Users },
+  { to: "/dashboard/giving", label: "Giving", icon: HandCoins },
+  { to: "/dashboard/live", label: "Live stream", icon: Radio },
 ] as const;
 
 export function useIsAdmin() {

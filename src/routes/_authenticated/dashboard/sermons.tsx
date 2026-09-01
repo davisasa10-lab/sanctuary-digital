@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ResourceManager } from "@/components/admin/ResourceManager";
 
-export const Route = createFileRoute("/_authenticated/admin/sermons")({
+export const Route = createFileRoute("/_authenticated/dashboard/sermons")({
   component: () => (
     <ResourceManager
       table="sermons"

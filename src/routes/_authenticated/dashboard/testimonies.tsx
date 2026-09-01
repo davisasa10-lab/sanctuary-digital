@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export const Route = createFileRoute("/_authenticated/admin/testimonies")({
+export const Route = createFileRoute("/_authenticated/dashboard/testimonies")({
   component: TestimoniesAdmin,
 });
 

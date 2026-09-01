@@ -9,7 +9,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
 
-export const Route = createFileRoute("/_authenticated/admin/inbox")({
+export const Route = createFileRoute("/_authenticated/dashboard/inbox")({
   component: InboxPage,
 });
 

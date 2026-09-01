@@ -10,7 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export const Route = createFileRoute("/_authenticated/admin/live")({
+export const Route = createFileRoute("/_authenticated/dashboard/live")({
   component: LiveAdmin,
 });
 

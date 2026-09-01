@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ResourceManager } from "@/components/admin/ResourceManager";
 import { formatDate } from "@/lib/format";
 
-export const Route = createFileRoute("/_authenticated/admin/events")({
+export const Route = createFileRoute("/_authenticated/dashboard/events")({
   component: () => (
     <ResourceManager
       table="events"

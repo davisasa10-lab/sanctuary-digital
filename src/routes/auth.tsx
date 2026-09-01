@@ -35,7 +35,7 @@ function AuthPage() {
 
   useEffect(() => {
     void supabase.auth.getSession().then(({ data }) => {
-      if (data.session) void navigate({ to: "/admin" });
+      if (data.session) void navigate({ to: "/dashboard" });
     });
   }, [navigate]);
 
@@ -46,7 +46,7 @@ function AuthPage() {
       if (mode === "signin") {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
-        void navigate({ to: "/admin" });
+        void navigate({ to: "/dashboard" });
       } else {
         const { data, error } = await supabase.auth.signUp({
           email,
@@ -57,7 +57,7 @@ function AuthPage() {
           },
         });
         if (error) throw error;
-        if (data.session) navigate({ to: "/admin" });
+        if (data.session) navigate({ to: "/dashboard" });
         else
           toast.success("Check your email", {
             description: "Confirm your address to finish creating the account.",
