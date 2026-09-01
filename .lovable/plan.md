@@ -20,6 +20,9 @@ The `editor` role already exists in the database but is unused. Enforcement happ
 ### 3. New content types
 - **Pages** — title, slug, content, featured image, status, SEO title/description, OG image, updated date. Public pages render live from these records; the existing designed layouts stay exactly as they are, with the editable text/images pulled from the CMS.
 - **Videos** — title, description, thumbnail, YouTube/Vimeo URL, category, placement (which page/section), sort order, status. Wires into the existing Media page embeds.
+  - **Pull from YouTube:** paste a YouTube link (or ID) and the dashboard fetches the video's title, description, channel and thumbnail automatically, shows a preview, and lets the editor accept or tweak the details before saving — no retyping.
+  - **Browse the church channel:** a "Import from YouTube" panel lists the latest uploads from the Next Gen Church channel so an editor can tick videos and import them in one go. This needs a YouTube Data API key; I'll request it when we get there. Without the key, single-link import still works.
+  - The same importer is reused when attaching a video to a sermon or a live broadcast.
 - **Announcements** — title, body, featured image, publish date, category, SEO; surfaced on the public site.
 - **Gallery albums** — albums containing images with captions, ordering, publish state; existing gallery items are migrated into a default album.
 - **Media library** — a storage bucket plus a metadata table (filename, alt text, size, type), with upload, browse, search, rename, delete. Used by every image picker in the CMS.
