@@ -25,16 +25,16 @@ import { Route as PrayerRouteImport } from './routes/prayer'
 import { Route as SermonsRouteImport } from './routes/sermons'
 import { Route as TestimoniesRouteImport } from './routes/testimonies'
 import { Route as VisionRouteImport } from './routes/vision'
-import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
-import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
-import { Route as AuthenticatedAdminEventsRouteImport } from './routes/_authenticated/admin/events'
-import { Route as AuthenticatedAdminGalleryRouteImport } from './routes/_authenticated/admin/gallery'
-import { Route as AuthenticatedAdminGivingRouteImport } from './routes/_authenticated/admin/giving'
-import { Route as AuthenticatedAdminInboxRouteImport } from './routes/_authenticated/admin/inbox'
-import { Route as AuthenticatedAdminLiveRouteImport } from './routes/_authenticated/admin/live'
-import { Route as AuthenticatedAdminPeopleRouteImport } from './routes/_authenticated/admin/people'
-import { Route as AuthenticatedAdminSermonsRouteImport } from './routes/_authenticated/admin/sermons'
-import { Route as AuthenticatedAdminTestimoniesRouteImport } from './routes/_authenticated/admin/testimonies'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
+import { Route as AuthenticatedDashboardEventsRouteImport } from './routes/_authenticated/dashboard/events'
+import { Route as AuthenticatedDashboardGalleryRouteImport } from './routes/_authenticated/dashboard/gallery'
+import { Route as AuthenticatedDashboardGivingRouteImport } from './routes/_authenticated/dashboard/giving'
+import { Route as AuthenticatedDashboardInboxRouteImport } from './routes/_authenticated/dashboard/inbox'
+import { Route as AuthenticatedDashboardLiveRouteImport } from './routes/_authenticated/dashboard/live'
+import { Route as AuthenticatedDashboardPeopleRouteImport } from './routes/_authenticated/dashboard/people'
+import { Route as AuthenticatedDashboardSermonsRouteImport } from './routes/_authenticated/dashboard/sermons'
+import { Route as AuthenticatedDashboardTestimoniesRouteImport } from './routes/_authenticated/dashboard/testimonies'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -115,61 +115,64 @@ const VisionRoute = VisionRouteImport.update({
   path: '/vision',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AuthenticatedAdminRoute,
-} as any)
-const AuthenticatedAdminEventsRoute =
-  AuthenticatedAdminEventsRouteImport.update({
+const AuthenticatedDashboardIndexRoute =
+  AuthenticatedDashboardIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
+const AuthenticatedDashboardEventsRoute =
+  AuthenticatedDashboardEventsRouteImport.update({
     id: '/events',
     path: '/events',
-    getParentRoute: () => AuthenticatedAdminRoute,
+    getParentRoute: () => AuthenticatedDashboardRoute,
   } as any)
-const AuthenticatedAdminGalleryRoute =
-  AuthenticatedAdminGalleryRouteImport.update({
+const AuthenticatedDashboardGalleryRoute =
+  AuthenticatedDashboardGalleryRouteImport.update({
     id: '/gallery',
     path: '/gallery',
-    getParentRoute: () => AuthenticatedAdminRoute,
+    getParentRoute: () => AuthenticatedDashboardRoute,
   } as any)
-const AuthenticatedAdminGivingRoute =
-  AuthenticatedAdminGivingRouteImport.update({
+const AuthenticatedDashboardGivingRoute =
+  AuthenticatedDashboardGivingRouteImport.update({
     id: '/giving',
     path: '/giving',
-    getParentRoute: () => AuthenticatedAdminRoute,
+    getParentRoute: () => AuthenticatedDashboardRoute,
   } as any)
-const AuthenticatedAdminInboxRoute = AuthenticatedAdminInboxRouteImport.update({
-  id: '/inbox',
-  path: '/inbox',
-  getParentRoute: () => AuthenticatedAdminRoute,
-} as any)
-const AuthenticatedAdminLiveRoute = AuthenticatedAdminLiveRouteImport.update({
-  id: '/live',
-  path: '/live',
-  getParentRoute: () => AuthenticatedAdminRoute,
-} as any)
-const AuthenticatedAdminPeopleRoute =
-  AuthenticatedAdminPeopleRouteImport.update({
+const AuthenticatedDashboardInboxRoute =
+  AuthenticatedDashboardInboxRouteImport.update({
+    id: '/inbox',
+    path: '/inbox',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
+const AuthenticatedDashboardLiveRoute =
+  AuthenticatedDashboardLiveRouteImport.update({
+    id: '/live',
+    path: '/live',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
+const AuthenticatedDashboardPeopleRoute =
+  AuthenticatedDashboardPeopleRouteImport.update({
     id: '/people',
     path: '/people',
-    getParentRoute: () => AuthenticatedAdminRoute,
+    getParentRoute: () => AuthenticatedDashboardRoute,
   } as any)
-const AuthenticatedAdminSermonsRoute =
-  AuthenticatedAdminSermonsRouteImport.update({
+const AuthenticatedDashboardSermonsRoute =
+  AuthenticatedDashboardSermonsRouteImport.update({
     id: '/sermons',
     path: '/sermons',
-    getParentRoute: () => AuthenticatedAdminRoute,
+    getParentRoute: () => AuthenticatedDashboardRoute,
   } as any)
-const AuthenticatedAdminTestimoniesRoute =
-  AuthenticatedAdminTestimoniesRouteImport.update({
+const AuthenticatedDashboardTestimoniesRoute =
+  AuthenticatedDashboardTestimoniesRouteImport.update({
     id: '/testimonies',
     path: '/testimonies',
-    getParentRoute: () => AuthenticatedAdminRoute,
+    getParentRoute: () => AuthenticatedDashboardRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -188,16 +191,16 @@ export interface FileRoutesByFullPath {
   '/sermons': typeof SermonsRoute
   '/testimonies': typeof TestimoniesRoute
   '/vision': typeof VisionRoute
-  '/admin': typeof AuthenticatedAdminRouteWithChildren
-  '/admin/events': typeof AuthenticatedAdminEventsRoute
-  '/admin/gallery': typeof AuthenticatedAdminGalleryRoute
-  '/admin/giving': typeof AuthenticatedAdminGivingRoute
-  '/admin/inbox': typeof AuthenticatedAdminInboxRoute
-  '/admin/live': typeof AuthenticatedAdminLiveRoute
-  '/admin/people': typeof AuthenticatedAdminPeopleRoute
-  '/admin/sermons': typeof AuthenticatedAdminSermonsRoute
-  '/admin/testimonies': typeof AuthenticatedAdminTestimoniesRoute
-  '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/dashboard': typeof AuthenticatedDashboardRouteWithChildren
+  '/dashboard/events': typeof AuthenticatedDashboardEventsRoute
+  '/dashboard/gallery': typeof AuthenticatedDashboardGalleryRoute
+  '/dashboard/giving': typeof AuthenticatedDashboardGivingRoute
+  '/dashboard/inbox': typeof AuthenticatedDashboardInboxRoute
+  '/dashboard/live': typeof AuthenticatedDashboardLiveRoute
+  '/dashboard/people': typeof AuthenticatedDashboardPeopleRoute
+  '/dashboard/sermons': typeof AuthenticatedDashboardSermonsRoute
+  '/dashboard/testimonies': typeof AuthenticatedDashboardTestimoniesRoute
+  '/dashboard/': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -215,15 +218,15 @@ export interface FileRoutesByTo {
   '/sermons': typeof SermonsRoute
   '/testimonies': typeof TestimoniesRoute
   '/vision': typeof VisionRoute
-  '/admin/events': typeof AuthenticatedAdminEventsRoute
-  '/admin/gallery': typeof AuthenticatedAdminGalleryRoute
-  '/admin/giving': typeof AuthenticatedAdminGivingRoute
-  '/admin/inbox': typeof AuthenticatedAdminInboxRoute
-  '/admin/live': typeof AuthenticatedAdminLiveRoute
-  '/admin/people': typeof AuthenticatedAdminPeopleRoute
-  '/admin/sermons': typeof AuthenticatedAdminSermonsRoute
-  '/admin/testimonies': typeof AuthenticatedAdminTestimoniesRoute
-  '/admin': typeof AuthenticatedAdminIndexRoute
+  '/dashboard/events': typeof AuthenticatedDashboardEventsRoute
+  '/dashboard/gallery': typeof AuthenticatedDashboardGalleryRoute
+  '/dashboard/giving': typeof AuthenticatedDashboardGivingRoute
+  '/dashboard/inbox': typeof AuthenticatedDashboardInboxRoute
+  '/dashboard/live': typeof AuthenticatedDashboardLiveRoute
+  '/dashboard/people': typeof AuthenticatedDashboardPeopleRoute
+  '/dashboard/sermons': typeof AuthenticatedDashboardSermonsRoute
+  '/dashboard/testimonies': typeof AuthenticatedDashboardTestimoniesRoute
+  '/dashboard': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -243,16 +246,16 @@ export interface FileRoutesById {
   '/sermons': typeof SermonsRoute
   '/testimonies': typeof TestimoniesRoute
   '/vision': typeof VisionRoute
-  '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
-  '/_authenticated/admin/events': typeof AuthenticatedAdminEventsRoute
-  '/_authenticated/admin/gallery': typeof AuthenticatedAdminGalleryRoute
-  '/_authenticated/admin/giving': typeof AuthenticatedAdminGivingRoute
-  '/_authenticated/admin/inbox': typeof AuthenticatedAdminInboxRoute
-  '/_authenticated/admin/live': typeof AuthenticatedAdminLiveRoute
-  '/_authenticated/admin/people': typeof AuthenticatedAdminPeopleRoute
-  '/_authenticated/admin/sermons': typeof AuthenticatedAdminSermonsRoute
-  '/_authenticated/admin/testimonies': typeof AuthenticatedAdminTestimoniesRoute
-  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRouteWithChildren
+  '/_authenticated/dashboard/events': typeof AuthenticatedDashboardEventsRoute
+  '/_authenticated/dashboard/gallery': typeof AuthenticatedDashboardGalleryRoute
+  '/_authenticated/dashboard/giving': typeof AuthenticatedDashboardGivingRoute
+  '/_authenticated/dashboard/inbox': typeof AuthenticatedDashboardInboxRoute
+  '/_authenticated/dashboard/live': typeof AuthenticatedDashboardLiveRoute
+  '/_authenticated/dashboard/people': typeof AuthenticatedDashboardPeopleRoute
+  '/_authenticated/dashboard/sermons': typeof AuthenticatedDashboardSermonsRoute
+  '/_authenticated/dashboard/testimonies': typeof AuthenticatedDashboardTestimoniesRoute
+  '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -272,16 +275,16 @@ export interface FileRouteTypes {
     | '/sermons'
     | '/testimonies'
     | '/vision'
-    | '/admin'
-    | '/admin/events'
-    | '/admin/gallery'
-    | '/admin/giving'
-    | '/admin/inbox'
-    | '/admin/live'
-    | '/admin/people'
-    | '/admin/sermons'
-    | '/admin/testimonies'
-    | '/admin/'
+    | '/dashboard'
+    | '/dashboard/events'
+    | '/dashboard/gallery'
+    | '/dashboard/giving'
+    | '/dashboard/inbox'
+    | '/dashboard/live'
+    | '/dashboard/people'
+    | '/dashboard/sermons'
+    | '/dashboard/testimonies'
+    | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -299,15 +302,15 @@ export interface FileRouteTypes {
     | '/sermons'
     | '/testimonies'
     | '/vision'
-    | '/admin/events'
-    | '/admin/gallery'
-    | '/admin/giving'
-    | '/admin/inbox'
-    | '/admin/live'
-    | '/admin/people'
-    | '/admin/sermons'
-    | '/admin/testimonies'
-    | '/admin'
+    | '/dashboard/events'
+    | '/dashboard/gallery'
+    | '/dashboard/giving'
+    | '/dashboard/inbox'
+    | '/dashboard/live'
+    | '/dashboard/people'
+    | '/dashboard/sermons'
+    | '/dashboard/testimonies'
+    | '/dashboard'
   id:
     | '__root__'
     | '/'
@@ -326,16 +329,16 @@ export interface FileRouteTypes {
     | '/sermons'
     | '/testimonies'
     | '/vision'
-    | '/_authenticated/admin'
-    | '/_authenticated/admin/events'
-    | '/_authenticated/admin/gallery'
-    | '/_authenticated/admin/giving'
-    | '/_authenticated/admin/inbox'
-    | '/_authenticated/admin/live'
-    | '/_authenticated/admin/people'
-    | '/_authenticated/admin/sermons'
-    | '/_authenticated/admin/testimonies'
-    | '/_authenticated/admin/'
+    | '/_authenticated/dashboard'
+    | '/_authenticated/dashboard/events'
+    | '/_authenticated/dashboard/gallery'
+    | '/_authenticated/dashboard/giving'
+    | '/_authenticated/dashboard/inbox'
+    | '/_authenticated/dashboard/live'
+    | '/_authenticated/dashboard/people'
+    | '/_authenticated/dashboard/sermons'
+    | '/_authenticated/dashboard/testimonies'
+    | '/_authenticated/dashboard/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -471,112 +474,116 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VisionRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/admin': {
-      id: '/_authenticated/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/admin/': {
-      id: '/_authenticated/admin/'
+    '/_authenticated/dashboard/': {
+      id: '/_authenticated/dashboard/'
       path: '/'
-      fullPath: '/admin/'
-      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof AuthenticatedDashboardIndexRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
     }
-    '/_authenticated/admin/events': {
-      id: '/_authenticated/admin/events'
+    '/_authenticated/dashboard/events': {
+      id: '/_authenticated/dashboard/events'
       path: '/events'
-      fullPath: '/admin/events'
-      preLoaderRoute: typeof AuthenticatedAdminEventsRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      fullPath: '/dashboard/events'
+      preLoaderRoute: typeof AuthenticatedDashboardEventsRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
     }
-    '/_authenticated/admin/gallery': {
-      id: '/_authenticated/admin/gallery'
+    '/_authenticated/dashboard/gallery': {
+      id: '/_authenticated/dashboard/gallery'
       path: '/gallery'
-      fullPath: '/admin/gallery'
-      preLoaderRoute: typeof AuthenticatedAdminGalleryRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      fullPath: '/dashboard/gallery'
+      preLoaderRoute: typeof AuthenticatedDashboardGalleryRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
     }
-    '/_authenticated/admin/giving': {
-      id: '/_authenticated/admin/giving'
+    '/_authenticated/dashboard/giving': {
+      id: '/_authenticated/dashboard/giving'
       path: '/giving'
-      fullPath: '/admin/giving'
-      preLoaderRoute: typeof AuthenticatedAdminGivingRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      fullPath: '/dashboard/giving'
+      preLoaderRoute: typeof AuthenticatedDashboardGivingRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
     }
-    '/_authenticated/admin/inbox': {
-      id: '/_authenticated/admin/inbox'
+    '/_authenticated/dashboard/inbox': {
+      id: '/_authenticated/dashboard/inbox'
       path: '/inbox'
-      fullPath: '/admin/inbox'
-      preLoaderRoute: typeof AuthenticatedAdminInboxRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      fullPath: '/dashboard/inbox'
+      preLoaderRoute: typeof AuthenticatedDashboardInboxRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
     }
-    '/_authenticated/admin/live': {
-      id: '/_authenticated/admin/live'
+    '/_authenticated/dashboard/live': {
+      id: '/_authenticated/dashboard/live'
       path: '/live'
-      fullPath: '/admin/live'
-      preLoaderRoute: typeof AuthenticatedAdminLiveRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      fullPath: '/dashboard/live'
+      preLoaderRoute: typeof AuthenticatedDashboardLiveRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
     }
-    '/_authenticated/admin/people': {
-      id: '/_authenticated/admin/people'
+    '/_authenticated/dashboard/people': {
+      id: '/_authenticated/dashboard/people'
       path: '/people'
-      fullPath: '/admin/people'
-      preLoaderRoute: typeof AuthenticatedAdminPeopleRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      fullPath: '/dashboard/people'
+      preLoaderRoute: typeof AuthenticatedDashboardPeopleRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
     }
-    '/_authenticated/admin/sermons': {
-      id: '/_authenticated/admin/sermons'
+    '/_authenticated/dashboard/sermons': {
+      id: '/_authenticated/dashboard/sermons'
       path: '/sermons'
-      fullPath: '/admin/sermons'
-      preLoaderRoute: typeof AuthenticatedAdminSermonsRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      fullPath: '/dashboard/sermons'
+      preLoaderRoute: typeof AuthenticatedDashboardSermonsRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
     }
-    '/_authenticated/admin/testimonies': {
-      id: '/_authenticated/admin/testimonies'
+    '/_authenticated/dashboard/testimonies': {
+      id: '/_authenticated/dashboard/testimonies'
       path: '/testimonies'
-      fullPath: '/admin/testimonies'
-      preLoaderRoute: typeof AuthenticatedAdminTestimoniesRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      fullPath: '/dashboard/testimonies'
+      preLoaderRoute: typeof AuthenticatedDashboardTestimoniesRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
     }
   }
 }
 
-interface AuthenticatedAdminRouteChildren {
-  AuthenticatedAdminEventsRoute: typeof AuthenticatedAdminEventsRoute
-  AuthenticatedAdminGalleryRoute: typeof AuthenticatedAdminGalleryRoute
-  AuthenticatedAdminGivingRoute: typeof AuthenticatedAdminGivingRoute
-  AuthenticatedAdminInboxRoute: typeof AuthenticatedAdminInboxRoute
-  AuthenticatedAdminLiveRoute: typeof AuthenticatedAdminLiveRoute
-  AuthenticatedAdminPeopleRoute: typeof AuthenticatedAdminPeopleRoute
-  AuthenticatedAdminSermonsRoute: typeof AuthenticatedAdminSermonsRoute
-  AuthenticatedAdminTestimoniesRoute: typeof AuthenticatedAdminTestimoniesRoute
-  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+interface AuthenticatedDashboardRouteChildren {
+  AuthenticatedDashboardEventsRoute: typeof AuthenticatedDashboardEventsRoute
+  AuthenticatedDashboardGalleryRoute: typeof AuthenticatedDashboardGalleryRoute
+  AuthenticatedDashboardGivingRoute: typeof AuthenticatedDashboardGivingRoute
+  AuthenticatedDashboardInboxRoute: typeof AuthenticatedDashboardInboxRoute
+  AuthenticatedDashboardLiveRoute: typeof AuthenticatedDashboardLiveRoute
+  AuthenticatedDashboardPeopleRoute: typeof AuthenticatedDashboardPeopleRoute
+  AuthenticatedDashboardSermonsRoute: typeof AuthenticatedDashboardSermonsRoute
+  AuthenticatedDashboardTestimoniesRoute: typeof AuthenticatedDashboardTestimoniesRoute
+  AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
 }
 
-const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
-  AuthenticatedAdminEventsRoute: AuthenticatedAdminEventsRoute,
-  AuthenticatedAdminGalleryRoute: AuthenticatedAdminGalleryRoute,
-  AuthenticatedAdminGivingRoute: AuthenticatedAdminGivingRoute,
-  AuthenticatedAdminInboxRoute: AuthenticatedAdminInboxRoute,
-  AuthenticatedAdminLiveRoute: AuthenticatedAdminLiveRoute,
-  AuthenticatedAdminPeopleRoute: AuthenticatedAdminPeopleRoute,
-  AuthenticatedAdminSermonsRoute: AuthenticatedAdminSermonsRoute,
-  AuthenticatedAdminTestimoniesRoute: AuthenticatedAdminTestimoniesRoute,
-  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
-}
+const AuthenticatedDashboardRouteChildren: AuthenticatedDashboardRouteChildren =
+  {
+    AuthenticatedDashboardEventsRoute: AuthenticatedDashboardEventsRoute,
+    AuthenticatedDashboardGalleryRoute: AuthenticatedDashboardGalleryRoute,
+    AuthenticatedDashboardGivingRoute: AuthenticatedDashboardGivingRoute,
+    AuthenticatedDashboardInboxRoute: AuthenticatedDashboardInboxRoute,
+    AuthenticatedDashboardLiveRoute: AuthenticatedDashboardLiveRoute,
+    AuthenticatedDashboardPeopleRoute: AuthenticatedDashboardPeopleRoute,
+    AuthenticatedDashboardSermonsRoute: AuthenticatedDashboardSermonsRoute,
+    AuthenticatedDashboardTestimoniesRoute:
+      AuthenticatedDashboardTestimoniesRoute,
+    AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
+  }
 
-const AuthenticatedAdminRouteWithChildren =
-  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
+const AuthenticatedDashboardRouteWithChildren =
+  AuthenticatedDashboardRoute._addFileChildren(
+    AuthenticatedDashboardRouteChildren,
+  )
 
 interface AuthenticatedRouteRouteChildren {
-  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRouteWithChildren,
 }
 
 const AuthenticatedRouteRouteWithChildren =

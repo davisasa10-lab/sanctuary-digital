@@ -6,7 +6,7 @@ import { ResourceManager } from "@/components/admin/ResourceManager";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 
-export const Route = createFileRoute("/_authenticated/admin/giving")({
+export const Route = createFileRoute("/_authenticated/dashboard/giving")({
   component: GivingAdmin,
 });
 

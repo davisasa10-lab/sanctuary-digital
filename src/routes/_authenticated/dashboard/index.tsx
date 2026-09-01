@@ -4,7 +4,7 @@ import { db } from "@/lib/db-client";
 import { formatMoney } from "@/lib/format";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export const Route = createFileRoute("/_authenticated/admin/")({
+export const Route = createFileRoute("/_authenticated/dashboard/")({
   component: AdminOverview,
 });
 
@@ -39,11 +39,11 @@ function AdminOverview() {
   });
 
   const cards = [
-    { label: "Published events", value: data?.events ?? 0, to: "/admin/events" },
-    { label: "Sermons in archive", value: data?.sermons ?? 0, to: "/admin/sermons" },
-    { label: "New prayer requests", value: data?.prayers ?? 0, to: "/admin/inbox" },
-    { label: "Unread messages", value: data?.messages ?? 0, to: "/admin/inbox" },
-    { label: "Testimonies awaiting approval", value: data?.pending ?? 0, to: "/admin/testimonies" },
+    { label: "Published events", value: data?.events ?? 0, to: "/dashboard/events" },
+    { label: "Sermons in archive", value: data?.sermons ?? 0, to: "/dashboard/sermons" },
+    { label: "New prayer requests", value: data?.prayers ?? 0, to: "/dashboard/inbox" },
+    { label: "Unread messages", value: data?.messages ?? 0, to: "/dashboard/inbox" },
+    { label: "Testimonies awaiting approval", value: data?.pending ?? 0, to: "/dashboard/testimonies" },
   ] as const;
 
   return (
@@ -72,7 +72,7 @@ function AdminOverview() {
             </Link>
           ))}
           <Link
-            to="/admin/giving"
+            to="/dashboard/giving"
             className="rounded-2xl border border-border bg-card p-6 shadow-soft card-lift"
           >
             <p className="text-3xl font-extrabold tracking-tight text-gold">
