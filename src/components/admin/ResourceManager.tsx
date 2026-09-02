@@ -37,7 +37,15 @@ export type Row = Record<string, unknown>;
 export type Field = {
   key: string;
   label: string;
-  type?: "text" | "textarea" | "number" | "datetime" | "date" | "switch" | "select";
+  type?:
+    | "text"
+    | "textarea"
+    | "number"
+    | "datetime"
+    | "date"
+    | "switch"
+    | "select"
+    | "media";
   options?: string[];
   placeholder?: string;
 };
@@ -48,6 +56,17 @@ export type Column = {
   render?: (row: Row) => React.ReactNode;
 };
 
+/** Maps a fetched YouTube video onto draft fields. */
+export type YouTubeMapping = {
+  urlKey: string;
+  titleKey?: string;
+  descriptionKey?: string;
+  thumbnailKey?: string;
+  durationKey?: string;
+  externalIdKey?: string;
+  publishedAtKey?: string;
+};
+
 type Props = {
   table: string;
   title: string;
@@ -56,6 +75,12 @@ type Props = {
   fields: Field[];
   defaults: Row;
   orderBy?: { column: string; ascending?: boolean };
+  /** Columns searched by the toolbar search box. */
+  searchKeys?: string[];
+  /** Column used to describe a row in the activity log. */
+  labelKey?: string;
+  /** Enables the "Import from YouTube" panel in the editor dialog. */
+  youtube?: YouTubeMapping;
 };
 
 function emptyToNull(value: unknown) {
