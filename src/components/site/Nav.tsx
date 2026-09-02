@@ -7,14 +7,14 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { ThemeToggle } from "./theme";
 import { church } from "@/data/church";
-import logo from "@/assets/nxg-logo.png.asset.json";
+import logo from "@/assets/nxg-logo.png";
 import { cn } from "@/lib/utils";
 
 const primary = [
   { to: "/", label: "Home" },
   { to: "/sermons", label: "Sermons" },
   { to: "/events", label: "Events" },
-  { to: "/live", label: "Live" },
+  { to: "/media", label: "Media" },
 ];
 
 const megaGroups = [
@@ -96,7 +96,7 @@ export function Nav() {
       >
         <Link to="/" className="flex min-w-0 items-center gap-2.5">
           <img
-            src={logo.url}
+            src={logo}
             alt={`${church.name} logo`}
             className={cn(
               "size-10 shrink-0 rounded-xl object-cover transition-shadow",
