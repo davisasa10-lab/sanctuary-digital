@@ -136,7 +136,14 @@ export function ResourceManager({
         if (error) throw new Error(error.message);
       }
     },
-    onSuccess: () => {
+    onSuccess: (_res, values) => {
+      const name = labelKey ? String(values[labelKey] ?? "") : "";
+      void logActivity({
+        action: editingId ? "update" : "create",
+        entity: table,
+        entityId: editingId,
+        summary: `${editingId ? "Updated" : "Created"} ${title.toLowerCase()}${name ? `: ${name}` : ""}`,
+      });
       toast.success(editingId ? "Changes saved" : "Created");
       setOpen(false);
       invalidate();
@@ -148,8 +155,15 @@ export function ResourceManager({
     mutationFn: async (id: string) => {
       const { error } = await db.from(table).delete().eq("id", id);
       if (error) throw new Error(error.message);
+      return id;
     },
-    onSuccess: () => {
+    onSuccess: (id) => {
+      void logActivity({
+        action: "delete",
+        entity: table,
+        entityId: id,
+        summary: `Deleted an entry in ${title.toLowerCase()}`,
+      });
       toast.success("Deleted");
       invalidate();
     },
