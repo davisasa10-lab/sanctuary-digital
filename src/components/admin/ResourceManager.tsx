@@ -98,11 +98,15 @@ export function ResourceManager({
   fields,
   defaults,
   orderBy,
+  searchKeys,
+  labelKey,
+  youtube,
 }: Props) {
   const qc = useQueryClient();
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState<Row>(defaults);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [search, setSearch] = useState("");
 
   const { data, isLoading } = useQuery({
     queryKey: [table, "admin"],
