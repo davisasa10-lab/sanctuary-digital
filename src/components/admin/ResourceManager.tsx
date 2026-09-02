@@ -191,6 +191,15 @@ export function ResourceManager({
     setOpen(true);
   };
 
+  const rows = useMemo(() => {
+    const all = data ?? [];
+    const term = search.trim().toLowerCase();
+    if (!term || !searchKeys?.length) return all;
+    return all.filter((row) =>
+      searchKeys.some((k) => String(row[k] ?? "").toLowerCase().includes(term)),
+    );
+  }, [data, search, searchKeys]);
+
   return (
     <section>
       <div className="flex flex-wrap items-end justify-between gap-4">
@@ -200,10 +209,25 @@ export function ResourceManager({
             <p className="mt-1 text-sm text-muted-foreground">{description}</p>
           ) : null}
         </div>
-        <Button className="rounded-full" onClick={openNew}>
-          <Plus className="mr-1 size-4" /> New
-        </Button>
+        <div className="flex items-center gap-2">
+          {searchKeys?.length ? (
+            <div className="relative">
+              <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search…"
+                aria-label={`Search ${title}`}
+                className="h-11 w-56 rounded-full pl-9"
+              />
+            </div>
+          ) : null}
+          <Button className="rounded-full" onClick={openNew}>
+            <Plus className="mr-1 size-4" /> New
+          </Button>
+        </div>
       </div>
+
 
       <div className="mt-6 overflow-x-auto rounded-2xl border border-border bg-card">
         {isLoading ? (
