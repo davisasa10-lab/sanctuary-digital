@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Pencil, Plus, Trash2 } from "lucide-react";
+import { Pencil, Plus, Search, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { db } from "@/lib/db-client";
+import { logActivity } from "@/lib/activity";
+import { YouTubeImportPanel } from "@/components/admin/YouTubeImportPanel";
+import { MediaPickerButton } from "@/components/admin/MediaPicker";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -37,7 +40,15 @@ export type Row = Record<string, unknown>;
 export type Field = {
   key: string;
   label: string;
-  type?: "text" | "textarea" | "number" | "datetime" | "date" | "switch" | "select";
+  type?:
+    | "text"
+    | "textarea"
+    | "number"
+    | "datetime"
+    | "date"
+    | "switch"
+    | "select"
+    | "media";
   options?: string[];
   placeholder?: string;
 };
@@ -48,6 +59,17 @@ export type Column = {
   render?: (row: Row) => React.ReactNode;
 };
 
+/** Maps a fetched YouTube video onto draft fields. */
+export type YouTubeMapping = {
+  urlKey: string;
+  titleKey?: string;
+  descriptionKey?: string;
+  thumbnailKey?: string;
+  durationKey?: string;
+  externalIdKey?: string;
+  publishedAtKey?: string;
+};
+
 type Props = {
   table: string;
   title: string;
@@ -56,6 +78,12 @@ type Props = {
   fields: Field[];
   defaults: Row;
   orderBy?: { column: string; ascending?: boolean };
+  /** Columns searched by the toolbar search box. */
+  searchKeys?: string[];
+  /** Column used to describe a row in the activity log. */
+  labelKey?: string;
+  /** Enables the "Import from YouTube" panel in the editor dialog. */
+  youtube?: YouTubeMapping;
 };
 
 function emptyToNull(value: unknown) {
@@ -70,11 +98,15 @@ export function ResourceManager({
   fields,
   defaults,
   orderBy,
+  searchKeys,
+  labelKey,
+  youtube,
 }: Props) {
   const qc = useQueryClient();
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState<Row>(defaults);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [search, setSearch] = useState("");
 
   const { data, isLoading } = useQuery({
     queryKey: [table, "admin"],
@@ -104,7 +136,14 @@ export function ResourceManager({
         if (error) throw new Error(error.message);
       }
     },
-    onSuccess: () => {
+    onSuccess: (_res, values) => {
+      const name = labelKey ? String(values[labelKey] ?? "") : "";
+      void logActivity({
+        action: editingId ? "update" : "create",
+        entity: table,
+        entityId: editingId,
+        summary: `${editingId ? "Updated" : "Created"} ${title.toLowerCase()}${name ? `: ${name}` : ""}`,
+      });
       toast.success(editingId ? "Changes saved" : "Created");
       setOpen(false);
       invalidate();
@@ -116,8 +155,15 @@ export function ResourceManager({
     mutationFn: async (id: string) => {
       const { error } = await db.from(table).delete().eq("id", id);
       if (error) throw new Error(error.message);
+      return id;
     },
-    onSuccess: () => {
+    onSuccess: (id) => {
+      void logActivity({
+        action: "delete",
+        entity: table,
+        entityId: id,
+        summary: `Deleted an entry in ${title.toLowerCase()}`,
+      });
       toast.success("Deleted");
       invalidate();
     },
@@ -145,6 +191,15 @@ export function ResourceManager({
     setOpen(true);
   };
 
+  const rows = useMemo(() => {
+    const all = data ?? [];
+    const term = search.trim().toLowerCase();
+    if (!term || !searchKeys?.length) return all;
+    return all.filter((row) =>
+      searchKeys.some((k) => String(row[k] ?? "").toLowerCase().includes(term)),
+    );
+  }, [data, search, searchKeys]);
+
   return (
     <section>
       <div className="flex flex-wrap items-end justify-between gap-4">
@@ -154,10 +209,25 @@ export function ResourceManager({
             <p className="mt-1 text-sm text-muted-foreground">{description}</p>
           ) : null}
         </div>
-        <Button className="rounded-full" onClick={openNew}>
-          <Plus className="mr-1 size-4" /> New
-        </Button>
+        <div className="flex items-center gap-2">
+          {searchKeys?.length ? (
+            <div className="relative">
+              <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search…"
+                aria-label={`Search ${title}`}
+                className="h-11 w-56 rounded-full pl-9"
+              />
+            </div>
+          ) : null}
+          <Button className="rounded-full" onClick={openNew}>
+            <Plus className="mr-1 size-4" /> New
+          </Button>
+        </div>
       </div>
+
 
       <div className="mt-6 overflow-x-auto rounded-2xl border border-border bg-card">
         {isLoading ? (
