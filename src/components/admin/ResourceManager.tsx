@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Pencil, Plus, Trash2 } from "lucide-react";
+import { Pencil, Plus, Search, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { db } from "@/lib/db-client";
+import { logActivity } from "@/lib/activity";
+import { YouTubeImportPanel } from "@/components/admin/YouTubeImportPanel";
+import { MediaPickerButton } from "@/components/admin/MediaPicker";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
