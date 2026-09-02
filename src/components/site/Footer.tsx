@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { church, services } from "@/data/church";
-import logo from "@/assets/nxg-logo.png.asset.json";
+import logo from "@/assets/nxg-logo.png";
 
 const columns = [
   {
@@ -20,7 +20,7 @@ const columns = [
     title: "Media",
     links: [
       { to: "/sermons", label: "Sermons" },
-      { to: "/live", label: "Live stream" },
+      { to: "/media", label: "Media & live" },
       { to: "/gallery", label: "Gallery" },
       { to: "/testimonies", label: "Testimonies" },
     ],
@@ -44,7 +44,7 @@ export function Footer() {
           <div>
             <Link to="/" className="flex items-center gap-2.5">
               <img
-                src={logo.url}
+                src={logo}
                 alt={`${church.name} logo`}
                 className="size-10 rounded-xl object-cover"
               />
