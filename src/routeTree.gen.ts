@@ -27,14 +27,20 @@ import { Route as TestimoniesRouteImport } from './routes/testimonies'
 import { Route as VisionRouteImport } from './routes/vision'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
+import { Route as AuthenticatedDashboardActivityRouteImport } from './routes/_authenticated/dashboard/activity'
+import { Route as AuthenticatedDashboardAlbumsRouteImport } from './routes/_authenticated/dashboard/albums'
 import { Route as AuthenticatedDashboardEventsRouteImport } from './routes/_authenticated/dashboard/events'
 import { Route as AuthenticatedDashboardGalleryRouteImport } from './routes/_authenticated/dashboard/gallery'
 import { Route as AuthenticatedDashboardGivingRouteImport } from './routes/_authenticated/dashboard/giving'
 import { Route as AuthenticatedDashboardInboxRouteImport } from './routes/_authenticated/dashboard/inbox'
 import { Route as AuthenticatedDashboardLiveRouteImport } from './routes/_authenticated/dashboard/live'
+import { Route as AuthenticatedDashboardMediaRouteImport } from './routes/_authenticated/dashboard/media'
+import { Route as AuthenticatedDashboardNewsRouteImport } from './routes/_authenticated/dashboard/news'
+import { Route as AuthenticatedDashboardPagesRouteImport } from './routes/_authenticated/dashboard/pages'
 import { Route as AuthenticatedDashboardPeopleRouteImport } from './routes/_authenticated/dashboard/people'
 import { Route as AuthenticatedDashboardSermonsRouteImport } from './routes/_authenticated/dashboard/sermons'
 import { Route as AuthenticatedDashboardTestimoniesRouteImport } from './routes/_authenticated/dashboard/testimonies'
+import { Route as AuthenticatedDashboardVideosRouteImport } from './routes/_authenticated/dashboard/videos'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -126,6 +132,18 @@ const AuthenticatedDashboardIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedDashboardRoute,
   } as any)
+const AuthenticatedDashboardActivityRoute =
+  AuthenticatedDashboardActivityRouteImport.update({
+    id: '/activity',
+    path: '/activity',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
+const AuthenticatedDashboardAlbumsRoute =
+  AuthenticatedDashboardAlbumsRouteImport.update({
+    id: '/albums',
+    path: '/albums',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
 const AuthenticatedDashboardEventsRoute =
   AuthenticatedDashboardEventsRouteImport.update({
     id: '/events',
@@ -156,6 +174,24 @@ const AuthenticatedDashboardLiveRoute =
     path: '/live',
     getParentRoute: () => AuthenticatedDashboardRoute,
   } as any)
+const AuthenticatedDashboardMediaRoute =
+  AuthenticatedDashboardMediaRouteImport.update({
+    id: '/media',
+    path: '/media',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
+const AuthenticatedDashboardNewsRoute =
+  AuthenticatedDashboardNewsRouteImport.update({
+    id: '/news',
+    path: '/news',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
+const AuthenticatedDashboardPagesRoute =
+  AuthenticatedDashboardPagesRouteImport.update({
+    id: '/pages',
+    path: '/pages',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
 const AuthenticatedDashboardPeopleRoute =
   AuthenticatedDashboardPeopleRouteImport.update({
     id: '/people',
@@ -172,6 +208,12 @@ const AuthenticatedDashboardTestimoniesRoute =
   AuthenticatedDashboardTestimoniesRouteImport.update({
     id: '/testimonies',
     path: '/testimonies',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
+const AuthenticatedDashboardVideosRoute =
+  AuthenticatedDashboardVideosRouteImport.update({
+    id: '/videos',
+    path: '/videos',
     getParentRoute: () => AuthenticatedDashboardRoute,
   } as any)
 
@@ -192,14 +234,20 @@ export interface FileRoutesByFullPath {
   '/testimonies': typeof TestimoniesRoute
   '/vision': typeof VisionRoute
   '/dashboard': typeof AuthenticatedDashboardRouteWithChildren
+  '/dashboard/activity': typeof AuthenticatedDashboardActivityRoute
+  '/dashboard/albums': typeof AuthenticatedDashboardAlbumsRoute
   '/dashboard/events': typeof AuthenticatedDashboardEventsRoute
   '/dashboard/gallery': typeof AuthenticatedDashboardGalleryRoute
   '/dashboard/giving': typeof AuthenticatedDashboardGivingRoute
   '/dashboard/inbox': typeof AuthenticatedDashboardInboxRoute
   '/dashboard/live': typeof AuthenticatedDashboardLiveRoute
+  '/dashboard/media': typeof AuthenticatedDashboardMediaRoute
+  '/dashboard/news': typeof AuthenticatedDashboardNewsRoute
+  '/dashboard/pages': typeof AuthenticatedDashboardPagesRoute
   '/dashboard/people': typeof AuthenticatedDashboardPeopleRoute
   '/dashboard/sermons': typeof AuthenticatedDashboardSermonsRoute
   '/dashboard/testimonies': typeof AuthenticatedDashboardTestimoniesRoute
+  '/dashboard/videos': typeof AuthenticatedDashboardVideosRoute
   '/dashboard/': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRoutesByTo {
@@ -218,14 +266,20 @@ export interface FileRoutesByTo {
   '/sermons': typeof SermonsRoute
   '/testimonies': typeof TestimoniesRoute
   '/vision': typeof VisionRoute
+  '/dashboard/activity': typeof AuthenticatedDashboardActivityRoute
+  '/dashboard/albums': typeof AuthenticatedDashboardAlbumsRoute
   '/dashboard/events': typeof AuthenticatedDashboardEventsRoute
   '/dashboard/gallery': typeof AuthenticatedDashboardGalleryRoute
   '/dashboard/giving': typeof AuthenticatedDashboardGivingRoute
   '/dashboard/inbox': typeof AuthenticatedDashboardInboxRoute
   '/dashboard/live': typeof AuthenticatedDashboardLiveRoute
+  '/dashboard/media': typeof AuthenticatedDashboardMediaRoute
+  '/dashboard/news': typeof AuthenticatedDashboardNewsRoute
+  '/dashboard/pages': typeof AuthenticatedDashboardPagesRoute
   '/dashboard/people': typeof AuthenticatedDashboardPeopleRoute
   '/dashboard/sermons': typeof AuthenticatedDashboardSermonsRoute
   '/dashboard/testimonies': typeof AuthenticatedDashboardTestimoniesRoute
+  '/dashboard/videos': typeof AuthenticatedDashboardVideosRoute
   '/dashboard': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRoutesById {
@@ -247,14 +301,20 @@ export interface FileRoutesById {
   '/testimonies': typeof TestimoniesRoute
   '/vision': typeof VisionRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRouteWithChildren
+  '/_authenticated/dashboard/activity': typeof AuthenticatedDashboardActivityRoute
+  '/_authenticated/dashboard/albums': typeof AuthenticatedDashboardAlbumsRoute
   '/_authenticated/dashboard/events': typeof AuthenticatedDashboardEventsRoute
   '/_authenticated/dashboard/gallery': typeof AuthenticatedDashboardGalleryRoute
   '/_authenticated/dashboard/giving': typeof AuthenticatedDashboardGivingRoute
   '/_authenticated/dashboard/inbox': typeof AuthenticatedDashboardInboxRoute
   '/_authenticated/dashboard/live': typeof AuthenticatedDashboardLiveRoute
+  '/_authenticated/dashboard/media': typeof AuthenticatedDashboardMediaRoute
+  '/_authenticated/dashboard/news': typeof AuthenticatedDashboardNewsRoute
+  '/_authenticated/dashboard/pages': typeof AuthenticatedDashboardPagesRoute
   '/_authenticated/dashboard/people': typeof AuthenticatedDashboardPeopleRoute
   '/_authenticated/dashboard/sermons': typeof AuthenticatedDashboardSermonsRoute
   '/_authenticated/dashboard/testimonies': typeof AuthenticatedDashboardTestimoniesRoute
+  '/_authenticated/dashboard/videos': typeof AuthenticatedDashboardVideosRoute
   '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRouteTypes {
@@ -276,14 +336,20 @@ export interface FileRouteTypes {
     | '/testimonies'
     | '/vision'
     | '/dashboard'
+    | '/dashboard/activity'
+    | '/dashboard/albums'
     | '/dashboard/events'
     | '/dashboard/gallery'
     | '/dashboard/giving'
     | '/dashboard/inbox'
     | '/dashboard/live'
+    | '/dashboard/media'
+    | '/dashboard/news'
+    | '/dashboard/pages'
     | '/dashboard/people'
     | '/dashboard/sermons'
     | '/dashboard/testimonies'
+    | '/dashboard/videos'
     | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -302,14 +368,20 @@ export interface FileRouteTypes {
     | '/sermons'
     | '/testimonies'
     | '/vision'
+    | '/dashboard/activity'
+    | '/dashboard/albums'
     | '/dashboard/events'
     | '/dashboard/gallery'
     | '/dashboard/giving'
     | '/dashboard/inbox'
     | '/dashboard/live'
+    | '/dashboard/media'
+    | '/dashboard/news'
+    | '/dashboard/pages'
     | '/dashboard/people'
     | '/dashboard/sermons'
     | '/dashboard/testimonies'
+    | '/dashboard/videos'
     | '/dashboard'
   id:
     | '__root__'
@@ -330,14 +402,20 @@ export interface FileRouteTypes {
     | '/testimonies'
     | '/vision'
     | '/_authenticated/dashboard'
+    | '/_authenticated/dashboard/activity'
+    | '/_authenticated/dashboard/albums'
     | '/_authenticated/dashboard/events'
     | '/_authenticated/dashboard/gallery'
     | '/_authenticated/dashboard/giving'
     | '/_authenticated/dashboard/inbox'
     | '/_authenticated/dashboard/live'
+    | '/_authenticated/dashboard/media'
+    | '/_authenticated/dashboard/news'
+    | '/_authenticated/dashboard/pages'
     | '/_authenticated/dashboard/people'
     | '/_authenticated/dashboard/sermons'
     | '/_authenticated/dashboard/testimonies'
+    | '/_authenticated/dashboard/videos'
     | '/_authenticated/dashboard/'
   fileRoutesById: FileRoutesById
 }
@@ -488,6 +566,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardIndexRouteImport
       parentRoute: typeof AuthenticatedDashboardRoute
     }
+    '/_authenticated/dashboard/activity': {
+      id: '/_authenticated/dashboard/activity'
+      path: '/activity'
+      fullPath: '/dashboard/activity'
+      preLoaderRoute: typeof AuthenticatedDashboardActivityRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
+    '/_authenticated/dashboard/albums': {
+      id: '/_authenticated/dashboard/albums'
+      path: '/albums'
+      fullPath: '/dashboard/albums'
+      preLoaderRoute: typeof AuthenticatedDashboardAlbumsRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
     '/_authenticated/dashboard/events': {
       id: '/_authenticated/dashboard/events'
       path: '/events'
@@ -523,6 +615,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardLiveRouteImport
       parentRoute: typeof AuthenticatedDashboardRoute
     }
+    '/_authenticated/dashboard/media': {
+      id: '/_authenticated/dashboard/media'
+      path: '/media'
+      fullPath: '/dashboard/media'
+      preLoaderRoute: typeof AuthenticatedDashboardMediaRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
+    '/_authenticated/dashboard/news': {
+      id: '/_authenticated/dashboard/news'
+      path: '/news'
+      fullPath: '/dashboard/news'
+      preLoaderRoute: typeof AuthenticatedDashboardNewsRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
+    '/_authenticated/dashboard/pages': {
+      id: '/_authenticated/dashboard/pages'
+      path: '/pages'
+      fullPath: '/dashboard/pages'
+      preLoaderRoute: typeof AuthenticatedDashboardPagesRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
     '/_authenticated/dashboard/people': {
       id: '/_authenticated/dashboard/people'
       path: '/people'
@@ -544,32 +657,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardTestimoniesRouteImport
       parentRoute: typeof AuthenticatedDashboardRoute
     }
+    '/_authenticated/dashboard/videos': {
+      id: '/_authenticated/dashboard/videos'
+      path: '/videos'
+      fullPath: '/dashboard/videos'
+      preLoaderRoute: typeof AuthenticatedDashboardVideosRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
   }
 }
 
 interface AuthenticatedDashboardRouteChildren {
+  AuthenticatedDashboardActivityRoute: typeof AuthenticatedDashboardActivityRoute
+  AuthenticatedDashboardAlbumsRoute: typeof AuthenticatedDashboardAlbumsRoute
   AuthenticatedDashboardEventsRoute: typeof AuthenticatedDashboardEventsRoute
   AuthenticatedDashboardGalleryRoute: typeof AuthenticatedDashboardGalleryRoute
   AuthenticatedDashboardGivingRoute: typeof AuthenticatedDashboardGivingRoute
   AuthenticatedDashboardInboxRoute: typeof AuthenticatedDashboardInboxRoute
   AuthenticatedDashboardLiveRoute: typeof AuthenticatedDashboardLiveRoute
+  AuthenticatedDashboardMediaRoute: typeof AuthenticatedDashboardMediaRoute
+  AuthenticatedDashboardNewsRoute: typeof AuthenticatedDashboardNewsRoute
+  AuthenticatedDashboardPagesRoute: typeof AuthenticatedDashboardPagesRoute
   AuthenticatedDashboardPeopleRoute: typeof AuthenticatedDashboardPeopleRoute
   AuthenticatedDashboardSermonsRoute: typeof AuthenticatedDashboardSermonsRoute
   AuthenticatedDashboardTestimoniesRoute: typeof AuthenticatedDashboardTestimoniesRoute
+  AuthenticatedDashboardVideosRoute: typeof AuthenticatedDashboardVideosRoute
   AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
 }
 
 const AuthenticatedDashboardRouteChildren: AuthenticatedDashboardRouteChildren =
   {
+    AuthenticatedDashboardActivityRoute: AuthenticatedDashboardActivityRoute,
+    AuthenticatedDashboardAlbumsRoute: AuthenticatedDashboardAlbumsRoute,
     AuthenticatedDashboardEventsRoute: AuthenticatedDashboardEventsRoute,
     AuthenticatedDashboardGalleryRoute: AuthenticatedDashboardGalleryRoute,
     AuthenticatedDashboardGivingRoute: AuthenticatedDashboardGivingRoute,
     AuthenticatedDashboardInboxRoute: AuthenticatedDashboardInboxRoute,
     AuthenticatedDashboardLiveRoute: AuthenticatedDashboardLiveRoute,
+    AuthenticatedDashboardMediaRoute: AuthenticatedDashboardMediaRoute,
+    AuthenticatedDashboardNewsRoute: AuthenticatedDashboardNewsRoute,
+    AuthenticatedDashboardPagesRoute: AuthenticatedDashboardPagesRoute,
     AuthenticatedDashboardPeopleRoute: AuthenticatedDashboardPeopleRoute,
     AuthenticatedDashboardSermonsRoute: AuthenticatedDashboardSermonsRoute,
     AuthenticatedDashboardTestimoniesRoute:
       AuthenticatedDashboardTestimoniesRoute,
+    AuthenticatedDashboardVideosRoute: AuthenticatedDashboardVideosRoute,
     AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
   }
 
