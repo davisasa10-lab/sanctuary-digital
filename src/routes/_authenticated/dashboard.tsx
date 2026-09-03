@@ -34,35 +34,74 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
   }),
 });
 
-const nav = [
-  { to: "/dashboard", label: "Overview", icon: LayoutDashboard, exact: true },
-  { to: "/dashboard/events", label: "Events", icon: CalendarDays },
-  { to: "/dashboard/sermons", label: "Sermons", icon: Mic },
-  { to: "/dashboard/gallery", label: "Gallery", icon: Image },
-  { to: "/dashboard/inbox", label: "Prayer & messages", icon: Inbox },
-  { to: "/dashboard/testimonies", label: "Testimonies", icon: Quote },
-  { to: "/dashboard/people", label: "Leaders & ministries", icon: Users },
-  { to: "/dashboard/giving", label: "Giving", icon: HandCoins },
-  { to: "/dashboard/live", label: "Live stream", icon: Radio },
-] as const;
+type NavItem = {
+  to: string;
+  label: string;
+  icon: typeof LayoutDashboard;
+  exact?: boolean;
+  adminOnly?: boolean;
+};
 
-export function useIsAdmin() {
-  return useQuery({
-    queryKey: ["is-admin"],
+const navGroups: Array<{ heading: string; items: NavItem[] }> = [
+  {
+    heading: "Overview",
+    items: [{ to: "/dashboard", label: "Overview", icon: LayoutDashboard, exact: true }],
+  },
+  {
+    heading: "Content",
+    items: [
+      { to: "/dashboard/pages", label: "Pages", icon: FileText },
+      { to: "/dashboard/news", label: "News", icon: Newspaper },
+      { to: "/dashboard/events", label: "Events", icon: CalendarDays },
+      { to: "/dashboard/sermons", label: "Sermons", icon: Mic },
+      { to: "/dashboard/videos", label: "Videos", icon: Video },
+      { to: "/dashboard/albums", label: "Gallery albums", icon: FolderOpen },
+      { to: "/dashboard/gallery", label: "Gallery items", icon: Image },
+      { to: "/dashboard/media", label: "Media library", icon: ImagePlus },
+      { to: "/dashboard/live", label: "Live stream", icon: Radio },
+    ],
+  },
+  {
+    heading: "People",
+    items: [
+      { to: "/dashboard/inbox", label: "Prayer & messages", icon: Inbox },
+      { to: "/dashboard/testimonies", label: "Testimonies", icon: Quote },
+      { to: "/dashboard/people", label: "Leaders & ministries", icon: Users },
+      { to: "/dashboard/users", label: "Users & roles", icon: ShieldCheck, adminOnly: true },
+    ],
+  },
+  {
+    heading: "Admin",
+    items: [
+      { to: "/dashboard/giving", label: "Giving", icon: HandCoins, adminOnly: true },
+      { to: "/dashboard/activity", label: "Activity log", icon: History, adminOnly: true },
+    ],
+  },
+];
+
+export type StaffRole = "admin" | "editor" | null;
+
+/** Current user's CMS role, or null when they have none. */
+export function useStaffRole() {
+  return useQuery<StaffRole>({
+    queryKey: ["staff-role"],
     queryFn: async () => {
       const { data: userData } = await supabase.auth.getUser();
       const uid = userData.user?.id;
-      if (!uid) return false;
-      const { data, error } = await db
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", uid)
-        .eq("role", "admin")
-        .maybeSingle();
-      if (error) return false;
-      return Boolean(data);
+      if (!uid) return null;
+      const { data, error } = await db.from("user_roles").select("role").eq("user_id", uid);
+      if (error) return null;
+      const roles = (data ?? []).map((r: Record<string, unknown>) => String(r["role"]));
+      if (roles.includes("admin")) return "admin";
+      if (roles.includes("editor")) return "editor";
+      return null;
     },
   });
+}
+
+export function useIsAdmin() {
+  const { data, ...rest } = useStaffRole();
+  return { ...rest, data: data === "admin" } as const;
 }
 
 function AdminLayout() {
