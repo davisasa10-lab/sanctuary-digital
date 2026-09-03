@@ -294,8 +294,51 @@ export function ResourceManager({
               save.mutate(draft);
             }}
           >
+            {youtube ? (
+              <YouTubeImportPanel
+                onPick={(info) => {
+                  const patch: Row = { [youtube.urlKey]: info.url };
+                  if (youtube.titleKey && info.title) patch[youtube.titleKey] = info.title;
+                  if (youtube.descriptionKey && info.description)
+                    patch[youtube.descriptionKey] = info.description;
+                  if (youtube.thumbnailKey) patch[youtube.thumbnailKey] = info.thumbnailUrl;
+                  if (youtube.durationKey && info.duration)
+                    patch[youtube.durationKey] = info.duration;
+                  if (youtube.externalIdKey) patch[youtube.externalIdKey] = info.videoId;
+                  if (youtube.publishedAtKey && info.publishedAt)
+                    patch[youtube.publishedAtKey] = info.publishedAt.slice(0, 16);
+                  setDraft((d) => ({ ...d, ...patch }));
+                }}
+              />
+            ) : null}
             {fields.map((f) => {
               const value = draft[f.key];
+              if (f.type === "media") {
+                return (
+                  <div key={f.key} className="grid gap-2">
+                    <Label htmlFor={f.key}>{f.label}</Label>
+                    <div className="flex gap-2">
+                      <Input
+                        id={f.key}
+                        className="h-11 rounded-xl"
+                        placeholder={f.placeholder ?? "https://…"}
+                        value={String(value ?? "")}
+                        onChange={(e) => setDraft({ ...draft, [f.key]: e.target.value })}
+                      />
+                      <MediaPickerButton
+                        onSelect={(url) => setDraft((d) => ({ ...d, [f.key]: url }))}
+                      />
+                    </div>
+                    {value ? (
+                      <img
+                        src={String(value)}
+                        alt=""
+                        className="h-24 w-full rounded-xl object-cover"
+                      />
+                    ) : null}
+                  </div>
+                );
+              }
               if (f.type === "switch") {
                 return (
                   <div
