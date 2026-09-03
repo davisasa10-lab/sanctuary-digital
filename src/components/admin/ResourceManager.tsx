@@ -236,7 +236,7 @@ export function ResourceManager({
             <Skeleton className="h-6 w-2/3" />
             <Skeleton className="h-6 w-1/2" />
           </div>
-        ) : (data ?? []).length === 0 ? (
+        ) : rows.length === 0 ? (
           <p className="p-10 text-center text-sm text-muted-foreground">
             Nothing here yet. Create the first entry.
           </p>
@@ -251,7 +251,7 @@ export function ResourceManager({
               </TableRow>
             </TableHeader>
             <TableBody>
-              {(data ?? []).map((row) => (
+              {rows.map((row) => (
                 <TableRow key={String(row["id"])}>
                   {columns.map((c) => (
                     <TableCell key={c.key} className="max-w-xs truncate align-top">
