@@ -33,6 +33,7 @@ import { Route as AuthenticatedDashboardGalleryRouteImport } from './routes/_aut
 import { Route as AuthenticatedDashboardGivingRouteImport } from './routes/_authenticated/dashboard/giving'
 import { Route as AuthenticatedDashboardInboxRouteImport } from './routes/_authenticated/dashboard/inbox'
 import { Route as AuthenticatedDashboardLiveRouteImport } from './routes/_authenticated/dashboard/live'
+import { Route as AuthenticatedDashboardMediaRouteImport } from './routes/_authenticated/dashboard/media'
 import { Route as AuthenticatedDashboardNewsRouteImport } from './routes/_authenticated/dashboard/news'
 import { Route as AuthenticatedDashboardPagesRouteImport } from './routes/_authenticated/dashboard/pages'
 import { Route as AuthenticatedDashboardPeopleRouteImport } from './routes/_authenticated/dashboard/people'
@@ -166,6 +167,12 @@ const AuthenticatedDashboardLiveRoute =
     path: '/live',
     getParentRoute: () => AuthenticatedDashboardRoute,
   } as any)
+const AuthenticatedDashboardMediaRoute =
+  AuthenticatedDashboardMediaRouteImport.update({
+    id: '/media',
+    path: '/media',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
 const AuthenticatedDashboardNewsRoute =
   AuthenticatedDashboardNewsRouteImport.update({
     id: '/news',
@@ -226,6 +233,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/giving': typeof AuthenticatedDashboardGivingRoute
   '/dashboard/inbox': typeof AuthenticatedDashboardInboxRoute
   '/dashboard/live': typeof AuthenticatedDashboardLiveRoute
+  '/dashboard/media': typeof AuthenticatedDashboardMediaRoute
   '/dashboard/news': typeof AuthenticatedDashboardNewsRoute
   '/dashboard/pages': typeof AuthenticatedDashboardPagesRoute
   '/dashboard/people': typeof AuthenticatedDashboardPeopleRoute
@@ -256,6 +264,7 @@ export interface FileRoutesByTo {
   '/dashboard/giving': typeof AuthenticatedDashboardGivingRoute
   '/dashboard/inbox': typeof AuthenticatedDashboardInboxRoute
   '/dashboard/live': typeof AuthenticatedDashboardLiveRoute
+  '/dashboard/media': typeof AuthenticatedDashboardMediaRoute
   '/dashboard/news': typeof AuthenticatedDashboardNewsRoute
   '/dashboard/pages': typeof AuthenticatedDashboardPagesRoute
   '/dashboard/people': typeof AuthenticatedDashboardPeopleRoute
@@ -289,6 +298,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard/giving': typeof AuthenticatedDashboardGivingRoute
   '/_authenticated/dashboard/inbox': typeof AuthenticatedDashboardInboxRoute
   '/_authenticated/dashboard/live': typeof AuthenticatedDashboardLiveRoute
+  '/_authenticated/dashboard/media': typeof AuthenticatedDashboardMediaRoute
   '/_authenticated/dashboard/news': typeof AuthenticatedDashboardNewsRoute
   '/_authenticated/dashboard/pages': typeof AuthenticatedDashboardPagesRoute
   '/_authenticated/dashboard/people': typeof AuthenticatedDashboardPeopleRoute
@@ -322,6 +332,7 @@ export interface FileRouteTypes {
     | '/dashboard/giving'
     | '/dashboard/inbox'
     | '/dashboard/live'
+    | '/dashboard/media'
     | '/dashboard/news'
     | '/dashboard/pages'
     | '/dashboard/people'
@@ -352,6 +363,7 @@ export interface FileRouteTypes {
     | '/dashboard/giving'
     | '/dashboard/inbox'
     | '/dashboard/live'
+    | '/dashboard/media'
     | '/dashboard/news'
     | '/dashboard/pages'
     | '/dashboard/people'
@@ -384,6 +396,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard/giving'
     | '/_authenticated/dashboard/inbox'
     | '/_authenticated/dashboard/live'
+    | '/_authenticated/dashboard/media'
     | '/_authenticated/dashboard/news'
     | '/_authenticated/dashboard/pages'
     | '/_authenticated/dashboard/people'
@@ -582,6 +595,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardLiveRouteImport
       parentRoute: typeof AuthenticatedDashboardRoute
     }
+    '/_authenticated/dashboard/media': {
+      id: '/_authenticated/dashboard/media'
+      path: '/media'
+      fullPath: '/dashboard/media'
+      preLoaderRoute: typeof AuthenticatedDashboardMediaRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
     '/_authenticated/dashboard/news': {
       id: '/_authenticated/dashboard/news'
       path: '/news'
@@ -634,6 +654,7 @@ interface AuthenticatedDashboardRouteChildren {
   AuthenticatedDashboardGivingRoute: typeof AuthenticatedDashboardGivingRoute
   AuthenticatedDashboardInboxRoute: typeof AuthenticatedDashboardInboxRoute
   AuthenticatedDashboardLiveRoute: typeof AuthenticatedDashboardLiveRoute
+  AuthenticatedDashboardMediaRoute: typeof AuthenticatedDashboardMediaRoute
   AuthenticatedDashboardNewsRoute: typeof AuthenticatedDashboardNewsRoute
   AuthenticatedDashboardPagesRoute: typeof AuthenticatedDashboardPagesRoute
   AuthenticatedDashboardPeopleRoute: typeof AuthenticatedDashboardPeopleRoute
@@ -651,6 +672,7 @@ const AuthenticatedDashboardRouteChildren: AuthenticatedDashboardRouteChildren =
     AuthenticatedDashboardGivingRoute: AuthenticatedDashboardGivingRoute,
     AuthenticatedDashboardInboxRoute: AuthenticatedDashboardInboxRoute,
     AuthenticatedDashboardLiveRoute: AuthenticatedDashboardLiveRoute,
+    AuthenticatedDashboardMediaRoute: AuthenticatedDashboardMediaRoute,
     AuthenticatedDashboardNewsRoute: AuthenticatedDashboardNewsRoute,
     AuthenticatedDashboardPagesRoute: AuthenticatedDashboardPagesRoute,
     AuthenticatedDashboardPeopleRoute: AuthenticatedDashboardPeopleRoute,
