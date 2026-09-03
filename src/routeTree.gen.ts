@@ -32,6 +32,7 @@ import { Route as AuthenticatedDashboardGalleryRouteImport } from './routes/_aut
 import { Route as AuthenticatedDashboardGivingRouteImport } from './routes/_authenticated/dashboard/giving'
 import { Route as AuthenticatedDashboardInboxRouteImport } from './routes/_authenticated/dashboard/inbox'
 import { Route as AuthenticatedDashboardLiveRouteImport } from './routes/_authenticated/dashboard/live'
+import { Route as AuthenticatedDashboardNewsRouteImport } from './routes/_authenticated/dashboard/news'
 import { Route as AuthenticatedDashboardPagesRouteImport } from './routes/_authenticated/dashboard/pages'
 import { Route as AuthenticatedDashboardPeopleRouteImport } from './routes/_authenticated/dashboard/people'
 import { Route as AuthenticatedDashboardSermonsRouteImport } from './routes/_authenticated/dashboard/sermons'
@@ -158,6 +159,12 @@ const AuthenticatedDashboardLiveRoute =
     path: '/live',
     getParentRoute: () => AuthenticatedDashboardRoute,
   } as any)
+const AuthenticatedDashboardNewsRoute =
+  AuthenticatedDashboardNewsRouteImport.update({
+    id: '/news',
+    path: '/news',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
 const AuthenticatedDashboardPagesRoute =
   AuthenticatedDashboardPagesRouteImport.update({
     id: '/pages',
@@ -211,6 +218,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/giving': typeof AuthenticatedDashboardGivingRoute
   '/dashboard/inbox': typeof AuthenticatedDashboardInboxRoute
   '/dashboard/live': typeof AuthenticatedDashboardLiveRoute
+  '/dashboard/news': typeof AuthenticatedDashboardNewsRoute
   '/dashboard/pages': typeof AuthenticatedDashboardPagesRoute
   '/dashboard/people': typeof AuthenticatedDashboardPeopleRoute
   '/dashboard/sermons': typeof AuthenticatedDashboardSermonsRoute
@@ -239,6 +247,7 @@ export interface FileRoutesByTo {
   '/dashboard/giving': typeof AuthenticatedDashboardGivingRoute
   '/dashboard/inbox': typeof AuthenticatedDashboardInboxRoute
   '/dashboard/live': typeof AuthenticatedDashboardLiveRoute
+  '/dashboard/news': typeof AuthenticatedDashboardNewsRoute
   '/dashboard/pages': typeof AuthenticatedDashboardPagesRoute
   '/dashboard/people': typeof AuthenticatedDashboardPeopleRoute
   '/dashboard/sermons': typeof AuthenticatedDashboardSermonsRoute
@@ -270,6 +279,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard/giving': typeof AuthenticatedDashboardGivingRoute
   '/_authenticated/dashboard/inbox': typeof AuthenticatedDashboardInboxRoute
   '/_authenticated/dashboard/live': typeof AuthenticatedDashboardLiveRoute
+  '/_authenticated/dashboard/news': typeof AuthenticatedDashboardNewsRoute
   '/_authenticated/dashboard/pages': typeof AuthenticatedDashboardPagesRoute
   '/_authenticated/dashboard/people': typeof AuthenticatedDashboardPeopleRoute
   '/_authenticated/dashboard/sermons': typeof AuthenticatedDashboardSermonsRoute
@@ -301,6 +311,7 @@ export interface FileRouteTypes {
     | '/dashboard/giving'
     | '/dashboard/inbox'
     | '/dashboard/live'
+    | '/dashboard/news'
     | '/dashboard/pages'
     | '/dashboard/people'
     | '/dashboard/sermons'
@@ -329,6 +340,7 @@ export interface FileRouteTypes {
     | '/dashboard/giving'
     | '/dashboard/inbox'
     | '/dashboard/live'
+    | '/dashboard/news'
     | '/dashboard/pages'
     | '/dashboard/people'
     | '/dashboard/sermons'
@@ -359,6 +371,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard/giving'
     | '/_authenticated/dashboard/inbox'
     | '/_authenticated/dashboard/live'
+    | '/_authenticated/dashboard/news'
     | '/_authenticated/dashboard/pages'
     | '/_authenticated/dashboard/people'
     | '/_authenticated/dashboard/sermons'
@@ -549,6 +562,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardLiveRouteImport
       parentRoute: typeof AuthenticatedDashboardRoute
     }
+    '/_authenticated/dashboard/news': {
+      id: '/_authenticated/dashboard/news'
+      path: '/news'
+      fullPath: '/dashboard/news'
+      preLoaderRoute: typeof AuthenticatedDashboardNewsRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
     '/_authenticated/dashboard/pages': {
       id: '/_authenticated/dashboard/pages'
       path: '/pages'
@@ -593,6 +613,7 @@ interface AuthenticatedDashboardRouteChildren {
   AuthenticatedDashboardGivingRoute: typeof AuthenticatedDashboardGivingRoute
   AuthenticatedDashboardInboxRoute: typeof AuthenticatedDashboardInboxRoute
   AuthenticatedDashboardLiveRoute: typeof AuthenticatedDashboardLiveRoute
+  AuthenticatedDashboardNewsRoute: typeof AuthenticatedDashboardNewsRoute
   AuthenticatedDashboardPagesRoute: typeof AuthenticatedDashboardPagesRoute
   AuthenticatedDashboardPeopleRoute: typeof AuthenticatedDashboardPeopleRoute
   AuthenticatedDashboardSermonsRoute: typeof AuthenticatedDashboardSermonsRoute
@@ -608,6 +629,7 @@ const AuthenticatedDashboardRouteChildren: AuthenticatedDashboardRouteChildren =
     AuthenticatedDashboardGivingRoute: AuthenticatedDashboardGivingRoute,
     AuthenticatedDashboardInboxRoute: AuthenticatedDashboardInboxRoute,
     AuthenticatedDashboardLiveRoute: AuthenticatedDashboardLiveRoute,
+    AuthenticatedDashboardNewsRoute: AuthenticatedDashboardNewsRoute,
     AuthenticatedDashboardPagesRoute: AuthenticatedDashboardPagesRoute,
     AuthenticatedDashboardPeopleRoute: AuthenticatedDashboardPeopleRoute,
     AuthenticatedDashboardSermonsRoute: AuthenticatedDashboardSermonsRoute,
