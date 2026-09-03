@@ -27,6 +27,7 @@ import { Route as TestimoniesRouteImport } from './routes/testimonies'
 import { Route as VisionRouteImport } from './routes/vision'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
+import { Route as AuthenticatedDashboardActivityRouteImport } from './routes/_authenticated/dashboard/activity'
 import { Route as AuthenticatedDashboardAlbumsRouteImport } from './routes/_authenticated/dashboard/albums'
 import { Route as AuthenticatedDashboardEventsRouteImport } from './routes/_authenticated/dashboard/events'
 import { Route as AuthenticatedDashboardGalleryRouteImport } from './routes/_authenticated/dashboard/gallery'
@@ -131,6 +132,12 @@ const AuthenticatedDashboardIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedDashboardRoute,
   } as any)
+const AuthenticatedDashboardActivityRoute =
+  AuthenticatedDashboardActivityRouteImport.update({
+    id: '/activity',
+    path: '/activity',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
 const AuthenticatedDashboardAlbumsRoute =
   AuthenticatedDashboardAlbumsRouteImport.update({
     id: '/albums',
@@ -227,6 +234,7 @@ export interface FileRoutesByFullPath {
   '/testimonies': typeof TestimoniesRoute
   '/vision': typeof VisionRoute
   '/dashboard': typeof AuthenticatedDashboardRouteWithChildren
+  '/dashboard/activity': typeof AuthenticatedDashboardActivityRoute
   '/dashboard/albums': typeof AuthenticatedDashboardAlbumsRoute
   '/dashboard/events': typeof AuthenticatedDashboardEventsRoute
   '/dashboard/gallery': typeof AuthenticatedDashboardGalleryRoute
@@ -258,6 +266,7 @@ export interface FileRoutesByTo {
   '/sermons': typeof SermonsRoute
   '/testimonies': typeof TestimoniesRoute
   '/vision': typeof VisionRoute
+  '/dashboard/activity': typeof AuthenticatedDashboardActivityRoute
   '/dashboard/albums': typeof AuthenticatedDashboardAlbumsRoute
   '/dashboard/events': typeof AuthenticatedDashboardEventsRoute
   '/dashboard/gallery': typeof AuthenticatedDashboardGalleryRoute
@@ -292,6 +301,7 @@ export interface FileRoutesById {
   '/testimonies': typeof TestimoniesRoute
   '/vision': typeof VisionRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRouteWithChildren
+  '/_authenticated/dashboard/activity': typeof AuthenticatedDashboardActivityRoute
   '/_authenticated/dashboard/albums': typeof AuthenticatedDashboardAlbumsRoute
   '/_authenticated/dashboard/events': typeof AuthenticatedDashboardEventsRoute
   '/_authenticated/dashboard/gallery': typeof AuthenticatedDashboardGalleryRoute
@@ -326,6 +336,7 @@ export interface FileRouteTypes {
     | '/testimonies'
     | '/vision'
     | '/dashboard'
+    | '/dashboard/activity'
     | '/dashboard/albums'
     | '/dashboard/events'
     | '/dashboard/gallery'
@@ -357,6 +368,7 @@ export interface FileRouteTypes {
     | '/sermons'
     | '/testimonies'
     | '/vision'
+    | '/dashboard/activity'
     | '/dashboard/albums'
     | '/dashboard/events'
     | '/dashboard/gallery'
@@ -390,6 +402,7 @@ export interface FileRouteTypes {
     | '/testimonies'
     | '/vision'
     | '/_authenticated/dashboard'
+    | '/_authenticated/dashboard/activity'
     | '/_authenticated/dashboard/albums'
     | '/_authenticated/dashboard/events'
     | '/_authenticated/dashboard/gallery'
@@ -553,6 +566,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardIndexRouteImport
       parentRoute: typeof AuthenticatedDashboardRoute
     }
+    '/_authenticated/dashboard/activity': {
+      id: '/_authenticated/dashboard/activity'
+      path: '/activity'
+      fullPath: '/dashboard/activity'
+      preLoaderRoute: typeof AuthenticatedDashboardActivityRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
     '/_authenticated/dashboard/albums': {
       id: '/_authenticated/dashboard/albums'
       path: '/albums'
@@ -648,6 +668,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedDashboardRouteChildren {
+  AuthenticatedDashboardActivityRoute: typeof AuthenticatedDashboardActivityRoute
   AuthenticatedDashboardAlbumsRoute: typeof AuthenticatedDashboardAlbumsRoute
   AuthenticatedDashboardEventsRoute: typeof AuthenticatedDashboardEventsRoute
   AuthenticatedDashboardGalleryRoute: typeof AuthenticatedDashboardGalleryRoute
@@ -666,6 +687,7 @@ interface AuthenticatedDashboardRouteChildren {
 
 const AuthenticatedDashboardRouteChildren: AuthenticatedDashboardRouteChildren =
   {
+    AuthenticatedDashboardActivityRoute: AuthenticatedDashboardActivityRoute,
     AuthenticatedDashboardAlbumsRoute: AuthenticatedDashboardAlbumsRoute,
     AuthenticatedDashboardEventsRoute: AuthenticatedDashboardEventsRoute,
     AuthenticatedDashboardGalleryRoute: AuthenticatedDashboardGalleryRoute,
