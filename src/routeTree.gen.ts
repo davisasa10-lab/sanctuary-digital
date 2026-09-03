@@ -27,6 +27,7 @@ import { Route as TestimoniesRouteImport } from './routes/testimonies'
 import { Route as VisionRouteImport } from './routes/vision'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
+import { Route as AuthenticatedDashboardAlbumsRouteImport } from './routes/_authenticated/dashboard/albums'
 import { Route as AuthenticatedDashboardEventsRouteImport } from './routes/_authenticated/dashboard/events'
 import { Route as AuthenticatedDashboardGalleryRouteImport } from './routes/_authenticated/dashboard/gallery'
 import { Route as AuthenticatedDashboardGivingRouteImport } from './routes/_authenticated/dashboard/giving'
@@ -129,6 +130,12 @@ const AuthenticatedDashboardIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedDashboardRoute,
   } as any)
+const AuthenticatedDashboardAlbumsRoute =
+  AuthenticatedDashboardAlbumsRouteImport.update({
+    id: '/albums',
+    path: '/albums',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
 const AuthenticatedDashboardEventsRoute =
   AuthenticatedDashboardEventsRouteImport.update({
     id: '/events',
@@ -213,6 +220,7 @@ export interface FileRoutesByFullPath {
   '/testimonies': typeof TestimoniesRoute
   '/vision': typeof VisionRoute
   '/dashboard': typeof AuthenticatedDashboardRouteWithChildren
+  '/dashboard/albums': typeof AuthenticatedDashboardAlbumsRoute
   '/dashboard/events': typeof AuthenticatedDashboardEventsRoute
   '/dashboard/gallery': typeof AuthenticatedDashboardGalleryRoute
   '/dashboard/giving': typeof AuthenticatedDashboardGivingRoute
@@ -242,6 +250,7 @@ export interface FileRoutesByTo {
   '/sermons': typeof SermonsRoute
   '/testimonies': typeof TestimoniesRoute
   '/vision': typeof VisionRoute
+  '/dashboard/albums': typeof AuthenticatedDashboardAlbumsRoute
   '/dashboard/events': typeof AuthenticatedDashboardEventsRoute
   '/dashboard/gallery': typeof AuthenticatedDashboardGalleryRoute
   '/dashboard/giving': typeof AuthenticatedDashboardGivingRoute
@@ -274,6 +283,7 @@ export interface FileRoutesById {
   '/testimonies': typeof TestimoniesRoute
   '/vision': typeof VisionRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRouteWithChildren
+  '/_authenticated/dashboard/albums': typeof AuthenticatedDashboardAlbumsRoute
   '/_authenticated/dashboard/events': typeof AuthenticatedDashboardEventsRoute
   '/_authenticated/dashboard/gallery': typeof AuthenticatedDashboardGalleryRoute
   '/_authenticated/dashboard/giving': typeof AuthenticatedDashboardGivingRoute
@@ -306,6 +316,7 @@ export interface FileRouteTypes {
     | '/testimonies'
     | '/vision'
     | '/dashboard'
+    | '/dashboard/albums'
     | '/dashboard/events'
     | '/dashboard/gallery'
     | '/dashboard/giving'
@@ -335,6 +346,7 @@ export interface FileRouteTypes {
     | '/sermons'
     | '/testimonies'
     | '/vision'
+    | '/dashboard/albums'
     | '/dashboard/events'
     | '/dashboard/gallery'
     | '/dashboard/giving'
@@ -366,6 +378,7 @@ export interface FileRouteTypes {
     | '/testimonies'
     | '/vision'
     | '/_authenticated/dashboard'
+    | '/_authenticated/dashboard/albums'
     | '/_authenticated/dashboard/events'
     | '/_authenticated/dashboard/gallery'
     | '/_authenticated/dashboard/giving'
@@ -527,6 +540,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardIndexRouteImport
       parentRoute: typeof AuthenticatedDashboardRoute
     }
+    '/_authenticated/dashboard/albums': {
+      id: '/_authenticated/dashboard/albums'
+      path: '/albums'
+      fullPath: '/dashboard/albums'
+      preLoaderRoute: typeof AuthenticatedDashboardAlbumsRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
     '/_authenticated/dashboard/events': {
       id: '/_authenticated/dashboard/events'
       path: '/events'
@@ -608,6 +628,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedDashboardRouteChildren {
+  AuthenticatedDashboardAlbumsRoute: typeof AuthenticatedDashboardAlbumsRoute
   AuthenticatedDashboardEventsRoute: typeof AuthenticatedDashboardEventsRoute
   AuthenticatedDashboardGalleryRoute: typeof AuthenticatedDashboardGalleryRoute
   AuthenticatedDashboardGivingRoute: typeof AuthenticatedDashboardGivingRoute
@@ -624,6 +645,7 @@ interface AuthenticatedDashboardRouteChildren {
 
 const AuthenticatedDashboardRouteChildren: AuthenticatedDashboardRouteChildren =
   {
+    AuthenticatedDashboardAlbumsRoute: AuthenticatedDashboardAlbumsRoute,
     AuthenticatedDashboardEventsRoute: AuthenticatedDashboardEventsRoute,
     AuthenticatedDashboardGalleryRoute: AuthenticatedDashboardGalleryRoute,
     AuthenticatedDashboardGivingRoute: AuthenticatedDashboardGivingRoute,
