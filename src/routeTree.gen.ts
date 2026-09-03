@@ -36,6 +36,7 @@ import { Route as AuthenticatedDashboardPagesRouteImport } from './routes/_authe
 import { Route as AuthenticatedDashboardPeopleRouteImport } from './routes/_authenticated/dashboard/people'
 import { Route as AuthenticatedDashboardSermonsRouteImport } from './routes/_authenticated/dashboard/sermons'
 import { Route as AuthenticatedDashboardTestimoniesRouteImport } from './routes/_authenticated/dashboard/testimonies'
+import { Route as AuthenticatedDashboardVideosRouteImport } from './routes/_authenticated/dashboard/videos'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -181,6 +182,12 @@ const AuthenticatedDashboardTestimoniesRoute =
     path: '/testimonies',
     getParentRoute: () => AuthenticatedDashboardRoute,
   } as any)
+const AuthenticatedDashboardVideosRoute =
+  AuthenticatedDashboardVideosRouteImport.update({
+    id: '/videos',
+    path: '/videos',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -208,6 +215,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/people': typeof AuthenticatedDashboardPeopleRoute
   '/dashboard/sermons': typeof AuthenticatedDashboardSermonsRoute
   '/dashboard/testimonies': typeof AuthenticatedDashboardTestimoniesRoute
+  '/dashboard/videos': typeof AuthenticatedDashboardVideosRoute
   '/dashboard/': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRoutesByTo {
@@ -235,6 +243,7 @@ export interface FileRoutesByTo {
   '/dashboard/people': typeof AuthenticatedDashboardPeopleRoute
   '/dashboard/sermons': typeof AuthenticatedDashboardSermonsRoute
   '/dashboard/testimonies': typeof AuthenticatedDashboardTestimoniesRoute
+  '/dashboard/videos': typeof AuthenticatedDashboardVideosRoute
   '/dashboard': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRoutesById {
@@ -265,6 +274,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard/people': typeof AuthenticatedDashboardPeopleRoute
   '/_authenticated/dashboard/sermons': typeof AuthenticatedDashboardSermonsRoute
   '/_authenticated/dashboard/testimonies': typeof AuthenticatedDashboardTestimoniesRoute
+  '/_authenticated/dashboard/videos': typeof AuthenticatedDashboardVideosRoute
   '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRouteTypes {
@@ -295,6 +305,7 @@ export interface FileRouteTypes {
     | '/dashboard/people'
     | '/dashboard/sermons'
     | '/dashboard/testimonies'
+    | '/dashboard/videos'
     | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -322,6 +333,7 @@ export interface FileRouteTypes {
     | '/dashboard/people'
     | '/dashboard/sermons'
     | '/dashboard/testimonies'
+    | '/dashboard/videos'
     | '/dashboard'
   id:
     | '__root__'
@@ -351,6 +363,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard/people'
     | '/_authenticated/dashboard/sermons'
     | '/_authenticated/dashboard/testimonies'
+    | '/_authenticated/dashboard/videos'
     | '/_authenticated/dashboard/'
   fileRoutesById: FileRoutesById
 }
@@ -564,6 +577,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardTestimoniesRouteImport
       parentRoute: typeof AuthenticatedDashboardRoute
     }
+    '/_authenticated/dashboard/videos': {
+      id: '/_authenticated/dashboard/videos'
+      path: '/videos'
+      fullPath: '/dashboard/videos'
+      preLoaderRoute: typeof AuthenticatedDashboardVideosRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
   }
 }
 
@@ -577,6 +597,7 @@ interface AuthenticatedDashboardRouteChildren {
   AuthenticatedDashboardPeopleRoute: typeof AuthenticatedDashboardPeopleRoute
   AuthenticatedDashboardSermonsRoute: typeof AuthenticatedDashboardSermonsRoute
   AuthenticatedDashboardTestimoniesRoute: typeof AuthenticatedDashboardTestimoniesRoute
+  AuthenticatedDashboardVideosRoute: typeof AuthenticatedDashboardVideosRoute
   AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
 }
 
@@ -592,6 +613,7 @@ const AuthenticatedDashboardRouteChildren: AuthenticatedDashboardRouteChildren =
     AuthenticatedDashboardSermonsRoute: AuthenticatedDashboardSermonsRoute,
     AuthenticatedDashboardTestimoniesRoute:
       AuthenticatedDashboardTestimoniesRoute,
+    AuthenticatedDashboardVideosRoute: AuthenticatedDashboardVideosRoute,
     AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
   }
 
