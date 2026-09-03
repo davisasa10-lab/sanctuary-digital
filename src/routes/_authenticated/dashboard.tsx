@@ -11,6 +11,13 @@ import {
   Quote,
   Radio,
   Users,
+  FileText,
+  Newspaper,
+  Video,
+  FolderOpen,
+  ImagePlus,
+  ShieldCheck,
+  History,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { db } from "@/lib/db-client";
@@ -107,7 +114,9 @@ export function useIsAdmin() {
 function AdminLayout() {
   const navigate = useNavigate();
   const qc = useQueryClient();
-  const { data: isAdmin, isLoading } = useIsAdmin();
+  const { data: role, isLoading } = useStaffRole();
+  const isAdmin = role === "admin";
+  const isStaff = role === "admin" || role === "editor";
 
   async function signOut() {
     await qc.cancelQueries();
@@ -120,21 +129,32 @@ function AdminLayout() {
     <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-28 sm:px-6 lg:grid-cols-[240px_1fr] lg:px-8">
       <aside className="lg:sticky lg:top-28 lg:self-start">
         <p className="px-3 text-xs font-semibold uppercase tracking-widest text-gold">
-          Church admin
+          Church CMS{role ? ` · ${role}` : ""}
         </p>
-        <nav className="mt-4 grid gap-1">
-          {nav.map((item) => (
-            <Link
-              key={item.to}
-              to={item.to}
-              activeOptions={{ exact: "exact" in item ? item.exact : false }}
-              activeProps={{ className: "bg-primary text-primary-foreground" }}
-              className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-            >
-              <item.icon className="size-4" />
-              {item.label}
-            </Link>
-          ))}
+        <nav className="mt-4 grid gap-4">
+          {navGroups.map((group) => {
+            const items = group.items.filter((i) => !i.adminOnly || isAdmin);
+            if (items.length === 0) return null;
+            return (
+              <div key={group.heading} className="grid gap-1">
+                <p className="px-3 pb-1 text-[0.7rem] font-semibold uppercase tracking-widest text-muted-foreground">
+                  {group.heading}
+                </p>
+                {items.map((item) => (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    activeOptions={{ exact: item.exact ?? false }}
+                    activeProps={{ className: "bg-primary text-primary-foreground" }}
+                    className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                  >
+                    <item.icon className="size-4" />
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            );
+          })}
         </nav>
         <Button
           variant="ghost"
@@ -151,14 +171,14 @@ function AdminLayout() {
             <Skeleton className="h-8 w-1/3" />
             <Skeleton className="h-40 w-full" />
           </div>
-        ) : isAdmin ? (
+        ) : isStaff ? (
           <Outlet />
         ) : (
           <div className="rounded-3xl border border-dashed border-border p-14 text-center">
-            <h1 className="text-xl font-bold">Admin access required</h1>
+            <h1 className="text-xl font-bold">Dashboard access required</h1>
             <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
-              Your account is signed in but has not been granted the admin role yet. Ask an
-              existing administrator to add you.
+              Your account is signed in but has not been granted an admin or editor role yet.
+              Ask an existing administrator to add you.
             </p>
           </div>
         )}
