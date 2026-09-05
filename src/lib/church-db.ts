@@ -186,3 +186,84 @@ export const useLiveSettings = () =>
       return ((data ?? [])[0] ?? null) as unknown as LiveSettingsRow | null;
     },
   });
+export type VideoRow = {
+  id: string;
+  title: string;
+  description: string;
+  thumbnail_url: string | null;
+  video_url: string;
+  provider: string;
+  external_id: string | null;
+  duration: string;
+  category: string;
+  placement: string;
+  sort_order: number;
+  published_at: string | null;
+  published: boolean;
+};
+
+export type AnnouncementRow = {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  body: string;
+  featured_image: string | null;
+  category: string;
+  seo_title: string;
+  seo_description: string;
+  publish_date: string;
+  published: boolean;
+};
+
+export type AlbumRow = {
+  id: string;
+  title: string;
+  slug: string;
+  description: string;
+  cover_image: string | null;
+  sort_order: number;
+  published: boolean;
+};
+
+export const useVideos = () =>
+  useQuery({
+    queryKey: ["videos", "published"],
+    queryFn: async () => {
+      const { data, error } = await db
+        .from("videos")
+        .select("*")
+        .eq("published", true)
+        .order("sort_order", { ascending: true });
+      if (error) throw new Error(error.message);
+      return (data ?? []) as unknown as VideoRow[];
+    },
+  });
+
+export const useAnnouncements = () =>
+  useQuery({
+    queryKey: ["announcements", "published"],
+    queryFn: async () => {
+      const { data, error } = await db
+        .from("announcements")
+        .select("*")
+        .eq("published", true)
+        .order("publish_date", { ascending: false });
+      if (error) throw new Error(error.message);
+      return (data ?? []) as unknown as AnnouncementRow[];
+    },
+  });
+
+export const useAlbums = () =>
+  useQuery({
+    queryKey: ["gallery_albums", "published"],
+    queryFn: async () => {
+      const { data, error } = await db
+        .from("gallery_albums")
+        .select("*")
+        .eq("published", true)
+        .order("sort_order", { ascending: true });
+      if (error) throw new Error(error.message);
+      return (data ?? []) as unknown as AlbumRow[];
+    },
+  });
