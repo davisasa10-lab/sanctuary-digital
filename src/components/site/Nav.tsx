@@ -37,10 +37,12 @@ const megaGroups = [
   {
     heading: "Connect",
     links: [
+      { to: "/news", label: "News", desc: "Announcements and updates" },
       { to: "/gallery", label: "Gallery", desc: "Moments from our life together" },
       { to: "/contact", label: "Contact & visit", desc: "Directions, hours, FAQ" },
       { to: "/give", label: "Give", desc: "Support the mission" },
     ],
+
   },
 ] as const;
 
