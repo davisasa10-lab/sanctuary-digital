@@ -9,7 +9,10 @@ import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { mediaVideos, podcasts, services, sermons } from "@/data/church";
+import { useLiveSettings, useVideos } from "@/lib/church-db";
+import { formatDate } from "@/lib/format";
 import heroImg from "@/assets/hero-worship.jpg";
+
 
 export const Route = createFileRoute("/media")({
   component: MediaPage,
