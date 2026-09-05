@@ -43,11 +43,35 @@ function MediaPage() {
   const [loading, setLoading] = useState(true);
   const [messages, setMessages] = useState(chat);
   const [draft, setDraft] = useState("");
+  const { data: dbVideos } = useVideos();
+  const { data: live } = useLiveSettings();
+
+  const videoCards =
+    dbVideos && dbVideos.length > 0
+      ? dbVideos.map((v) => ({
+          id: v.id,
+          title: v.title,
+          kind: v.category || "Video",
+          duration: v.duration,
+          date: v.published_at ? formatDate(v.published_at) : "",
+          thumbnail: v.thumbnail_url || heroImg,
+          href: v.video_url || "#",
+        }))
+      : mediaVideos.map((v) => ({
+          id: v.id,
+          title: v.title,
+          kind: v.kind,
+          duration: v.duration,
+          date: v.date,
+          thumbnail: heroImg,
+          href: "#",
+        }));
 
   useEffect(() => {
     const t = setTimeout(() => setLoading(false), 1100);
     return () => clearTimeout(t);
   }, []);
+
 
   return (
     <>
