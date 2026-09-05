@@ -10,6 +10,7 @@ import kidsImg from "@/assets/kids.jpg";
 import outreachImg from "@/assets/outreach.jpg";
 import communityImg from "@/assets/community.jpg";
 import heroImg from "@/assets/hero-worship.jpg";
+import { useGallery } from "@/lib/church-db";
 import pastorImg from "@/assets/pastor.jpg";
 
 export const Route = createFileRoute("/gallery")({
