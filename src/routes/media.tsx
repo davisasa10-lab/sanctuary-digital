@@ -108,35 +108,48 @@ function MediaPage() {
                   ) : (
                     <>
                       <div className="relative">
-                        <img
-                          src={heroImg}
-                          alt="Live worship service stream"
-                          width={1920}
-                          height={1088}
-                          className="aspect-video w-full object-cover"
-                        />
-                        <div className="absolute inset-0 grid place-items-center bg-[oklch(0.16_0.03_262/0.45)]">
-                          <button
-                            aria-label="Play live stream"
-                            className="grid size-20 place-items-center rounded-full bg-gold text-gold-foreground transition-transform duration-300 hover:scale-110"
-                          >
-                            <Play className="ml-1 size-8 fill-current" />
-                          </button>
-                        </div>
-                        <Badge className="absolute left-5 top-5 gap-1.5 rounded-full bg-destructive text-destructive-foreground">
-                          <Radio className="size-3.5" /> LIVE
-                        </Badge>
+                        {live?.youtube_video_id ? (
+                          <iframe
+                            title={live.title || "Live stream"}
+                            src={`https://www.youtube.com/embed/${live.youtube_video_id}`}
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
+                            allowFullScreen
+                            className="aspect-video w-full"
+                          />
+                        ) : (
+                          <>
+                            <img
+                              src={heroImg}
+                              alt="Live worship service stream"
+                              width={1920}
+                              height={1088}
+                              className="aspect-video w-full object-cover"
+                            />
+                            <div className="absolute inset-0 grid place-items-center bg-[oklch(0.16_0.03_262/0.45)]">
+                              <span className="grid size-20 place-items-center rounded-full bg-gold text-gold-foreground">
+                                <Play className="ml-1 size-8 fill-current" />
+                              </span>
+                            </div>
+                          </>
+                        )}
+                        {live?.is_live ? (
+                          <Badge className="absolute left-5 top-5 gap-1.5 rounded-full bg-destructive text-destructive-foreground">
+                            <Radio className="size-3.5" /> LIVE
+                          </Badge>
+                        ) : null}
                       </div>
                       <div className="p-7">
                         <h2 className="text-2xl font-extrabold tracking-tight">
-                          Sunday Second Service
+                          {live?.title || "Sunday Second Service"}
                         </h2>
                         <p className="mt-2 text-sm text-muted-foreground">
-                          1,248 watching · Pastor Daniel Mensah · Unshaken series
+                          {live?.description ||
+                            "Join us online every Sunday — the stream goes live just before the service starts."}
                         </p>
                       </div>
                     </>
                   )}
+
                 </div>
               </Reveal>
 
