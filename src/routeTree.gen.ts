@@ -21,6 +21,7 @@ import { Route as LeadershipRouteImport } from './routes/leadership'
 import { Route as LiveRouteImport } from './routes/live'
 import { Route as MediaRouteImport } from './routes/media'
 import { Route as MinistriesRouteImport } from './routes/ministries'
+import { Route as NewsRouteImport } from './routes/news'
 import { Route as PrayerRouteImport } from './routes/prayer'
 import { Route as SermonsRouteImport } from './routes/sermons'
 import { Route as TestimoniesRouteImport } from './routes/testimonies'
@@ -100,6 +101,11 @@ const MediaRoute = MediaRouteImport.update({
 const MinistriesRoute = MinistriesRouteImport.update({
   id: '/ministries',
   path: '/ministries',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewsRoute = NewsRouteImport.update({
+  id: '/news',
+  path: '/news',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrayerRoute = PrayerRouteImport.update({
@@ -236,6 +242,7 @@ export interface FileRoutesByFullPath {
   '/live': typeof LiveRoute
   '/media': typeof MediaRoute
   '/ministries': typeof MinistriesRoute
+  '/news': typeof NewsRoute
   '/prayer': typeof PrayerRoute
   '/sermons': typeof SermonsRoute
   '/testimonies': typeof TestimoniesRoute
@@ -270,6 +277,7 @@ export interface FileRoutesByTo {
   '/live': typeof LiveRoute
   '/media': typeof MediaRoute
   '/ministries': typeof MinistriesRoute
+  '/news': typeof NewsRoute
   '/prayer': typeof PrayerRoute
   '/sermons': typeof SermonsRoute
   '/testimonies': typeof TestimoniesRoute
@@ -305,6 +313,7 @@ export interface FileRoutesById {
   '/live': typeof LiveRoute
   '/media': typeof MediaRoute
   '/ministries': typeof MinistriesRoute
+  '/news': typeof NewsRoute
   '/prayer': typeof PrayerRoute
   '/sermons': typeof SermonsRoute
   '/testimonies': typeof TestimoniesRoute
@@ -341,6 +350,7 @@ export interface FileRouteTypes {
     | '/live'
     | '/media'
     | '/ministries'
+    | '/news'
     | '/prayer'
     | '/sermons'
     | '/testimonies'
@@ -375,6 +385,7 @@ export interface FileRouteTypes {
     | '/live'
     | '/media'
     | '/ministries'
+    | '/news'
     | '/prayer'
     | '/sermons'
     | '/testimonies'
@@ -409,6 +420,7 @@ export interface FileRouteTypes {
     | '/live'
     | '/media'
     | '/ministries'
+    | '/news'
     | '/prayer'
     | '/sermons'
     | '/testimonies'
@@ -445,6 +457,7 @@ export interface RootRouteChildren {
   LiveRoute: typeof LiveRoute
   MediaRoute: typeof MediaRoute
   MinistriesRoute: typeof MinistriesRoute
+  NewsRoute: typeof NewsRoute
   PrayerRoute: typeof PrayerRoute
   SermonsRoute: typeof SermonsRoute
   TestimoniesRoute: typeof TestimoniesRoute
@@ -535,6 +548,13 @@ declare module '@tanstack/react-router' {
       path: '/ministries'
       fullPath: '/ministries'
       preLoaderRoute: typeof MinistriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/news': {
+      id: '/news'
+      path: '/news'
+      fullPath: '/news'
+      preLoaderRoute: typeof NewsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/prayer': {
@@ -756,6 +776,7 @@ const rootRouteChildren: RootRouteChildren = {
   LiveRoute: LiveRoute,
   MediaRoute: MediaRoute,
   MinistriesRoute: MinistriesRoute,
+  NewsRoute: NewsRoute,
   PrayerRoute: PrayerRoute,
   SermonsRoute: SermonsRoute,
   TestimoniesRoute: TestimoniesRoute,
