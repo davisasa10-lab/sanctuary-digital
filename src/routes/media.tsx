@@ -172,34 +172,43 @@ function MediaPage() {
               />
             </Reveal>
             <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {mediaVideos.map((v, i) => (
+              {videoCards.map((v, i) => (
                 <Reveal as="li" key={v.id} delay={i * 80}>
                   <article className="h-full overflow-hidden rounded-3xl border border-border bg-card shadow-soft card-lift">
-                    <div className="relative">
-                      <img
-                        src={heroImg}
-                        alt={v.title}
-                        loading="lazy"
-                        className="aspect-video w-full object-cover"
-                      />
-                      <div className="absolute inset-0 grid place-items-center bg-[oklch(0.16_0.03_262/0.35)]">
-                        <span className="grid size-12 place-items-center rounded-full bg-gold text-gold-foreground">
-                          <Play className="ml-0.5 size-5 fill-current" />
-                        </span>
+                    <a
+                      href={v.href}
+                      target={v.href === "#" ? undefined : "_blank"}
+                      rel="noreferrer"
+                      className="block"
+                    >
+                      <div className="relative">
+                        <img
+                          src={v.thumbnail}
+                          alt={v.title}
+                          loading="lazy"
+                          className="aspect-video w-full object-cover"
+                        />
+                        <div className="absolute inset-0 grid place-items-center bg-[oklch(0.16_0.03_262/0.35)]">
+                          <span className="grid size-12 place-items-center rounded-full bg-gold text-gold-foreground">
+                            <Play className="ml-0.5 size-5 fill-current" />
+                          </span>
+                        </div>
+                        <Badge className="absolute left-4 top-4 rounded-full">{v.kind}</Badge>
                       </div>
-                      <Badge className="absolute left-4 top-4 rounded-full">{v.kind}</Badge>
-                    </div>
-                    <div className="p-6">
-                      <h3 className="font-bold leading-snug tracking-tight">{v.title}</h3>
-                      <p className="mt-2 text-xs text-muted-foreground">
-                        {v.date} · {v.duration}
-                      </p>
-                    </div>
+                      <div className="p-6">
+                        <h3 className="font-bold leading-snug tracking-tight">{v.title}</h3>
+                        <p className="mt-2 text-xs text-muted-foreground">
+                          {v.date}
+                          {v.duration ? ` · ${v.duration}` : ""}
+                        </p>
+                      </div>
+                    </a>
                   </article>
                 </Reveal>
               ))}
             </ul>
           </TabsContent>
+
 
           <TabsContent value="podcasts" className="mt-10">
             <Reveal>
