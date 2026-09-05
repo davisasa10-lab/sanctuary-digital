@@ -10,6 +10,7 @@ import kidsImg from "@/assets/kids.jpg";
 import outreachImg from "@/assets/outreach.jpg";
 import communityImg from "@/assets/community.jpg";
 import heroImg from "@/assets/hero-worship.jpg";
+import { useGallery } from "@/lib/church-db";
 import pastorImg from "@/assets/pastor.jpg";
 
 export const Route = createFileRoute("/gallery")({
@@ -41,12 +42,29 @@ const items: Item[] = [
   { src: kidsImg, alt: "Children learning together", album: "Kids" },
 ];
 
-const albums = ["All", "Worship", "Kids", "Outreach", "Community"];
+const fallbackAlbums = ["All", "Worship", "Kids", "Outreach", "Community"];
 
 function GalleryPage() {
   const [album, setAlbum] = useState("All");
   const [lightbox, setLightbox] = useState<Item | null>(null);
-  const shown = items.filter((i) => album === "All" || i.album === album);
+  const { data: dbItems } = useGallery();
+
+  const live = (dbItems ?? []).filter((i) => i.published);
+  const source: Item[] =
+    live.length > 0
+      ? live.map((i) => ({
+          src: i.url,
+          alt: i.title,
+          album: i.category || "Church life",
+          video: i.media_type === "video",
+        }))
+      : items;
+  const albums =
+    live.length > 0
+      ? ["All", ...Array.from(new Set(source.map((i) => i.album)))]
+      : fallbackAlbums;
+  const shown = source.filter((i) => album === "All" || i.album === album);
+
 
   return (
     <>

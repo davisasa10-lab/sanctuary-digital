@@ -21,6 +21,7 @@ import { Route as LeadershipRouteImport } from './routes/leadership'
 import { Route as LiveRouteImport } from './routes/live'
 import { Route as MediaRouteImport } from './routes/media'
 import { Route as MinistriesRouteImport } from './routes/ministries'
+import { Route as NewsRouteImport } from './routes/news'
 import { Route as PrayerRouteImport } from './routes/prayer'
 import { Route as SermonsRouteImport } from './routes/sermons'
 import { Route as TestimoniesRouteImport } from './routes/testimonies'
@@ -40,6 +41,7 @@ import { Route as AuthenticatedDashboardPagesRouteImport } from './routes/_authe
 import { Route as AuthenticatedDashboardPeopleRouteImport } from './routes/_authenticated/dashboard/people'
 import { Route as AuthenticatedDashboardSermonsRouteImport } from './routes/_authenticated/dashboard/sermons'
 import { Route as AuthenticatedDashboardTestimoniesRouteImport } from './routes/_authenticated/dashboard/testimonies'
+import { Route as AuthenticatedDashboardUsersRouteImport } from './routes/_authenticated/dashboard/users'
 import { Route as AuthenticatedDashboardVideosRouteImport } from './routes/_authenticated/dashboard/videos'
 
 const IndexRoute = IndexRouteImport.update({
@@ -99,6 +101,11 @@ const MediaRoute = MediaRouteImport.update({
 const MinistriesRoute = MinistriesRouteImport.update({
   id: '/ministries',
   path: '/ministries',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewsRoute = NewsRouteImport.update({
+  id: '/news',
+  path: '/news',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrayerRoute = PrayerRouteImport.update({
@@ -210,6 +217,12 @@ const AuthenticatedDashboardTestimoniesRoute =
     path: '/testimonies',
     getParentRoute: () => AuthenticatedDashboardRoute,
   } as any)
+const AuthenticatedDashboardUsersRoute =
+  AuthenticatedDashboardUsersRouteImport.update({
+    id: '/users',
+    path: '/users',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
 const AuthenticatedDashboardVideosRoute =
   AuthenticatedDashboardVideosRouteImport.update({
     id: '/videos',
@@ -229,6 +242,7 @@ export interface FileRoutesByFullPath {
   '/live': typeof LiveRoute
   '/media': typeof MediaRoute
   '/ministries': typeof MinistriesRoute
+  '/news': typeof NewsRoute
   '/prayer': typeof PrayerRoute
   '/sermons': typeof SermonsRoute
   '/testimonies': typeof TestimoniesRoute
@@ -247,6 +261,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/people': typeof AuthenticatedDashboardPeopleRoute
   '/dashboard/sermons': typeof AuthenticatedDashboardSermonsRoute
   '/dashboard/testimonies': typeof AuthenticatedDashboardTestimoniesRoute
+  '/dashboard/users': typeof AuthenticatedDashboardUsersRoute
   '/dashboard/videos': typeof AuthenticatedDashboardVideosRoute
   '/dashboard/': typeof AuthenticatedDashboardIndexRoute
 }
@@ -262,6 +277,7 @@ export interface FileRoutesByTo {
   '/live': typeof LiveRoute
   '/media': typeof MediaRoute
   '/ministries': typeof MinistriesRoute
+  '/news': typeof NewsRoute
   '/prayer': typeof PrayerRoute
   '/sermons': typeof SermonsRoute
   '/testimonies': typeof TestimoniesRoute
@@ -279,6 +295,7 @@ export interface FileRoutesByTo {
   '/dashboard/people': typeof AuthenticatedDashboardPeopleRoute
   '/dashboard/sermons': typeof AuthenticatedDashboardSermonsRoute
   '/dashboard/testimonies': typeof AuthenticatedDashboardTestimoniesRoute
+  '/dashboard/users': typeof AuthenticatedDashboardUsersRoute
   '/dashboard/videos': typeof AuthenticatedDashboardVideosRoute
   '/dashboard': typeof AuthenticatedDashboardIndexRoute
 }
@@ -296,6 +313,7 @@ export interface FileRoutesById {
   '/live': typeof LiveRoute
   '/media': typeof MediaRoute
   '/ministries': typeof MinistriesRoute
+  '/news': typeof NewsRoute
   '/prayer': typeof PrayerRoute
   '/sermons': typeof SermonsRoute
   '/testimonies': typeof TestimoniesRoute
@@ -314,6 +332,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard/people': typeof AuthenticatedDashboardPeopleRoute
   '/_authenticated/dashboard/sermons': typeof AuthenticatedDashboardSermonsRoute
   '/_authenticated/dashboard/testimonies': typeof AuthenticatedDashboardTestimoniesRoute
+  '/_authenticated/dashboard/users': typeof AuthenticatedDashboardUsersRoute
   '/_authenticated/dashboard/videos': typeof AuthenticatedDashboardVideosRoute
   '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
 }
@@ -331,6 +350,7 @@ export interface FileRouteTypes {
     | '/live'
     | '/media'
     | '/ministries'
+    | '/news'
     | '/prayer'
     | '/sermons'
     | '/testimonies'
@@ -349,6 +369,7 @@ export interface FileRouteTypes {
     | '/dashboard/people'
     | '/dashboard/sermons'
     | '/dashboard/testimonies'
+    | '/dashboard/users'
     | '/dashboard/videos'
     | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
@@ -364,6 +385,7 @@ export interface FileRouteTypes {
     | '/live'
     | '/media'
     | '/ministries'
+    | '/news'
     | '/prayer'
     | '/sermons'
     | '/testimonies'
@@ -381,6 +403,7 @@ export interface FileRouteTypes {
     | '/dashboard/people'
     | '/dashboard/sermons'
     | '/dashboard/testimonies'
+    | '/dashboard/users'
     | '/dashboard/videos'
     | '/dashboard'
   id:
@@ -397,6 +420,7 @@ export interface FileRouteTypes {
     | '/live'
     | '/media'
     | '/ministries'
+    | '/news'
     | '/prayer'
     | '/sermons'
     | '/testimonies'
@@ -415,6 +439,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard/people'
     | '/_authenticated/dashboard/sermons'
     | '/_authenticated/dashboard/testimonies'
+    | '/_authenticated/dashboard/users'
     | '/_authenticated/dashboard/videos'
     | '/_authenticated/dashboard/'
   fileRoutesById: FileRoutesById
@@ -432,6 +457,7 @@ export interface RootRouteChildren {
   LiveRoute: typeof LiveRoute
   MediaRoute: typeof MediaRoute
   MinistriesRoute: typeof MinistriesRoute
+  NewsRoute: typeof NewsRoute
   PrayerRoute: typeof PrayerRoute
   SermonsRoute: typeof SermonsRoute
   TestimoniesRoute: typeof TestimoniesRoute
@@ -522,6 +548,13 @@ declare module '@tanstack/react-router' {
       path: '/ministries'
       fullPath: '/ministries'
       preLoaderRoute: typeof MinistriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/news': {
+      id: '/news'
+      path: '/news'
+      fullPath: '/news'
+      preLoaderRoute: typeof NewsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/prayer': {
@@ -657,6 +690,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardTestimoniesRouteImport
       parentRoute: typeof AuthenticatedDashboardRoute
     }
+    '/_authenticated/dashboard/users': {
+      id: '/_authenticated/dashboard/users'
+      path: '/users'
+      fullPath: '/dashboard/users'
+      preLoaderRoute: typeof AuthenticatedDashboardUsersRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
     '/_authenticated/dashboard/videos': {
       id: '/_authenticated/dashboard/videos'
       path: '/videos'
@@ -681,6 +721,7 @@ interface AuthenticatedDashboardRouteChildren {
   AuthenticatedDashboardPeopleRoute: typeof AuthenticatedDashboardPeopleRoute
   AuthenticatedDashboardSermonsRoute: typeof AuthenticatedDashboardSermonsRoute
   AuthenticatedDashboardTestimoniesRoute: typeof AuthenticatedDashboardTestimoniesRoute
+  AuthenticatedDashboardUsersRoute: typeof AuthenticatedDashboardUsersRoute
   AuthenticatedDashboardVideosRoute: typeof AuthenticatedDashboardVideosRoute
   AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
 }
@@ -701,6 +742,7 @@ const AuthenticatedDashboardRouteChildren: AuthenticatedDashboardRouteChildren =
     AuthenticatedDashboardSermonsRoute: AuthenticatedDashboardSermonsRoute,
     AuthenticatedDashboardTestimoniesRoute:
       AuthenticatedDashboardTestimoniesRoute,
+    AuthenticatedDashboardUsersRoute: AuthenticatedDashboardUsersRoute,
     AuthenticatedDashboardVideosRoute: AuthenticatedDashboardVideosRoute,
     AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
   }
@@ -734,6 +776,7 @@ const rootRouteChildren: RootRouteChildren = {
   LiveRoute: LiveRoute,
   MediaRoute: MediaRoute,
   MinistriesRoute: MinistriesRoute,
+  NewsRoute: NewsRoute,
   PrayerRoute: PrayerRoute,
   SermonsRoute: SermonsRoute,
   TestimoniesRoute: TestimoniesRoute,

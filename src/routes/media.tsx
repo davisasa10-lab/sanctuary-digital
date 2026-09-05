@@ -9,7 +9,10 @@ import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { mediaVideos, podcasts, services, sermons } from "@/data/church";
+import { useLiveSettings, useVideos } from "@/lib/church-db";
+import { formatDate } from "@/lib/format";
 import heroImg from "@/assets/hero-worship.jpg";
+
 
 export const Route = createFileRoute("/media")({
   component: MediaPage,
@@ -43,11 +46,35 @@ function MediaPage() {
   const [loading, setLoading] = useState(true);
   const [messages, setMessages] = useState(chat);
   const [draft, setDraft] = useState("");
+  const { data: dbVideos } = useVideos();
+  const { data: live } = useLiveSettings();
+
+  const videoCards =
+    dbVideos && dbVideos.length > 0
+      ? dbVideos.map((v) => ({
+          id: v.id,
+          title: v.title,
+          kind: v.category || "Video",
+          duration: v.duration,
+          date: v.published_at ? formatDate(v.published_at) : "",
+          thumbnail: v.thumbnail_url || heroImg,
+          href: v.video_url || "#",
+        }))
+      : mediaVideos.map((v) => ({
+          id: v.id,
+          title: v.title,
+          kind: v.kind,
+          duration: v.duration,
+          date: v.date,
+          thumbnail: heroImg,
+          href: "#",
+        }));
 
   useEffect(() => {
     const t = setTimeout(() => setLoading(false), 1100);
     return () => clearTimeout(t);
   }, []);
+
 
   return (
     <>
@@ -84,35 +111,48 @@ function MediaPage() {
                   ) : (
                     <>
                       <div className="relative">
-                        <img
-                          src={heroImg}
-                          alt="Live worship service stream"
-                          width={1920}
-                          height={1088}
-                          className="aspect-video w-full object-cover"
-                        />
-                        <div className="absolute inset-0 grid place-items-center bg-[oklch(0.16_0.03_262/0.45)]">
-                          <button
-                            aria-label="Play live stream"
-                            className="grid size-20 place-items-center rounded-full bg-gold text-gold-foreground transition-transform duration-300 hover:scale-110"
-                          >
-                            <Play className="ml-1 size-8 fill-current" />
-                          </button>
-                        </div>
-                        <Badge className="absolute left-5 top-5 gap-1.5 rounded-full bg-destructive text-destructive-foreground">
-                          <Radio className="size-3.5" /> LIVE
-                        </Badge>
+                        {live?.youtube_video_id ? (
+                          <iframe
+                            title={live.title || "Live stream"}
+                            src={`https://www.youtube.com/embed/${live.youtube_video_id}`}
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
+                            allowFullScreen
+                            className="aspect-video w-full"
+                          />
+                        ) : (
+                          <>
+                            <img
+                              src={heroImg}
+                              alt="Live worship service stream"
+                              width={1920}
+                              height={1088}
+                              className="aspect-video w-full object-cover"
+                            />
+                            <div className="absolute inset-0 grid place-items-center bg-[oklch(0.16_0.03_262/0.45)]">
+                              <span className="grid size-20 place-items-center rounded-full bg-gold text-gold-foreground">
+                                <Play className="ml-1 size-8 fill-current" />
+                              </span>
+                            </div>
+                          </>
+                        )}
+                        {live?.is_live ? (
+                          <Badge className="absolute left-5 top-5 gap-1.5 rounded-full bg-destructive text-destructive-foreground">
+                            <Radio className="size-3.5" /> LIVE
+                          </Badge>
+                        ) : null}
                       </div>
                       <div className="p-7">
                         <h2 className="text-2xl font-extrabold tracking-tight">
-                          Sunday Second Service
+                          {live?.title || "Sunday Second Service"}
                         </h2>
                         <p className="mt-2 text-sm text-muted-foreground">
-                          1,248 watching · Pastor Daniel Mensah · Unshaken series
+                          {live?.description ||
+                            "Join us online every Sunday — the stream goes live just before the service starts."}
                         </p>
                       </div>
                     </>
                   )}
+
                 </div>
               </Reveal>
 
@@ -172,34 +212,43 @@ function MediaPage() {
               />
             </Reveal>
             <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {mediaVideos.map((v, i) => (
+              {videoCards.map((v, i) => (
                 <Reveal as="li" key={v.id} delay={i * 80}>
                   <article className="h-full overflow-hidden rounded-3xl border border-border bg-card shadow-soft card-lift">
-                    <div className="relative">
-                      <img
-                        src={heroImg}
-                        alt={v.title}
-                        loading="lazy"
-                        className="aspect-video w-full object-cover"
-                      />
-                      <div className="absolute inset-0 grid place-items-center bg-[oklch(0.16_0.03_262/0.35)]">
-                        <span className="grid size-12 place-items-center rounded-full bg-gold text-gold-foreground">
-                          <Play className="ml-0.5 size-5 fill-current" />
-                        </span>
+                    <a
+                      href={v.href}
+                      target={v.href === "#" ? undefined : "_blank"}
+                      rel="noreferrer"
+                      className="block"
+                    >
+                      <div className="relative">
+                        <img
+                          src={v.thumbnail}
+                          alt={v.title}
+                          loading="lazy"
+                          className="aspect-video w-full object-cover"
+                        />
+                        <div className="absolute inset-0 grid place-items-center bg-[oklch(0.16_0.03_262/0.35)]">
+                          <span className="grid size-12 place-items-center rounded-full bg-gold text-gold-foreground">
+                            <Play className="ml-0.5 size-5 fill-current" />
+                          </span>
+                        </div>
+                        <Badge className="absolute left-4 top-4 rounded-full">{v.kind}</Badge>
                       </div>
-                      <Badge className="absolute left-4 top-4 rounded-full">{v.kind}</Badge>
-                    </div>
-                    <div className="p-6">
-                      <h3 className="font-bold leading-snug tracking-tight">{v.title}</h3>
-                      <p className="mt-2 text-xs text-muted-foreground">
-                        {v.date} · {v.duration}
-                      </p>
-                    </div>
+                      <div className="p-6">
+                        <h3 className="font-bold leading-snug tracking-tight">{v.title}</h3>
+                        <p className="mt-2 text-xs text-muted-foreground">
+                          {v.date}
+                          {v.duration ? ` · ${v.duration}` : ""}
+                        </p>
+                      </div>
+                    </a>
                   </article>
                 </Reveal>
               ))}
             </ul>
           </TabsContent>
+
 
           <TabsContent value="podcasts" className="mt-10">
             <Reveal>
