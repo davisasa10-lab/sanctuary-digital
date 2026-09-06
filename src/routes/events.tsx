@@ -15,7 +15,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { events } from "@/data/church";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useEvents } from "@/lib/church-db";
 
 export const Route = createFileRoute("/events")({
   component: EventsPage,
@@ -86,7 +87,16 @@ function Countdown({ date }: { date: string }) {
 function EventsPage() {
   const [filter, setFilter] = useState("All");
   const [openId, setOpenId] = useState<string | null>(null);
-  const featured = events[0]!;
+  const { data, isLoading } = useEvents();
+  const events = (data ?? []).map((e) => ({
+    id: e.id,
+    title: e.title,
+    date: e.event_date,
+    location: e.location,
+    category: e.category,
+    description: e.description,
+  }));
+  const featured = events[0];
   const shown = events.filter((e) => filter === "All" || e.category === filter);
   const selected = events.find((e) => e.id === openId);
 
@@ -94,22 +104,29 @@ function EventsPage() {
     <>
       <PageHero
         eyebrow="Events"
-        title={featured.title}
-        description={featured.description}
+        title={featured?.title ?? "Events & gatherings"}
+        description={
+          featured?.description ??
+          "Conferences, outreach weekends, worship nights and camps — all in one place."
+        }
       >
-        <Countdown date={featured.date} />
-        <Button
-          className="mt-8 h-12 rounded-full bg-gold px-8 text-gold-foreground hover:bg-gold/90"
-          onClick={() => setOpenId(featured.id)}
-        >
-          Register free
-        </Button>
+        {featured ? (
+          <>
+            <Countdown date={featured.date} />
+            <Button
+              className="mt-8 h-12 rounded-full bg-gold px-8 text-gold-foreground hover:bg-gold/90"
+              onClick={() => setOpenId(featured.id)}
+            >
+              Register free
+            </Button>
+          </>
+        ) : null}
       </PageHero>
 
       <Section>
         <div className="flex flex-wrap items-end justify-between gap-6">
           <Reveal>
-            <SectionTitle eyebrow="Calendar" title="What's on at Grace" />
+            <SectionTitle eyebrow="Calendar" title="What's on at Next Gen Church" />
           </Reveal>
           <Reveal delay={80}>
             <Tabs value={filter} onValueChange={setFilter}>
@@ -124,7 +141,15 @@ function EventsPage() {
           </Reveal>
         </div>
 
-        {shown.length === 0 ? (
+        {isLoading ? (
+          <ul className="mt-10 grid gap-6 lg:grid-cols-2">
+            {[0, 1, 2, 3].map((i) => (
+              <li key={i}>
+                <Skeleton className="h-44 w-full rounded-3xl" />
+              </li>
+            ))}
+          </ul>
+        ) : shown.length === 0 ? (
           <Reveal className="mt-14">
             <div className="rounded-3xl border border-dashed border-border p-16 text-center">
               <p className="text-lg font-semibold">Nothing scheduled here yet</p>
