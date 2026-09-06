@@ -552,6 +552,54 @@ export type Database = {
         }
         Relationships: []
       }
+      podcasts: {
+        Row: {
+          audio_url: string
+          cover_image: string | null
+          created_at: string
+          description: string
+          duration: string
+          host: string
+          id: string
+          publish_date: string
+          published: boolean
+          show: string
+          sort_order: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          audio_url?: string
+          cover_image?: string | null
+          created_at?: string
+          description?: string
+          duration?: string
+          host?: string
+          id?: string
+          publish_date?: string
+          published?: boolean
+          show?: string
+          sort_order?: number
+          title?: string
+          updated_at?: string
+        }
+        Update: {
+          audio_url?: string
+          cover_image?: string | null
+          created_at?: string
+          description?: string
+          duration?: string
+          host?: string
+          id?: string
+          publish_date?: string
+          published?: boolean
+          show?: string
+          sort_order?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       prayer_requests: {
         Row: {
           anonymous: boolean
