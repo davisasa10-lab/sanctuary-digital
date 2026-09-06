@@ -14,7 +14,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { ministries } from "@/data/church";
+import { useMinistries } from "@/lib/church-db";
 import bandImg from "@/assets/worship-band.jpg";
 import kidsImg from "@/assets/kids.jpg";
 import outreachImg from "@/assets/outreach.jpg";
@@ -41,7 +41,9 @@ const images = [bandImg, kidsImg, communityImg, outreachImg, communityImg, kidsI
 
 function MinistriesPage() {
   const [active, setActive] = useState<string | null>(null);
-  const selected = ministries.find((m) => m.name === active);
+  const { data } = useMinistries();
+  const ministries = data ?? [];
+  const selected = ministries.find((m) => m.id === active);
 
   return (
     <>
@@ -56,11 +58,11 @@ function MinistriesPage() {
           {ministries.map((m, i) => {
             const Icon = icons[i % icons.length]!;
             return (
-              <Reveal as="li" key={m.name} delay={i * 80}>
+              <Reveal as="li" key={m.id} delay={i * 80}>
                 <article className="flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-soft card-lift">
                   <div className="relative overflow-hidden">
                     <img
-                      src={images[i % images.length]}
+                      src={m.image_url || images[i % images.length]}
                       alt={m.name}
                       width={1280}
                       height={960}
@@ -82,7 +84,7 @@ function MinistriesPage() {
                     <p className="mt-3 text-sm text-muted-foreground">Led by {m.leader}</p>
                     <Button
                       className="mt-6 w-full rounded-full"
-                      onClick={() => setActive(m.name)}
+                      onClick={() => setActive(m.id)}
                     >
                       Join this ministry
                     </Button>

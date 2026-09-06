@@ -3,7 +3,7 @@ import { Facebook, Instagram, Mail, Twitter } from "lucide-react";
 import { PageHero, Section } from "@/components/site/PageHero";
 import { Reveal } from "@/components/site/Reveal";
 import { Button } from "@/components/ui/button";
-import { leaders } from "@/data/church";
+import { useLeaders } from "@/lib/church-db";
 import pastorImg from "@/assets/pastor.jpg";
 
 export const Route = createFileRoute("/leadership")({
@@ -32,6 +32,8 @@ function initials(name: string) {
 }
 
 function LeadershipPage() {
+  const { data } = useLeaders();
+  const leaders = data ?? [];
   return (
     <>
       <PageHero
@@ -40,13 +42,18 @@ function LeadershipPage() {
         description="Our team is accountable, accessible and genuinely glad to hear from you. Reach out to any of them directly."
       />
       <Section>
+        {leaders.length === 0 ? (
+          <p className="text-center text-sm text-muted-foreground">
+            Our leadership profiles are being updated. Please check back soon.
+          </p>
+        ) : null}
         <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {leaders.map((l, i) => (
-            <Reveal as="li" key={l.name} delay={i * 80}>
+            <Reveal as="li" key={l.id} delay={i * 80}>
               <article className="flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-soft card-lift">
-                {i === 0 ? (
+                {l.image_url || i === 0 ? (
                   <img
-                    src={pastorImg}
+                    src={l.image_url || pastorImg}
                     alt={`Portrait of ${l.name}`}
                     width={1024}
                     height={1280}

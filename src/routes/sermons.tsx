@@ -7,7 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { sermons } from "@/data/church";
+import { useSermons } from "@/lib/church-db";
+import { formatDate } from "@/lib/format";
 import bandImg from "@/assets/worship-band.jpg";
 
 export const Route = createFileRoute("/sermons")({
@@ -26,12 +27,24 @@ export const Route = createFileRoute("/sermons")({
   }),
 });
 
-const series = ["All", "Unshaken", "Belong", "Upper Room"];
-
 function SermonsPage() {
   const [q, setQ] = useState("");
   const [tab, setTab] = useState("All");
-  const featured = sermons[0]!;
+  const { data } = useSermons();
+  const sermons = (data ?? []).map((s) => ({
+    id: s.id,
+    title: s.title,
+    speaker: s.speaker,
+    series: s.series,
+    scripture: s.scripture,
+    date: s.sermon_date ? formatDate(s.sermon_date) : "",
+    duration: s.duration,
+    category: s.category,
+    videoUrl: s.video_url,
+    audioUrl: s.audio_url,
+  }));
+  const featured = sermons[0];
+  const series = ["All", ...Array.from(new Set(sermons.map((s) => s.series).filter(Boolean)))];
 
   const results = useMemo(
     () =>
@@ -45,7 +58,7 @@ function SermonsPage() {
           );
         return matchesTab && matchesQ;
       }),
-    [q, tab],
+    [q, tab, sermons],
   );
 
   return (
@@ -57,6 +70,7 @@ function SermonsPage() {
       />
 
       <Section>
+        {featured ? (
         <Reveal>
           <div className="grid overflow-hidden rounded-[2rem] border border-border bg-card shadow-soft lg:grid-cols-[1.3fr_1fr]">
             <div className="group relative">
@@ -69,12 +83,15 @@ function SermonsPage() {
                 className="aspect-video size-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 grid place-items-center bg-[oklch(0.16_0.03_262/0.45)]">
-                <button
+                <a
+                  href={featured.videoUrl || featured.audioUrl || "#"}
+                  target={featured.videoUrl || featured.audioUrl ? "_blank" : undefined}
+                  rel="noreferrer"
                   aria-label={`Play ${featured.title}`}
                   className="grid size-20 place-items-center rounded-full bg-gold text-gold-foreground transition-transform duration-300 hover:scale-110"
                 >
                   <Play className="ml-1 size-8 fill-current" />
-                </button>
+                </a>
               </div>
             </div>
             <div className="flex flex-col justify-center gap-4 p-8 sm:p-10">
@@ -101,6 +118,7 @@ function SermonsPage() {
             </div>
           </div>
         </Reveal>
+        ) : null}
       </Section>
 
       <div className="bg-surface">
@@ -173,12 +191,20 @@ function SermonsPage() {
                       {s.speaker} · {s.date} · {s.duration}
                     </p>
                     <div className="mt-4 flex gap-2">
-                      <Button size="sm" className="rounded-full">
-                        <Play className="mr-1.5 size-4" /> Watch
-                      </Button>
-                      <Button size="sm" variant="outline" className="rounded-full">
-                        <Headphones className="mr-1.5 size-4" /> Listen
-                      </Button>
+                      {s.videoUrl ? (
+                        <Button asChild size="sm" className="rounded-full">
+                          <a href={s.videoUrl} target="_blank" rel="noreferrer">
+                            <Play className="mr-1.5 size-4" /> Watch
+                          </a>
+                        </Button>
+                      ) : null}
+                      {s.audioUrl ? (
+                        <Button asChild size="sm" variant="outline" className="rounded-full">
+                          <a href={s.audioUrl} target="_blank" rel="noreferrer">
+                            <Headphones className="mr-1.5 size-4" /> Listen
+                          </a>
+                        </Button>
+                      ) : null}
                     </div>
                   </article>
                 </Reveal>
