@@ -34,9 +34,13 @@ export const Route = createFileRoute("/media")({
   }),
 });
 
+const PAGE_SIZE = 6;
+
 function MediaPage() {
   const [loading, setLoading] = useState(true);
   const [host, setHost] = useState<string | null>(null);
+  const [videoPage, setVideoPage] = useState(1);
+  const [podcastPage, setPodcastPage] = useState(1);
   const { data: dbVideos } = useVideos();
   const { data: live } = useLiveSettings();
   const { data: dbPodcasts } = usePodcasts();
