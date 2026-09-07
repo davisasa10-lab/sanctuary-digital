@@ -39,6 +39,7 @@ import { Route as AuthenticatedDashboardMediaRouteImport } from './routes/_authe
 import { Route as AuthenticatedDashboardNewsRouteImport } from './routes/_authenticated/dashboard/news'
 import { Route as AuthenticatedDashboardPagesRouteImport } from './routes/_authenticated/dashboard/pages'
 import { Route as AuthenticatedDashboardPeopleRouteImport } from './routes/_authenticated/dashboard/people'
+import { Route as AuthenticatedDashboardPodcastsRouteImport } from './routes/_authenticated/dashboard/podcasts'
 import { Route as AuthenticatedDashboardSermonsRouteImport } from './routes/_authenticated/dashboard/sermons'
 import { Route as AuthenticatedDashboardTestimoniesRouteImport } from './routes/_authenticated/dashboard/testimonies'
 import { Route as AuthenticatedDashboardUsersRouteImport } from './routes/_authenticated/dashboard/users'
@@ -205,6 +206,12 @@ const AuthenticatedDashboardPeopleRoute =
     path: '/people',
     getParentRoute: () => AuthenticatedDashboardRoute,
   } as any)
+const AuthenticatedDashboardPodcastsRoute =
+  AuthenticatedDashboardPodcastsRouteImport.update({
+    id: '/podcasts',
+    path: '/podcasts',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
 const AuthenticatedDashboardSermonsRoute =
   AuthenticatedDashboardSermonsRouteImport.update({
     id: '/sermons',
@@ -259,6 +266,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/news': typeof AuthenticatedDashboardNewsRoute
   '/dashboard/pages': typeof AuthenticatedDashboardPagesRoute
   '/dashboard/people': typeof AuthenticatedDashboardPeopleRoute
+  '/dashboard/podcasts': typeof AuthenticatedDashboardPodcastsRoute
   '/dashboard/sermons': typeof AuthenticatedDashboardSermonsRoute
   '/dashboard/testimonies': typeof AuthenticatedDashboardTestimoniesRoute
   '/dashboard/users': typeof AuthenticatedDashboardUsersRoute
@@ -293,6 +301,7 @@ export interface FileRoutesByTo {
   '/dashboard/news': typeof AuthenticatedDashboardNewsRoute
   '/dashboard/pages': typeof AuthenticatedDashboardPagesRoute
   '/dashboard/people': typeof AuthenticatedDashboardPeopleRoute
+  '/dashboard/podcasts': typeof AuthenticatedDashboardPodcastsRoute
   '/dashboard/sermons': typeof AuthenticatedDashboardSermonsRoute
   '/dashboard/testimonies': typeof AuthenticatedDashboardTestimoniesRoute
   '/dashboard/users': typeof AuthenticatedDashboardUsersRoute
@@ -330,6 +339,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard/news': typeof AuthenticatedDashboardNewsRoute
   '/_authenticated/dashboard/pages': typeof AuthenticatedDashboardPagesRoute
   '/_authenticated/dashboard/people': typeof AuthenticatedDashboardPeopleRoute
+  '/_authenticated/dashboard/podcasts': typeof AuthenticatedDashboardPodcastsRoute
   '/_authenticated/dashboard/sermons': typeof AuthenticatedDashboardSermonsRoute
   '/_authenticated/dashboard/testimonies': typeof AuthenticatedDashboardTestimoniesRoute
   '/_authenticated/dashboard/users': typeof AuthenticatedDashboardUsersRoute
@@ -367,6 +377,7 @@ export interface FileRouteTypes {
     | '/dashboard/news'
     | '/dashboard/pages'
     | '/dashboard/people'
+    | '/dashboard/podcasts'
     | '/dashboard/sermons'
     | '/dashboard/testimonies'
     | '/dashboard/users'
@@ -401,6 +412,7 @@ export interface FileRouteTypes {
     | '/dashboard/news'
     | '/dashboard/pages'
     | '/dashboard/people'
+    | '/dashboard/podcasts'
     | '/dashboard/sermons'
     | '/dashboard/testimonies'
     | '/dashboard/users'
@@ -437,6 +449,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard/news'
     | '/_authenticated/dashboard/pages'
     | '/_authenticated/dashboard/people'
+    | '/_authenticated/dashboard/podcasts'
     | '/_authenticated/dashboard/sermons'
     | '/_authenticated/dashboard/testimonies'
     | '/_authenticated/dashboard/users'
@@ -676,6 +689,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardPeopleRouteImport
       parentRoute: typeof AuthenticatedDashboardRoute
     }
+    '/_authenticated/dashboard/podcasts': {
+      id: '/_authenticated/dashboard/podcasts'
+      path: '/podcasts'
+      fullPath: '/dashboard/podcasts'
+      preLoaderRoute: typeof AuthenticatedDashboardPodcastsRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
     '/_authenticated/dashboard/sermons': {
       id: '/_authenticated/dashboard/sermons'
       path: '/sermons'
@@ -719,6 +739,7 @@ interface AuthenticatedDashboardRouteChildren {
   AuthenticatedDashboardNewsRoute: typeof AuthenticatedDashboardNewsRoute
   AuthenticatedDashboardPagesRoute: typeof AuthenticatedDashboardPagesRoute
   AuthenticatedDashboardPeopleRoute: typeof AuthenticatedDashboardPeopleRoute
+  AuthenticatedDashboardPodcastsRoute: typeof AuthenticatedDashboardPodcastsRoute
   AuthenticatedDashboardSermonsRoute: typeof AuthenticatedDashboardSermonsRoute
   AuthenticatedDashboardTestimoniesRoute: typeof AuthenticatedDashboardTestimoniesRoute
   AuthenticatedDashboardUsersRoute: typeof AuthenticatedDashboardUsersRoute
@@ -739,6 +760,7 @@ const AuthenticatedDashboardRouteChildren: AuthenticatedDashboardRouteChildren =
     AuthenticatedDashboardNewsRoute: AuthenticatedDashboardNewsRoute,
     AuthenticatedDashboardPagesRoute: AuthenticatedDashboardPagesRoute,
     AuthenticatedDashboardPeopleRoute: AuthenticatedDashboardPeopleRoute,
+    AuthenticatedDashboardPodcastsRoute: AuthenticatedDashboardPodcastsRoute,
     AuthenticatedDashboardSermonsRoute: AuthenticatedDashboardSermonsRoute,
     AuthenticatedDashboardTestimoniesRoute:
       AuthenticatedDashboardTestimoniesRoute,

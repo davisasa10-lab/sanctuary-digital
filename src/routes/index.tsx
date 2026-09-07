@@ -5,7 +5,14 @@ import { Badge } from "@/components/ui/badge";
 import { Reveal } from "@/components/site/Reveal";
 import { Counter } from "@/components/site/Counter";
 import { Section, SectionTitle } from "@/components/site/PageHero";
-import { church, events, ministries, services, sermons, stats, testimonies } from "@/data/church";
+import { church, services, stats } from "@/data/church";
+import {
+  useEvents,
+  useMinistries,
+  useSermons,
+  useTestimonies,
+} from "@/lib/church-db";
+import { formatDate } from "@/lib/format";
 import heroImg from "@/assets/hero-worship.jpg";
 import pastorImg from "@/assets/pastor.jpg";
 import communityImg from "@/assets/community.jpg";
@@ -32,9 +39,16 @@ export const Route = createFileRoute("/")({
   }),
 });
 
-const featured = sermons[0]!;
-
 function Index() {
+  const { data: eventsData } = useEvents();
+  const { data: sermonsData } = useSermons();
+  const { data: ministriesData } = useMinistries();
+  const { data: testimoniesData } = useTestimonies();
+  const events = eventsData ?? [];
+  const ministries = ministriesData ?? [];
+  const testimonies = testimoniesData ?? [];
+  const featured = (sermonsData ?? [])[0];
+
   return (
     <>
       <section className="relative flex min-h-[92vh] items-end overflow-hidden">
@@ -163,7 +177,7 @@ function Index() {
                 <div className="absolute inset-0 grid place-items-center bg-[oklch(0.16_0.03_262/0.45)]">
                   <Link
                     to="/sermons"
-                    aria-label={`Play ${featured.title}`}
+                    aria-label={`Play ${featured?.title ?? "This Sunday's message"}`}
                     className="grid size-20 place-items-center rounded-full bg-gold text-gold-foreground transition-transform duration-300 hover:scale-110"
                   >
                     <Play className="ml-1 size-8 fill-current" />
@@ -173,15 +187,17 @@ function Index() {
               <div className="flex flex-col justify-center gap-4 p-8 sm:p-10">
                 <div className="flex flex-wrap gap-2">
                   <Badge className="rounded-full bg-royal text-royal-foreground">
-                    {featured.series}
+                    {featured?.series}
                   </Badge>
                   <Badge variant="outline" className="rounded-full">
-                    {featured.scripture}
+                    {featured?.scripture}
                   </Badge>
                 </div>
-                <h3 className="text-3xl font-extrabold tracking-tight">{featured.title}</h3>
+                <h3 className="text-3xl font-extrabold tracking-tight">{featured?.title ?? "This Sunday's message"}</h3>
                 <p className="text-sm text-muted-foreground">
-                  {featured.speaker} · {featured.date} · {featured.duration}
+                  {[featured?.speaker, featured?.sermon_date ? formatDate(featured.sermon_date) : "", featured?.duration]
+                    .filter(Boolean)
+                    .join(" · ")}
                 </p>
                 <p className="text-sm leading-relaxed text-muted-foreground">
                   When the ground shifts beneath us, hope is not wishful thinking — it is an anchor
@@ -227,7 +243,7 @@ function Index() {
                 <dl className="mt-5 space-y-2 text-sm text-muted-foreground">
                   <div className="flex items-center gap-2">
                     <CalendarDays className="size-4 text-gold" />
-                    {new Date(e.date).toLocaleDateString(undefined, {
+                    {new Date(e.event_date).toLocaleDateString(undefined, {
                       month: "long",
                       day: "numeric",
                       year: "numeric",
@@ -235,7 +251,7 @@ function Index() {
                   </div>
                   <div className="flex items-center gap-2">
                     <Clock className="size-4 text-gold" />
-                    {new Date(e.date).toLocaleTimeString(undefined, {
+                    {new Date(e.event_date).toLocaleTimeString(undefined, {
                       hour: "numeric",
                       minute: "2-digit",
                     })}
@@ -308,7 +324,7 @@ function Index() {
         </Reveal>
         <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {ministries.slice(0, 6).map((m, i) => (
-            <Reveal as="li" key={m.name} delay={i * 70}>
+            <Reveal as="li" key={m.id} delay={i * 70}>
               <article className="h-full rounded-3xl border border-border bg-card p-7 shadow-soft card-lift">
                 <h3 className="text-lg font-bold tracking-tight">{m.name}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
@@ -355,7 +371,7 @@ function Index() {
         </Reveal>
         <ul className="mt-12 grid gap-6 md:grid-cols-2">
           {testimonies.slice(0, 4).map((t, i) => (
-            <Reveal as="li" key={t.name} delay={i * 80}>
+            <Reveal as="li" key={t.id} delay={i * 80}>
               <figure className="h-full rounded-3xl border border-border bg-card p-8 shadow-soft card-lift">
                 <Quote className="size-5 text-gold" />
                 <blockquote className="mt-4 text-base leading-relaxed">"{t.quote}"</blockquote>
