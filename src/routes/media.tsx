@@ -8,8 +8,8 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { mediaVideos, podcasts, services, sermons } from "@/data/church";
-import { useLiveSettings, useVideos } from "@/lib/church-db";
+import { services } from "@/data/church";
+import { usePodcasts, useLiveSettings, useSermons, useVideos } from "@/lib/church-db";
 import { formatDate } from "@/lib/format";
 import heroImg from "@/assets/hero-worship.jpg";
 
@@ -44,33 +44,26 @@ const chat = [
 
 function MediaPage() {
   const [loading, setLoading] = useState(true);
-  const [messages, setMessages] = useState(chat);
-  const [draft, setDraft] = useState("");
+  const [host, setHost] = useState<string | null>(null);
   const { data: dbVideos } = useVideos();
   const { data: live } = useLiveSettings();
+  const { data: dbPodcasts } = usePodcasts();
+  const { data: dbSermons } = useSermons();
+  const podcasts = dbPodcasts ?? [];
+  const replays = (dbSermons ?? []).slice(0, 4);
 
-  const videoCards =
-    dbVideos && dbVideos.length > 0
-      ? dbVideos.map((v) => ({
-          id: v.id,
-          title: v.title,
-          kind: v.category || "Video",
-          duration: v.duration,
-          date: v.published_at ? formatDate(v.published_at) : "",
-          thumbnail: v.thumbnail_url || heroImg,
-          href: v.video_url || "#",
-        }))
-      : mediaVideos.map((v) => ({
-          id: v.id,
-          title: v.title,
-          kind: v.kind,
-          duration: v.duration,
-          date: v.date,
-          thumbnail: heroImg,
-          href: "#",
-        }));
+  const videoCards = (dbVideos ?? []).map((v) => ({
+    id: v.id,
+    title: v.title,
+    kind: v.category || "Video",
+    duration: v.duration,
+    date: v.published_at ? formatDate(v.published_at) : "",
+    thumbnail: v.thumbnail_url || heroImg,
+    href: v.video_url || "#",
+  }));
 
   useEffect(() => {
+    setHost(window.location.hostname);
     const t = setTimeout(() => setLoading(false), 1100);
     return () => clearTimeout(t);
   }, []);
