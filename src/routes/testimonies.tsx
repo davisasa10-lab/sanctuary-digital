@@ -18,7 +18,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { testimonies } from "@/data/church";
+import { submitTestimony, useTestimonies } from "@/lib/church-db";
 
 export const Route = createFileRoute("/testimonies")({
   component: TestimoniesPage,
@@ -41,8 +41,11 @@ const filters = ["All", "Written", "Video"];
 function TestimoniesPage() {
   const [filter, setFilter] = useState("All");
   const [open, setOpen] = useState(false);
+  const [sending, setSending] = useState(false);
+  const { data } = useTestimonies();
+  const testimonies = data ?? [];
   const shown = testimonies.filter((t) => filter === "All" || t.type === filter);
-  const featured = testimonies[0]!;
+  const featured = testimonies[0];
 
   return (
     <>
@@ -60,6 +63,7 @@ function TestimoniesPage() {
       </PageHero>
 
       <Section>
+        {featured ? (
         <Reveal>
           <figure className="rounded-[2rem] border border-border bg-card p-10 shadow-lift sm:p-14">
             <Quote className="size-8 text-gold" />
@@ -72,6 +76,7 @@ function TestimoniesPage() {
             </figcaption>
           </figure>
         </Reveal>
+        ) : null}
       </Section>
 
       <div className="bg-surface">
@@ -94,7 +99,7 @@ function TestimoniesPage() {
           </div>
           <ul className="mt-10 grid gap-6 md:grid-cols-2">
             {shown.map((t, i) => (
-              <Reveal as="li" key={t.name} delay={i * 80}>
+              <Reveal as="li" key={t.id} delay={i * 80}>
                 <figure className="flex h-full flex-col rounded-3xl border border-border bg-card p-8 shadow-soft card-lift">
                   <Badge variant="secondary" className="w-fit rounded-full">
                     {t.type}
@@ -131,12 +136,32 @@ function TestimoniesPage() {
           <form
             id="testimony-form"
             className="grid gap-4"
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
-              toast.success("Thank you for sharing", {
-                description: "Our team will be in touch soon.",
-              });
-              setOpen(false);
+              const form = e.currentTarget;
+              const value = (id: string) =>
+                (form.querySelector(`#${id}`) as HTMLInputElement | HTMLTextAreaElement | null)
+                  ?.value?.trim() || "";
+              setSending(true);
+              try {
+                await submitTestimony({
+                  name: value("testimony-name"),
+                  role: "Member",
+                  type: "Written",
+                  quote: value("testimony-story"),
+                });
+                toast.success("Thank you for sharing", {
+                  description: "Our team will review your story before publishing it.",
+                });
+                form.reset();
+                setOpen(false);
+              } catch {
+                toast.error("We couldn't send that", {
+                  description: "Please try again in a moment.",
+                });
+              } finally {
+                setSending(false);
+              }
             }}
           >
             <div className="grid gap-2">
@@ -149,8 +174,13 @@ function TestimoniesPage() {
             </div>
           </form>
           <DialogFooter>
-            <Button type="submit" form="testimony-form" className="rounded-full">
-              Submit story
+            <Button
+              type="submit"
+              form="testimony-form"
+              disabled={sending}
+              className="rounded-full"
+            >
+              {sending ? "Sending…" : "Submit story"}
             </Button>
           </DialogFooter>
         </DialogContent>

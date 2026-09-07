@@ -8,7 +8,7 @@ import { Counter } from "@/components/site/Counter";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { campaigns } from "@/data/church";
+import { useCampaigns } from "@/lib/church-db";
 
 export const Route = createFileRoute("/give")({
   component: GivePage,
@@ -37,6 +37,8 @@ const amounts = [50, 100, 250, 500];
 
 function GivePage() {
   const [amount, setAmount] = useState(100);
+  const { data } = useCampaigns();
+  const campaigns = data ?? [];
 
   return (
     <>
@@ -110,11 +112,16 @@ function GivePage() {
           <Reveal>
             <SectionTitle eyebrow="Campaigns" title="What we're building together" align="center" />
           </Reveal>
+          {campaigns.length === 0 ? (
+            <p className="mt-8 text-center text-sm text-muted-foreground">
+              No campaigns are running right now — your general giving still goes a long way.
+            </p>
+          ) : null}
           <ul className="mt-12 grid gap-6 lg:grid-cols-3">
             {campaigns.map((c, i) => {
-              const pct = Math.round((c.raised / c.goal) * 100);
+              const pct = c.goal > 0 ? Math.round((Number(c.raised) / Number(c.goal)) * 100) : 0;
               return (
-                <Reveal as="li" key={c.title} delay={i * 90}>
+                <Reveal as="li" key={c.id} delay={i * 90}>
                   <article className="flex h-full flex-col rounded-3xl border border-border bg-card p-8 shadow-soft card-lift">
                     <h3 className="text-xl font-bold tracking-tight">{c.title}</h3>
                     <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
@@ -123,10 +130,10 @@ function GivePage() {
                     <div className="mt-6">
                       <div className="flex items-baseline justify-between text-sm">
                         <span className="text-2xl font-extrabold">
-                          ₵<Counter to={c.raised} />
+                          ₵<Counter to={Number(c.raised)} />
                         </span>
                         <span className="text-muted-foreground">
-                          of ₵{c.goal.toLocaleString()}
+                          of ₵{Number(c.goal).toLocaleString()}
                         </span>
                       </div>
                       <Progress value={pct} className="mt-3 h-2" />

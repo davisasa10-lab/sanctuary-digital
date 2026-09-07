@@ -16,6 +16,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { toast } from "sonner";
+import { submitPrayerRequest } from "@/lib/church-db";
 
 export const Route = createFileRoute("/prayer")({
   component: PrayerPage,
@@ -39,6 +41,7 @@ function PrayerPage() {
   const [anonymous, setAnonymous] = useState(false);
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState(false);
+  const [category, setCategory] = useState("Healing");
 
   return (
     <>
@@ -74,13 +77,31 @@ function PrayerPage() {
                 <SectionTitle eyebrow="Request prayer" title="Tell us how to pray" />
                 <form
                   className="mt-8 grid gap-6"
-                  onSubmit={(e) => {
+                  onSubmit={async (e) => {
                     e.preventDefault();
+                    const form = e.currentTarget;
+                    const value = (id: string) =>
+                      (form.querySelector(`#${id}`) as HTMLInputElement | HTMLTextAreaElement | null)
+                        ?.value?.trim() || "";
                     setSending(true);
-                    setTimeout(() => {
-                      setSending(false);
+                    try {
+                      await submitPrayerRequest({
+                        name: anonymous ? null : value("prayer-name") || null,
+                        email: anonymous ? null : value("prayer-email") || null,
+                        phone: null,
+                        category,
+                        body: value("prayer-body"),
+                        anonymous,
+                      });
                       setDone(true);
-                    }, 900);
+                      form.reset();
+                    } catch {
+                      toast.error("We couldn't send that", {
+                        description: "Please try again in a moment.",
+                      });
+                    } finally {
+                      setSending(false);
+                    }
                   }}
                 >
                   <div className="flex items-center justify-between rounded-2xl border border-border p-4">
@@ -110,7 +131,7 @@ function PrayerPage() {
 
                   <div className="grid gap-2">
                     <Label htmlFor="prayer-category">Category</Label>
-                    <Select defaultValue="Healing">
+                    <Select value={category} onValueChange={setCategory}>
                       <SelectTrigger id="prayer-category" className="h-12 rounded-xl">
                         <SelectValue placeholder="Choose a category" />
                       </SelectTrigger>

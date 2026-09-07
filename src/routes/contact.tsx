@@ -15,6 +15,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { church, faqs } from "@/data/church";
+import { submitContactMessage } from "@/lib/church-db";
 
 export const Route = createFileRoute("/contact")({
   component: ContactPage,
@@ -57,17 +58,32 @@ function ContactPage() {
               <SectionTitle eyebrow="Message us" title="Send a note" />
               <form
                 className="mt-8 grid gap-5"
-                onSubmit={(e) => {
+                onSubmit={async (e) => {
                   e.preventDefault();
                   const form = e.currentTarget;
+                  const value = (id: string) =>
+                    (form.querySelector(`#${id}`) as HTMLInputElement | HTMLTextAreaElement | null)
+                      ?.value?.trim() || "";
                   setSending(true);
-                  setTimeout(() => {
-                    setSending(false);
+                  try {
+                    await submitContactMessage({
+                      name: value("contact-name"),
+                      email: value("contact-email"),
+                      phone: null,
+                      subject: value("contact-subject") || "Website enquiry",
+                      message: value("contact-message"),
+                    });
                     toast.success("Message sent", {
                       description: "Our team replies within one working day.",
                     });
                     form.reset();
-                  }, 900);
+                  } catch {
+                    toast.error("We couldn't send that", {
+                      description: "Please try again in a moment.",
+                    });
+                  } finally {
+                    setSending(false);
+                  }
                 }}
               >
                 <div className="grid gap-5 sm:grid-cols-2">
