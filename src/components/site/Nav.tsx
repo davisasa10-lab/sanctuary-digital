@@ -190,7 +190,7 @@ export function Nav() {
           {signedIn ? (
             <div className="hidden items-center gap-1 lg:flex">
               <Link
-                to="/dashboard"
+                to={staff ? "/dashboard" : "/account"}
                 className={cn(
                   "flex items-center gap-1.5 rounded-full px-3.5 py-2 text-sm font-medium transition-colors",
                   scrolled
@@ -199,7 +199,7 @@ export function Nav() {
                 )}
               >
                 <LayoutDashboard className="size-4" />
-                Dashboard
+                {staff ? "Dashboard" : "My account"}
               </Link>
               <button
                 onClick={handleSignOut}
@@ -267,11 +267,11 @@ export function Nav() {
                   <>
                     <li>
                       <Link
-                        to="/dashboard"
+                        to={staff ? "/dashboard" : "/account"}
                         onClick={() => setMobileOpen(false)}
                         className="block rounded-xl px-4 py-3 text-base font-medium transition-colors hover:bg-accent"
                       >
-                        Dashboard
+                        {staff ? "Dashboard" : "My account"}
                       </Link>
                     </li>
                     <li>

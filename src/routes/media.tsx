@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { services } from "@/data/church";
 import { usePodcasts, useLiveSettings, useSermons, useVideos } from "@/lib/church-db";
 import { formatDate } from "@/lib/format";
+import { saveMediaProgress } from "@/lib/member";
 import heroImg from "@/assets/hero-worship.jpg";
 
 
@@ -111,6 +112,21 @@ function MediaPage() {
   const podcastPages = Math.max(1, Math.ceil(podcasts.length / PAGE_SIZE));
   const safePodcastPage = Math.min(podcastPage, podcastPages);
   const pagedPodcasts = podcasts.slice((safePodcastPage - 1) * PAGE_SIZE, safePodcastPage * PAGE_SIZE);
+
+  const [resumeAt, setResumeAt] = useState<Record<string, number>>({});
+  useEffect(() => {
+    void import("@/integrations/supabase/client").then(async ({ supabase }) => {
+      const { data: sess } = await supabase.auth.getSession();
+      if (!sess.session) return;
+      const { data } = await supabase
+        .from("user_media_progress")
+        .select("media_id, progress_seconds, completed")
+        .eq("media_type", "podcast");
+      const map: Record<string, number> = {};
+      for (const r of data ?? []) if (!r.completed) map[r.media_id] = Number(r.progress_seconds);
+      setResumeAt(map);
+    });
+  }, []);
 
   useEffect(() => {
     setHost(window.location.hostname);
@@ -240,6 +256,15 @@ function MediaPage() {
                       target={v.href === "#" ? undefined : "_blank"}
                       rel="noreferrer"
                       className="block"
+                      onClick={() =>
+                        void saveMediaProgress({
+                          media_id: v.id,
+                          media_type: "video",
+                          title: v.title,
+                          thumbnail_url: v.thumbnail,
+                          media_url: v.href,
+                        })
+                      }
                     >
                       <div className="relative">
                         <img
@@ -310,7 +335,27 @@ function MediaPage() {
                           .join(" · ")}
                       </p>
                       {p.audio_url ? (
-                        <audio controls preload="none" src={p.audio_url} className="mt-4 w-full">
+                        <audio
+                          controls
+                          preload="none"
+                          src={p.audio_url}
+                          className="mt-4 w-full"
+                          onPause={(e) =>
+                            void saveMediaProgress({
+                              media_id: p.id,
+                              media_type: "podcast",
+                              title: p.title,
+                              thumbnail_url: p.cover_image,
+                              media_url: p.audio_url,
+                              progress_seconds: e.currentTarget.currentTime,
+                              duration_seconds: e.currentTarget.duration || 0,
+                            })
+                          }
+                          onLoadedMetadata={(e) => {
+                            const t = resumeAt[p.id];
+                            if (t) e.currentTarget.currentTime = t;
+                          }}
+                        >
                           Your browser does not support audio playback.
                         </audio>
                       ) : null}
