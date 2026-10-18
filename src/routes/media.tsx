@@ -267,6 +267,7 @@ function MediaPage() {
                 </Reveal>
               ))}
             </ul>
+            <Pagination page={safeVideoPage} pages={videoPages} onChange={setVideoPage} />
           </TabsContent>
 
 
@@ -318,6 +319,7 @@ function MediaPage() {
                 </Reveal>
               ))}
             </ul>
+            <Pagination page={safePodcastPage} pages={podcastPages} onChange={setPodcastPage} />
           </TabsContent>
         </Tabs>
       </Section>
