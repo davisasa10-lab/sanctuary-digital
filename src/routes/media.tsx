@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Headphones, Play, Radio, Video } from "lucide-react";
+import { ChevronLeft, ChevronRight, Headphones, Play, Radio, Video } from "lucide-react";
 import { PageHero, Section, SectionTitle } from "@/components/site/PageHero";
 import { Reveal } from "@/components/site/Reveal";
 import { Button } from "@/components/ui/button";
@@ -36,6 +36,52 @@ export const Route = createFileRoute("/media")({
 
 const PAGE_SIZE = 6;
 
+function Pagination({
+  page,
+  pages,
+  onChange,
+}: {
+  page: number;
+  pages: number;
+  onChange: (page: number) => void;
+}) {
+  if (pages <= 1) return null;
+  return (
+    <nav aria-label="Pagination" className="mt-8 flex items-center justify-center gap-2">
+      <Button
+        variant="outline"
+        size="sm"
+        className="rounded-full"
+        disabled={page <= 1}
+        onClick={() => onChange(page - 1)}
+      >
+        <ChevronLeft className="mr-1 size-4" /> Previous
+      </Button>
+      {Array.from({ length: pages }, (_, i) => i + 1).map((n) => (
+        <Button
+          key={n}
+          variant={n === page ? "default" : "outline"}
+          size="sm"
+          className="size-9 rounded-full p-0"
+          aria-current={n === page ? "page" : undefined}
+          onClick={() => onChange(n)}
+        >
+          {n}
+        </Button>
+      ))}
+      <Button
+        variant="outline"
+        size="sm"
+        className="rounded-full"
+        disabled={page >= pages}
+        onClick={() => onChange(page + 1)}
+      >
+        Next <ChevronRight className="ml-1 size-4" />
+      </Button>
+    </nav>
+  );
+}
+
 function MediaPage() {
   const [loading, setLoading] = useState(true);
   const [host, setHost] = useState<string | null>(null);
@@ -57,6 +103,14 @@ function MediaPage() {
     thumbnail: v.thumbnail_url || heroImg,
     href: v.video_url || "#",
   }));
+
+  const videoPages = Math.max(1, Math.ceil(videoCards.length / PAGE_SIZE));
+  const safeVideoPage = Math.min(videoPage, videoPages);
+  const pagedVideos = videoCards.slice((safeVideoPage - 1) * PAGE_SIZE, safeVideoPage * PAGE_SIZE);
+
+  const podcastPages = Math.max(1, Math.ceil(podcasts.length / PAGE_SIZE));
+  const safePodcastPage = Math.min(podcastPage, podcastPages);
+  const pagedPodcasts = podcasts.slice((safePodcastPage - 1) * PAGE_SIZE, safePodcastPage * PAGE_SIZE);
 
   useEffect(() => {
     setHost(window.location.hostname);
@@ -178,7 +232,7 @@ function MediaPage() {
               />
             </Reveal>
             <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {videoCards.map((v, i) => (
+              {pagedVideos.map((v, i) => (
                 <Reveal as="li" key={v.id} delay={i * 80}>
                   <article className="h-full overflow-hidden rounded-3xl border border-border bg-card shadow-soft card-lift">
                     <a
@@ -213,6 +267,7 @@ function MediaPage() {
                 </Reveal>
               ))}
             </ul>
+            <Pagination page={safeVideoPage} pages={videoPages} onChange={setVideoPage} />
           </TabsContent>
 
 
@@ -230,7 +285,7 @@ function MediaPage() {
               </p>
             ) : null}
             <ul className="mt-8 grid gap-5 lg:grid-cols-2">
-              {podcasts.map((p, i) => (
+              {pagedPodcasts.map((p, i) => (
                 <Reveal as="li" key={p.id} delay={i * 80}>
                   <article className="flex h-full items-start gap-5 rounded-3xl border border-border bg-card p-6 shadow-soft">
                     {p.cover_image ? (
@@ -264,6 +319,7 @@ function MediaPage() {
                 </Reveal>
               ))}
             </ul>
+            <Pagination page={safePodcastPage} pages={podcastPages} onChange={setPodcastPage} />
           </TabsContent>
         </Tabs>
       </Section>
