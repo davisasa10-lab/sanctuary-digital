@@ -9,6 +9,7 @@ import { ThemeToggle } from "./theme";
 import { church } from "@/data/church";
 import logo from "@/assets/nxg-logo.png";
 import { cn } from "@/lib/utils";
+import { isStaffUser } from "@/lib/member";
 
 const primary = [
   { to: "/", label: "Home" },
@@ -56,6 +57,7 @@ export function Nav() {
   const [open, setOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [signedIn, setSignedIn] = useState(false);
+  const [staff, setStaff] = useState(false);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
@@ -73,6 +75,11 @@ export function Nav() {
     void supabase.auth.getSession().then(({ data }) => setSignedIn(!!data.session));
     return () => sub.subscription.unsubscribe();
   }, []);
+
+  useEffect(() => {
+    if (!signedIn) return setStaff(false);
+    void isStaffUser().then(setStaff);
+  }, [signedIn]);
 
   async function handleSignOut() {
     await queryClient.cancelQueries();
