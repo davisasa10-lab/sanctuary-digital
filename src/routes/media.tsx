@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Headphones, Play, Radio, Video } from "lucide-react";
+import { ChevronLeft, ChevronRight, Headphones, Play, Radio, Video } from "lucide-react";
 import { PageHero, Section, SectionTitle } from "@/components/site/PageHero";
 import { Reveal } from "@/components/site/Reveal";
 import { Button } from "@/components/ui/button";
@@ -57,6 +57,14 @@ function MediaPage() {
     thumbnail: v.thumbnail_url || heroImg,
     href: v.video_url || "#",
   }));
+
+  const videoPages = Math.max(1, Math.ceil(videoCards.length / PAGE_SIZE));
+  const safeVideoPage = Math.min(videoPage, videoPages);
+  const pagedVideos = videoCards.slice((safeVideoPage - 1) * PAGE_SIZE, safeVideoPage * PAGE_SIZE);
+
+  const podcastPages = Math.max(1, Math.ceil(podcasts.length / PAGE_SIZE));
+  const safePodcastPage = Math.min(podcastPage, podcastPages);
+  const pagedPodcasts = podcasts.slice((safePodcastPage - 1) * PAGE_SIZE, safePodcastPage * PAGE_SIZE);
 
   useEffect(() => {
     setHost(window.location.hostname);
