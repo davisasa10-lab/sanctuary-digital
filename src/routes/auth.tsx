@@ -12,13 +12,12 @@ export const Route = createFileRoute("/auth")({
   component: AuthPage,
   head: () => ({
     meta: [
-      { title: "Staff Sign In — Next Gen Church Admin" },
+      { title: "Sign In — Next Gen Church" },
       {
         name: "description",
-        content:
-          "Secure sign in for Next Gen Church staff to manage events, sermons, giving and prayer requests.",
+        content: "Sign in to your Next Gen Church account.",
       },
-      { property: "og:title", content: "Next Gen Church staff sign in" },
+      { property: "og:title", content: "Next Gen Church sign in" },
       { property: "og:description", content: "Church admin access." },
       { name: "robots", content: "noindex" },
     ],
@@ -73,9 +72,9 @@ function AuthPage() {
   return (
     <Section className="min-h-[80vh]">
       <div className="mx-auto max-w-md rounded-3xl border border-border bg-card p-8 shadow-lift">
-        <h1 className="text-2xl font-extrabold tracking-tight">Staff sign in</h1>
+        <h1 className="text-2xl font-extrabold tracking-tight">Sign in</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Church administrators only. Contact the office if you need access.
+          Sign in to your Next Gen Church account.
         </p>
         <Tabs value={mode} onValueChange={setMode} className="mt-6">
           <TabsList className="rounded-full">
