@@ -36,6 +36,52 @@ export const Route = createFileRoute("/media")({
 
 const PAGE_SIZE = 6;
 
+function Pagination({
+  page,
+  pages,
+  onChange,
+}: {
+  page: number;
+  pages: number;
+  onChange: (page: number) => void;
+}) {
+  if (pages <= 1) return null;
+  return (
+    <nav aria-label="Pagination" className="mt-8 flex items-center justify-center gap-2">
+      <Button
+        variant="outline"
+        size="sm"
+        className="rounded-full"
+        disabled={page <= 1}
+        onClick={() => onChange(page - 1)}
+      >
+        <ChevronLeft className="mr-1 size-4" /> Previous
+      </Button>
+      {Array.from({ length: pages }, (_, i) => i + 1).map((n) => (
+        <Button
+          key={n}
+          variant={n === page ? "default" : "outline"}
+          size="sm"
+          className="size-9 rounded-full p-0"
+          aria-current={n === page ? "page" : undefined}
+          onClick={() => onChange(n)}
+        >
+          {n}
+        </Button>
+      ))}
+      <Button
+        variant="outline"
+        size="sm"
+        className="rounded-full"
+        disabled={page >= pages}
+        onClick={() => onChange(page + 1)}
+      >
+        Next <ChevronRight className="ml-1 size-4" />
+      </Button>
+    </nav>
+  );
+}
+
 function MediaPage() {
   const [loading, setLoading] = useState(true);
   const [host, setHost] = useState<string | null>(null);
