@@ -1,4 +1,4 @@
 # Roadmap
 
-- [ ] Add pagination to podcast and video lists on /media (in progress)
-- [ ] Nav Sign In link opens regular-user login; change "Staff Sign In" heading to "Sign In"; keep staff/admin login & routes unchanged
+- [x] Add pagination to podcast and video lists on /media
+- [x] Nav Sign In link opens regular-user login; changed "Staff Sign In" heading to "Sign In"; staff/admin login & routes unchanged
