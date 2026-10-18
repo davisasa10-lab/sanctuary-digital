@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Section } from "@/components/site/PageHero";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { homeForUser } from "@/lib/member";
 
 export const Route = createFileRoute("/auth")({
   component: AuthPage,
@@ -34,7 +35,7 @@ function AuthPage() {
 
   useEffect(() => {
     void supabase.auth.getSession().then(({ data }) => {
-      if (data.session) void navigate({ to: "/dashboard" });
+      if (data.session) void homeForUser().then((to) => navigate({ to }));
     });
   }, [navigate]);
 
@@ -45,7 +46,7 @@ function AuthPage() {
       if (mode === "signin") {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
-        void navigate({ to: "/dashboard" });
+        void navigate({ to: await homeForUser() });
       } else {
         const { data, error } = await supabase.auth.signUp({
           email,
@@ -56,7 +57,7 @@ function AuthPage() {
           },
         });
         if (error) throw error;
-        if (data.session) navigate({ to: "/dashboard" });
+        if (data.session) void navigate({ to: await homeForUser() });
         else
           toast.success("Check your email", {
             description: "Confirm your address to finish creating the account.",

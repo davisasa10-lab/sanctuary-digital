@@ -774,6 +774,48 @@ export type Database = {
         }
         Relationships: []
       }
+      user_media_progress: {
+        Row: {
+          completed: boolean
+          duration_seconds: number
+          id: string
+          media_id: string
+          media_type: string
+          media_url: string | null
+          progress_seconds: number
+          thumbnail_url: string | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          completed?: boolean
+          duration_seconds?: number
+          id?: string
+          media_id: string
+          media_type?: string
+          media_url?: string | null
+          progress_seconds?: number
+          thumbnail_url?: string | null
+          title?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          completed?: boolean
+          duration_seconds?: number
+          id?: string
+          media_id?: string
+          media_type?: string
+          media_url?: string | null
+          progress_seconds?: number
+          thumbnail_url?: string | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string

@@ -26,6 +26,7 @@ import { Route as PrayerRouteImport } from './routes/prayer'
 import { Route as SermonsRouteImport } from './routes/sermons'
 import { Route as TestimoniesRouteImport } from './routes/testimonies'
 import { Route as VisionRouteImport } from './routes/vision'
+import { Route as AuthenticatedAccountRouteImport } from './routes/_authenticated/account'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
 import { Route as AuthenticatedDashboardActivityRouteImport } from './routes/_authenticated/dashboard/activity'
@@ -128,6 +129,11 @@ const VisionRoute = VisionRouteImport.update({
   id: '/vision',
   path: '/vision',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAccountRoute = AuthenticatedAccountRouteImport.update({
+  id: '/account',
+  path: '/account',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
@@ -254,6 +260,7 @@ export interface FileRoutesByFullPath {
   '/sermons': typeof SermonsRoute
   '/testimonies': typeof TestimoniesRoute
   '/vision': typeof VisionRoute
+  '/account': typeof AuthenticatedAccountRoute
   '/dashboard': typeof AuthenticatedDashboardRouteWithChildren
   '/dashboard/activity': typeof AuthenticatedDashboardActivityRoute
   '/dashboard/albums': typeof AuthenticatedDashboardAlbumsRoute
@@ -290,6 +297,7 @@ export interface FileRoutesByTo {
   '/sermons': typeof SermonsRoute
   '/testimonies': typeof TestimoniesRoute
   '/vision': typeof VisionRoute
+  '/account': typeof AuthenticatedAccountRoute
   '/dashboard/activity': typeof AuthenticatedDashboardActivityRoute
   '/dashboard/albums': typeof AuthenticatedDashboardAlbumsRoute
   '/dashboard/events': typeof AuthenticatedDashboardEventsRoute
@@ -327,6 +335,7 @@ export interface FileRoutesById {
   '/sermons': typeof SermonsRoute
   '/testimonies': typeof TestimoniesRoute
   '/vision': typeof VisionRoute
+  '/_authenticated/account': typeof AuthenticatedAccountRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRouteWithChildren
   '/_authenticated/dashboard/activity': typeof AuthenticatedDashboardActivityRoute
   '/_authenticated/dashboard/albums': typeof AuthenticatedDashboardAlbumsRoute
@@ -365,6 +374,7 @@ export interface FileRouteTypes {
     | '/sermons'
     | '/testimonies'
     | '/vision'
+    | '/account'
     | '/dashboard'
     | '/dashboard/activity'
     | '/dashboard/albums'
@@ -401,6 +411,7 @@ export interface FileRouteTypes {
     | '/sermons'
     | '/testimonies'
     | '/vision'
+    | '/account'
     | '/dashboard/activity'
     | '/dashboard/albums'
     | '/dashboard/events'
@@ -437,6 +448,7 @@ export interface FileRouteTypes {
     | '/sermons'
     | '/testimonies'
     | '/vision'
+    | '/_authenticated/account'
     | '/_authenticated/dashboard'
     | '/_authenticated/dashboard/activity'
     | '/_authenticated/dashboard/albums'
@@ -597,6 +609,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/vision'
       preLoaderRoute: typeof VisionRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/account': {
+      id: '/_authenticated/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AuthenticatedAccountRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
@@ -775,10 +794,12 @@ const AuthenticatedDashboardRouteWithChildren =
   )
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAccountRoute: typeof AuthenticatedAccountRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAccountRoute: AuthenticatedAccountRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRouteWithChildren,
 }
 

@@ -9,6 +9,7 @@ import { ThemeToggle } from "./theme";
 import { church } from "@/data/church";
 import logo from "@/assets/nxg-logo.png";
 import { cn } from "@/lib/utils";
+import { isStaffUser } from "@/lib/member";
 
 const primary = [
   { to: "/", label: "Home" },
@@ -56,6 +57,7 @@ export function Nav() {
   const [open, setOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [signedIn, setSignedIn] = useState(false);
+  const [staff, setStaff] = useState(false);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
@@ -73,6 +75,11 @@ export function Nav() {
     void supabase.auth.getSession().then(({ data }) => setSignedIn(!!data.session));
     return () => sub.subscription.unsubscribe();
   }, []);
+
+  useEffect(() => {
+    if (!signedIn) return setStaff(false);
+    void isStaffUser().then(setStaff);
+  }, [signedIn]);
 
   async function handleSignOut() {
     await queryClient.cancelQueries();
@@ -183,7 +190,7 @@ export function Nav() {
           {signedIn ? (
             <div className="hidden items-center gap-1 lg:flex">
               <Link
-                to="/dashboard"
+                to={staff ? "/dashboard" : "/account"}
                 className={cn(
                   "flex items-center gap-1.5 rounded-full px-3.5 py-2 text-sm font-medium transition-colors",
                   scrolled
@@ -192,7 +199,7 @@ export function Nav() {
                 )}
               >
                 <LayoutDashboard className="size-4" />
-                Dashboard
+                {staff ? "Dashboard" : "My account"}
               </Link>
               <button
                 onClick={handleSignOut}
@@ -260,11 +267,11 @@ export function Nav() {
                   <>
                     <li>
                       <Link
-                        to="/dashboard"
+                        to={staff ? "/dashboard" : "/account"}
                         onClick={() => setMobileOpen(false)}
                         className="block rounded-xl px-4 py-3 text-base font-medium transition-colors hover:bg-accent"
                       >
-                        Dashboard
+                        {staff ? "Dashboard" : "My account"}
                       </Link>
                     </li>
                     <li>
