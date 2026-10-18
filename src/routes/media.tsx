@@ -232,7 +232,7 @@ function MediaPage() {
               />
             </Reveal>
             <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {videoCards.map((v, i) => (
+              {pagedVideos.map((v, i) => (
                 <Reveal as="li" key={v.id} delay={i * 80}>
                   <article className="h-full overflow-hidden rounded-3xl border border-border bg-card shadow-soft card-lift">
                     <a
@@ -284,7 +284,7 @@ function MediaPage() {
               </p>
             ) : null}
             <ul className="mt-8 grid gap-5 lg:grid-cols-2">
-              {podcasts.map((p, i) => (
+              {pagedPodcasts.map((p, i) => (
                 <Reveal as="li" key={p.id} delay={i * 80}>
                   <article className="flex h-full items-start gap-5 rounded-3xl border border-border bg-card p-6 shadow-soft">
                     {p.cover_image ? (
