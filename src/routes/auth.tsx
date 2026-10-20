@@ -89,18 +89,18 @@ function AuthPage() {
 
 
   return (
-    <Section className="min-h-[80vh]">
+    <Section className="min-h-[80vh] pt-28 md:pt-32">
       <div className="mx-auto max-w-md rounded-3xl border border-border bg-card p-8 shadow-lift">
         <h1 className="text-2xl font-extrabold tracking-tight">Sign in</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           Sign in to your Next Gen Church account.
         </p>
         <Tabs value={mode} onValueChange={setMode} className="mt-6">
-          <TabsList className="rounded-full">
-            <TabsTrigger value="signin" className="rounded-full px-5">
+          <TabsList className="grid h-11 w-full grid-cols-2 rounded-full p-1">
+            <TabsTrigger value="signin" className="rounded-full">
               Sign in
             </TabsTrigger>
-            <TabsTrigger value="signup" className="rounded-full px-5">
+            <TabsTrigger value="signup" className="rounded-full">
               Create account
             </TabsTrigger>
           </TabsList>
@@ -110,7 +110,7 @@ function AuthPage() {
           variant="outline"
           disabled={busy}
           onClick={onGoogle}
-          className="h-12 w-full rounded-xl text-base"
+          className="mt-6 h-12 w-full gap-3 rounded-full text-base font-medium"
         >
           <svg className="h-5 w-5" viewBox="0 0 24 24" aria-hidden="true">
             <path
