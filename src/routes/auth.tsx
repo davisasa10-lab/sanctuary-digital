@@ -68,6 +68,7 @@ function AuthPage() {
       toast.error("Sign in failed", { description: (err as Error).message });
     } finally {
       setBusy(false);
+    }
   }
 
   async function onGoogle() {
