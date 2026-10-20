@@ -111,7 +111,7 @@ function UsersPage() {
                       {role ? (
                         <Badge className="rounded-full capitalize">{role}</Badge>
                       ) : (
-                        <span className="text-muted-foreground">No access</span>
+                        <span className="text-muted-foreground">Member</span>
                       )}
                     </td>
                     <td className="p-4">
