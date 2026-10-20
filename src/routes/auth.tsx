@@ -68,8 +68,24 @@ function AuthPage() {
       toast.error("Sign in failed", { description: (err as Error).message });
     } finally {
       setBusy(false);
+  }
+
+  async function onGoogle() {
+    setBusy(true);
+    try {
+      const result = await lovable.auth.signInWithOAuth("google", {
+        redirect_uri: window.location.origin,
+      });
+      if (result.error) throw result.error;
+      if (result.redirected) return; // Browser is redirecting to Google
+      // Session already set — route by role.
+      void navigate({ to: await homeForUser() });
+    } catch (err) {
+      toast.error("Google sign in failed", { description: (err as Error).message });
+      setBusy(false);
     }
   }
+
 
   return (
     <Section className="min-h-[80vh]">
