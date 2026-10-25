@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Section } from "@/components/site/PageHero";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { homeForUser } from "@/lib/member";
+import logo from "@/assets/nxg-logo.png";
 
 export const Route = createFileRoute("/auth")({
   component: AuthPage,
@@ -87,12 +88,36 @@ function AuthPage() {
     }
   }
 
+  async function onForgotPassword() {
+    if (!email) {
+      toast.error("Enter your email first", {
+        description: "Type your email address above, then tap Forgot password.",
+      });
+      return;
+    }
+    setBusy(true);
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+      if (error) throw error;
+      toast.success("Reset link sent", {
+        description: "Check your email for a link to set a new password.",
+      });
+    } catch (err) {
+      toast.error("Could not send reset email", { description: (err as Error).message });
+    } finally {
+      setBusy(false);
+    }
+  }
+
 
   return (
     <Section className="min-h-[80vh] pt-28 md:pt-32">
       <div className="mx-auto max-w-md rounded-3xl border border-border bg-card p-8 shadow-lift">
-        <h1 className="text-2xl font-extrabold tracking-tight">Sign in</h1>
-        <p className="mt-2 text-sm text-muted-foreground">
+        <img src={logo} alt="Next Gen Church" className="mx-auto h-14 w-auto" />
+        <h1 className="mt-4 text-center text-2xl font-extrabold tracking-tight">Sign in</h1>
+        <p className="mt-2 text-center text-sm text-muted-foreground">
           Sign in to your Next Gen Church account.
         </p>
         <Tabs value={mode} onValueChange={setMode} className="mt-6">
@@ -162,7 +187,19 @@ function AuthPage() {
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="password">Password</Label>
+            <div className="flex items-center justify-between">
+              <Label htmlFor="password">Password</Label>
+              {mode === "signin" ? (
+                <button
+                  type="button"
+                  onClick={onForgotPassword}
+                  disabled={busy}
+                  className="text-xs font-medium text-primary hover:underline"
+                >
+                  Forgot password?
+                </button>
+              ) : null}
+            </div>
             <Input
               id="password"
               type="password"

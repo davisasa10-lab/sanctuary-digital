@@ -23,6 +23,7 @@ import { Route as MediaRouteImport } from './routes/media'
 import { Route as MinistriesRouteImport } from './routes/ministries'
 import { Route as NewsRouteImport } from './routes/news'
 import { Route as PrayerRouteImport } from './routes/prayer'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SermonsRouteImport } from './routes/sermons'
 import { Route as TestimoniesRouteImport } from './routes/testimonies'
 import { Route as VisionRouteImport } from './routes/vision'
@@ -113,6 +114,11 @@ const NewsRoute = NewsRouteImport.update({
 const PrayerRoute = PrayerRouteImport.update({
   id: '/prayer',
   path: '/prayer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SermonsRoute = SermonsRouteImport.update({
@@ -257,6 +263,7 @@ export interface FileRoutesByFullPath {
   '/ministries': typeof MinistriesRoute
   '/news': typeof NewsRoute
   '/prayer': typeof PrayerRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/sermons': typeof SermonsRoute
   '/testimonies': typeof TestimoniesRoute
   '/vision': typeof VisionRoute
@@ -294,6 +301,7 @@ export interface FileRoutesByTo {
   '/ministries': typeof MinistriesRoute
   '/news': typeof NewsRoute
   '/prayer': typeof PrayerRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/sermons': typeof SermonsRoute
   '/testimonies': typeof TestimoniesRoute
   '/vision': typeof VisionRoute
@@ -332,6 +340,7 @@ export interface FileRoutesById {
   '/ministries': typeof MinistriesRoute
   '/news': typeof NewsRoute
   '/prayer': typeof PrayerRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/sermons': typeof SermonsRoute
   '/testimonies': typeof TestimoniesRoute
   '/vision': typeof VisionRoute
@@ -371,6 +380,7 @@ export interface FileRouteTypes {
     | '/ministries'
     | '/news'
     | '/prayer'
+    | '/reset-password'
     | '/sermons'
     | '/testimonies'
     | '/vision'
@@ -408,6 +418,7 @@ export interface FileRouteTypes {
     | '/ministries'
     | '/news'
     | '/prayer'
+    | '/reset-password'
     | '/sermons'
     | '/testimonies'
     | '/vision'
@@ -445,6 +456,7 @@ export interface FileRouteTypes {
     | '/ministries'
     | '/news'
     | '/prayer'
+    | '/reset-password'
     | '/sermons'
     | '/testimonies'
     | '/vision'
@@ -484,6 +496,7 @@ export interface RootRouteChildren {
   MinistriesRoute: typeof MinistriesRoute
   NewsRoute: typeof NewsRoute
   PrayerRoute: typeof PrayerRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   SermonsRoute: typeof SermonsRoute
   TestimoniesRoute: typeof TestimoniesRoute
   VisionRoute: typeof VisionRoute
@@ -587,6 +600,13 @@ declare module '@tanstack/react-router' {
       path: '/prayer'
       fullPath: '/prayer'
       preLoaderRoute: typeof PrayerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sermons': {
@@ -821,6 +841,7 @@ const rootRouteChildren: RootRouteChildren = {
   MinistriesRoute: MinistriesRoute,
   NewsRoute: NewsRoute,
   PrayerRoute: PrayerRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   SermonsRoute: SermonsRoute,
   TestimoniesRoute: TestimoniesRoute,
   VisionRoute: VisionRoute,
