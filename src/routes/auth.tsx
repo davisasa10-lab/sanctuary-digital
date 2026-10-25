@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Section } from "@/components/site/PageHero";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { homeForUser } from "@/lib/member";
+import logo from "@/assets/nxg-logo.png";
 
 export const Route = createFileRoute("/auth")({
   component: AuthPage,
