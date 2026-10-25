@@ -25,6 +25,8 @@ export type SermonRow = {
   video_url: string | null;
   audio_url: string | null;
   published: boolean;
+  featured?: boolean;
+  thumbnail_url?: string | null;
 };
 
 export type GalleryRow = {
@@ -111,6 +113,7 @@ export const useSermons = () =>
         .from("sermons")
         .select("*")
         .eq("published", true)
+        .order("featured", { ascending: false })
         .order("sermon_date", { ascending: false });
       if (error) throw new Error(error.message);
       return (data ?? []) as unknown as SermonRow[];

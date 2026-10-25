@@ -687,6 +687,7 @@ export type Database = {
           category: string
           created_at: string
           duration: string
+          featured: boolean
           id: string
           published: boolean
           scripture: string
@@ -705,6 +706,7 @@ export type Database = {
           category?: string
           created_at?: string
           duration?: string
+          featured?: boolean
           id?: string
           published?: boolean
           scripture?: string
@@ -723,6 +725,7 @@ export type Database = {
           category?: string
           created_at?: string
           duration?: string
+          featured?: boolean
           id?: string
           published?: boolean
           scripture?: string

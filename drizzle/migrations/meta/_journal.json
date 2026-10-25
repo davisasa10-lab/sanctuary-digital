@@ -15,6 +15,20 @@
       "when": 1792534132923,
       "tag": "0001_admins_read_profiles",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792945581550,
+      "tag": "0002_sermons_featured",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1792945615054,
+      "tag": "0003_feature_live_sermon",
+      "breakpoints": true
     }
   ]
 }

@@ -93,7 +93,7 @@ function Index() {
           </Reveal>
 
           <Reveal delay={200} className="mt-16">
-            <div className="grid gap-px overflow-hidden rounded-3xl border border-white/15 bg-white/10 backdrop-blur-xl sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-px overflow-hidden rounded-3xl border border-white/15 bg-white/10 backdrop-blur-xl sm:grid-cols-3">
               {services.map((s) => (
                 <div key={s.name} className="bg-white/5 p-6 text-hero-foreground">
                   <p className="text-xs font-semibold uppercase tracking-widest text-gold">
