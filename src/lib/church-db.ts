@@ -111,6 +111,7 @@ export const useSermons = () =>
         .from("sermons")
         .select("*")
         .eq("published", true)
+        .order("featured", { ascending: false })
         .order("sermon_date", { ascending: false });
       if (error) throw new Error(error.message);
       return (data ?? []) as unknown as SermonRow[];

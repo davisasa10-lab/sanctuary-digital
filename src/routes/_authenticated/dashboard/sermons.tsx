@@ -14,6 +14,7 @@ export const Route = createFileRoute("/_authenticated/dashboard/sermons")({
         { key: "series", label: "Series" },
         { key: "sermon_date", label: "Date" },
         { key: "published", label: "Live", render: (r) => (r["published"] ? "Yes" : "No") },
+        { key: "featured", label: "Featured", render: (r) => (r["featured"] ? "★ Featured" : "") },
       ]}
       fields={[
         { key: "title", label: "Title" },
@@ -39,6 +40,7 @@ export const Route = createFileRoute("/_authenticated/dashboard/sermons")({
         { key: "video_url", label: "YouTube URL" },
         { key: "audio_url", label: "Audio URL" },
         { key: "published", label: "Published", type: "switch" },
+        { key: "featured", label: "Featured sermon (shown on homepage & sermons page)", type: "switch" },
       ]}
       defaults={{
         title: "",
@@ -52,6 +54,7 @@ export const Route = createFileRoute("/_authenticated/dashboard/sermons")({
         video_url: "",
         audio_url: "",
         published: true,
+        featured: false,
       }}
     />
   ),

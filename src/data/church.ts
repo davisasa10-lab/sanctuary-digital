@@ -9,8 +9,7 @@ export const church = {
 export const services = [
   { day: "Sunday", name: "First Service", time: "7:30 - 9:00 AM", note: "Traditional worship" },
   { day: "Sunday", name: "Second Service", time: "9:30 - 11:30 AM", note: "Contemporary + kids" },
-  { day: "Wednesday", name: "Midweek Renewal", time: "6:30 - 8:00 PM", note: "Teaching & prayer" },
-  { day: "Friday", name: "Night of Prayer", time: "8:00 - 10:00 PM", note: "Worship & intercession" },
+  { day: "Wednesday", name: "Midweek Service", time: "6:30 - 8:00 PM", note: "Teaching & prayer" },
 ];
 
 export const stats = [
