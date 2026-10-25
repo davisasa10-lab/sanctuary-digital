@@ -25,6 +25,8 @@ export type SermonRow = {
   video_url: string | null;
   audio_url: string | null;
   published: boolean;
+  featured?: boolean;
+  thumbnail_url?: string | null;
 };
 
 export type GalleryRow = {
